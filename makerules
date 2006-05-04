@@ -3,23 +3,24 @@ SOURCE:=$(filter %.java,$(shell find .))
 SOURCEBACKUP:=$(SOURCE:.java=.java~)
 FILES:=$(SOURCE:.java=.class)
 MAKE:=javac -classpath ../..:$$CLASSPATH
+DOCDIR:=doc
 
 # Phony
 .PHONY: all doc jar clean
 
 all: $(FILES)
 
-doc: doc/index.html
+doc: $(DOCDIR)/index.html
 
 jar: $(FILES)
 	jar cfv $(NAME).jar $(FILES)
 
 clean:
-	rm -Rf doc; rm $(FILES) $(SOURCEBACKUP)
+	rm -Rf $(DOCDIR); rm $(FILES) $(SOURCEBACKUP)
 
 # Specific files
-doc/index.html: $(SOURCE)
-	if [ ! -d doc ]; then mkdir doc; fi; javadoc -d doc $(SOURCE)
+$(DOCDIR)/index.html: $(SOURCE)
+	if [ ! -d $(DOCDIR) ]; then mkdir $(DOCDIR); fi; javadoc -d $(DOCDIR) $(SOURCE)
 
 
 # General rules
