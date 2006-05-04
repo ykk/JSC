@@ -1,0 +1,26 @@
+SOURCE:=$(wildcard *.java)
+FILES:=$(SOURCE:.java=.class)
+MAKE:=javac -classpath ../..:$$CLASSPATH
+
+# Phony
+.PHONY: all doc jar clean
+
+all: $(FILES)
+
+doc: doc/index.html
+
+jar: $(FILES)
+	jar cfv $(NAME).jar $(FILES)
+
+clean:
+	rm -Rf doc; rm $(FILES)
+
+# Specific files
+doc/index.html: $(SOURCE)
+	if [ ! -d doc ]; then mkdir doc; fi; javadoc -d doc $(SOURCE)
+
+
+# General rules
+%.class: %.java
+	$(MAKE) $<
+
