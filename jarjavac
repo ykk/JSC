@@ -1,0 +1,12 @@
+#!/bin/sh
+#jarclasspath="$CLASSPATH"
+#jarlist='*.jar'
+#for jarfile in $jarlist
+#do
+#  if [ -n $jarfile ]
+#      then
+#      jarclasspath="$jarclasspath:$jarfile"
+#  fi
+#done
+#javac -classpath ../..:$jarclasspath $@
+javac -classpath ../..:$CLASSPATH $@
