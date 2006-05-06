@@ -38,7 +38,8 @@ public class Uniform
     }
 
     /** Constructor for Uniform distribution with specified start and end of range.
-     * @param mean mean of distribution
+     * @param startValue start value of range
+     * @param endValue end value of range
      */
     public Uniform(double startValue , double endValue)
     {
