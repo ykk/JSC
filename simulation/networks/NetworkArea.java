@@ -24,12 +24,14 @@ public abstract class NetworkArea
 
     /** Function to check if point is in area of network.
      * @param coordinate coordinate of point.
+     * @return if point is in network area
      */
     public abstract boolean inArea(Coordinate coordinate);
 
     /** Function to check if coordinate specified is in area of network.
      * @param x x-coordinate of point
      * @param y y-coordinate of point
+     * @return if coordinate is in network area
      */
     public boolean inArea(double x, double y)
     {
