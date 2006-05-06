@@ -1,10 +1,32 @@
 package simulation.distributions;
 
+import simulation.results.*;
+
 /** Abstract class for all random distributions.
  * @author ykk
  */
 public abstract class Distribution
 {
+    /** Main function to return samples, mean and variance of random variable.
+     * Purpose of the function is to test the distribution.
+     * @param distri distribution being tested
+     * @param sampleSize number of samples to take
+     */
+    public static void testFunction(Distribution distri, int sampleSize)
+    {
+	ResultVar testResult = new ResultVar();
+	double value;
+
+	for (int i = 0; i < sampleSize; i++)
+	{
+	    value = distri.getInstance();
+	    testResult.input(value);
+
+	    System.out.println(testResult.sampleSize+"\t"+value+"\t"+testResult.mean+"\t"+testResult.variance);
+	}
+	    System.out.println("Sample Size\tValue\tMean\tVariance");
+    }
+
     /** Return if the distribution is discrete.
      * @return if distribution is discrete
      * @see #isContinuous()

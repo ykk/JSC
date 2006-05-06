@@ -13,12 +13,16 @@ public class Poisson
     public double mean=1;
 
     //Methods
-    /** Main function to return Poisson random variable.
-     * @param args 1st argument is mean of Poisson distribution.
+    /** Main function to return samples and mean of random variable.
+     * Purpose of the function is to test the distribution.
+     * @param args 1st argument is mean of Poisson distribution;
+     *             2nd argument is the number of samples to taken
+     * @see #testFunction(Distribution distri, int sampleSize)
      */
     public static void main(String[] args)
     {
-	System.out.println("Poisson RV with mean "+args[0]+" = "+(new Poisson(Double.parseDouble(args[0]))).getInstance());
+	testFunction(new Poisson(Double.parseDouble(args[0])),Integer.parseInt(args[1]));
+	System.out.println("Poisson distribution has the same value for variance and mean.");
     }
 
     /** Constructor for Poisson distribution with specified mean.
@@ -36,6 +40,9 @@ public class Poisson
 
     public double density(double startValue, double endValue)
     {
+	if (endValue <= startValue)
+	    throw new RuntimeException(this+"'s density function called with endValue <= startValue.  Note that startValue > endValue strictly");
+
 	double probSum = 0;
 
 	for (int i = (int) Math.ceil(startValue); i < endValue; i++)
@@ -45,6 +52,8 @@ public class Poisson
     }
 
     /** Return factorial of given integer.
+     * @param i integer to consider
+     * @return factorial of given integer
      */
     private double factorial(int i)
     {
