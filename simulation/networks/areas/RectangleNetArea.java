@@ -50,6 +50,11 @@ public class RectangleNetArea
 	return maxY;
     }
 
+    public double area()
+    {
+	return maxY*maxX;
+    }
+
     public boolean inArea(Coordinate coordinate)
     {
 	if (coordinate.x > 0 && coordinate.x < maxX)
