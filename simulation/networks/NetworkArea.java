@@ -7,18 +7,22 @@ public abstract class NetworkArea
 {
 
     /** Function to return minimum x-coordinate.
+     * @return minimum value for x-coordinate
      */
     public abstract double minX();
 
     /** Function to return maximum x-coordinate.
+     * @return maximum value for x-coordinate
      */
     public abstract double maxX();
 
     /** Function to return minimum y-coordinate.
+     * @return minimum value for y-coordinate
      */
     public abstract double minY();
 
     /** Function to return maximum y-coordinate.
+     * @return maximum value for y-coordinate
      */
     public abstract double maxY();
 
