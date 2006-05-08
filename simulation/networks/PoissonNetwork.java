@@ -43,13 +43,17 @@ public class PoissonNetwork
     }
 
     /** Generate network with specified density.
+     * Note if the "true" Poisson Point Process is used.
      * @param density density of network
+     * @see #truePPP
      */
     public void generate(double density)
     {
-	generate((int) (density*netArea.area()));
+	if (truePPP)
+	    generate((int) (new Poisson(density*netArea.area())).getInstance());
+	else
+	    generate((int) (density*netArea.area()));
     }
-
 
     /** Generate network with specified number of nodes.
      * Note that this function should not be used trivially since
