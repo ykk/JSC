@@ -44,6 +44,11 @@ public class CircleNetArea
 	return radius;
     }
 
+    public double area()
+    {
+	return Math.PI*Math.pow(radius,2.0);
+    }
+
     public boolean inArea(Coordinate coordinate)
     {
 	if (Math.sqrt(Math.pow(coordinate.x,2.0)+Math.pow(coordinate.x,2.0)) < radius)

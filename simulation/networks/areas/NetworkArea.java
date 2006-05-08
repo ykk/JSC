@@ -1,4 +1,6 @@
-package simulation.networks;
+package simulation.networks.areas;
+
+import simulation.networks.*;
 
 /** Abstract class to provide area definition for a network.
  * @author ykk
@@ -31,6 +33,11 @@ public abstract class NetworkArea
      * @return if point is in network area
      */
     public abstract boolean inArea(Coordinate coordinate);
+
+    /** Function to return area of network
+     * @return area size of network
+     */
+    public abstract double area();
 
     /** Function to check if coordinate specified is in area of network.
      * @param x x-coordinate of point
