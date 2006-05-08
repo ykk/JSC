@@ -1,4 +1,6 @@
-package simulation.networks;
+package simulation.networks.areas;
+
+import simulation.networks.areas.*;
 
 /** Class to provide square area definition for a network.
  * @author ykk

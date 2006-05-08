@@ -1,4 +1,6 @@
-package simulation.networks;
+package simulation.networks.areas;
+
+import simulation.networks.*;
 
 /** Class to provide rectangle area definition for a network.
  * @author ykk
