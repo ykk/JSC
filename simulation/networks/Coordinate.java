@@ -1,9 +1,12 @@
 package simulation.networks;
 
+import simulation.files.images.*;
+
 /** Class to hold a coordinate.
  * @author ykk
  */
 public class Coordinate
+    implements Positionable
 {
     //Members
     /** Position in x coordinate.
@@ -22,5 +25,15 @@ public class Coordinate
     {
 	this.x = x;
 	this.y = y;
+    }
+
+    public double x()
+    {
+	return x;
+    }
+
+    public double y()
+    {
+	return y;
     }
 }

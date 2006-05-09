@@ -17,9 +17,20 @@ public abstract class PointProcess
     public abstract Vector getCoordinates(NetworkArea netArea);
 
     /** Test Function.
+     * @param netArea network area definition
+     * @param pp point process to draw
+     * @param resolution number of pixels per unit of position
+     * @param nodeSize number of pixels per node occupy
      */
     public static void testImage(NetworkArea netArea, PointProcess pp, int resolution, int nodeSize)
     {
-	
+	Vector positions = pp.getCoordinates(netArea);
+
+	PositionImage image = new PositionImage("testImage.jpg", ImageFile.JPEG_TYPE,
+						netArea, nodeSize, resolution);
+	image.drawPositions(positions);
+
+	for (int i = 0;i < positions.size(); i++)
+	    System.out.println(i+"\t"+((Positionable) positions.get(i)).x()+"\t"+((Positionable) positions.get(i)).y());
     }
 }

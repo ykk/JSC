@@ -59,7 +59,7 @@ public class Poisson
 	    if (netArea.inArea(tmpCoord)) coordinates.add(tmpCoord);
 	}
 	
-	return null;
+	return coordinates;
     }
 
     /** Main function to draw a sample of the point process.
@@ -67,6 +67,7 @@ public class Poisson
     public static void main(String[] args)
     {
 	NetworkArea netArea = new CircleNetArea(10);
-	Poisson pointprocess = new Poisson(5);
+	Poisson pointprocess = new Poisson(0.01);
+	testImage(netArea,pointprocess,100,20);
     }
 }
