@@ -36,8 +36,8 @@ public class PositionImage
      * Green, and Red stored in 3 bytes.
      * @param filename name of image file
      * @param imageFormat format of image file
-     * @param xSize size of x-coordinate, i.e, width
-     * @param ySize size of y-coordinate, i.e, height
+     * @param netArea network area definition
+     * @param nodeSize size of node in image (in terms of pixels)
      * @param resolution resolution of image, i.e., one unit in network to how many pixels
      * @see ImageFile#imageFormat
      */
@@ -57,7 +57,7 @@ public class PositionImage
     }
 
     /** Draw vector of positions.
-     * @param coordinates vector of Positionable
+     * @param positions vector of Positionable
      * @see Positionable
      */
     public void drawPositions(Vector positions)
