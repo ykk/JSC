@@ -63,11 +63,12 @@ public class Poisson
     }
 
     /** Main function to draw a sample of the point process.
+     * @param args 1st argument is density of process
      */
     public static void main(String[] args)
     {
-	NetworkArea netArea = new CircleNetArea(10);
-	Poisson pointprocess = new Poisson(0.01);
+	NetworkArea netArea = new RectangleNetArea(5,10);
+	Poisson pointprocess = new Poisson(Double.parseDouble(args[0]));
 	testImage(netArea,pointprocess,100,20);
     }
 }
