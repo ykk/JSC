@@ -4,11 +4,12 @@ import java.util.*;
 import java.awt.*;
 import simulation.networks.*;
 import simulation.networks.areas.*;
+import simulation.files.images.*;
 
-/** Class to draw vector of coordinates.
+/** Class to draw vector of Positionables.
  * @author ykk
  */
-public class CoordinateImage
+public class PositionImage
     extends ImageFile
 {
     //Members
@@ -27,7 +28,7 @@ public class CoordinateImage
     private Coordinate origin;
 
     //Methods
-     /** Create new image file to draw coordinates.
+     /** Create new image file to draw Positionable.
      * This will overwrite any existing file with the same name.
      * Uses 3 byte BGR Buffered image, i.e. represents an image 
      * with 8-bit RGB color components, corresponding to a 
@@ -40,34 +41,38 @@ public class CoordinateImage
      * @param resolution resolution of image, i.e., one unit in network to how many pixels
      * @see ImageFile#imageFormat
      */
-    public CoordinateImage(String filename, int imageFormat, NetworkArea netArea, int nodeSize, int resolution)   
+    public PositionImage(String filename, int imageFormat, NetworkArea netArea, int nodeSize, int resolution)   
     {
 	super(filename, imageFormat,(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize+1),(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize+1));
+
+	image.setColor(Color.white);
+	image.fillRect(0,0,(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize+1),(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize+1));
 
 	this.resolution = resolution;
 	this.nodeSize = nodeSize;
 
-	double originX = Math.ceil(-1*netArea.minX()*resolution+((double) nodeSize)/2);
-	double originY = Math.ceil(-1*netArea.minY()*resolution+((double) nodeSize)/2);
+	double originX = -1*netArea.minX()*resolution+((double) nodeSize)/2;
+	double originY = -1*netArea.minY()*resolution+((double) nodeSize)/2;
 	this.origin = new Coordinate(originX,originY);
     }
 
-    /** Draw vector of coordinates.
-     * @param coordinates vector of coordinates
-     * @see Coordinate
+    /** Draw vector of positions.
+     * @param coordinates vector of Positionable
+     * @see Positionable
      */
-    public void drawCoordinates(Vector coordinates)
+    public void drawPositions(Vector positions)
     {
-	Coordinate tmpCoord;
+	Positionable tmpCoord;
 
-	image.setBackground(Color.white);
 	image.setColor(Color.blue);
-	for (int i = 0; i < coordinates.size(); i++)
+	for (int i = 0; i < positions.size(); i++)
 	{
-	    tmpCoord = (Coordinate) coordinates.get(i);
-	    image.fillArc((int) (tmpCoord.x*resolution+origin.x-(nodeSize/2)),
-			  (int) (tmpCoord.y*resolution+origin.y-(nodeSize/2)),
-			  nodeSize,nodeSize,0,0);
+	    tmpCoord = (Positionable) positions.get(i);
+	    image.fillArc((int) (tmpCoord.x()*resolution+origin.x-(nodeSize/2)),
+			  (int) (tmpCoord.y()*resolution+origin.y-(nodeSize/2)),
+			  nodeSize,nodeSize,0,360);
 	}
+
+	write();
     }
 }

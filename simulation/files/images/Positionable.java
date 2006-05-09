@@ -1,3 +1,5 @@
+package simulation.files.images;
+
 /** Interface to provide position.
  */
 public interface Positionable

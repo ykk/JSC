@@ -102,6 +102,7 @@ public class ImageFile
      */
     public void write()
     {
+	bufferedImage.flush();
         try
         {
             ImageIO.write(bufferedImage, types[imageFormat] ,file);
