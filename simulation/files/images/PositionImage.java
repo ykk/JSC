@@ -37,22 +37,22 @@ public class PositionImage
      * @param filename name of image file
      * @param imageFormat format of image file
      * @param netArea network area definition
-     * @param nodeSize size of node in image (in terms of pixels)
      * @param resolution resolution of image, i.e., one unit in network to how many pixels
+     * @param nodeSize size of node in image (in terms of pixels)
      * @see ImageFile#imageFormat
      */
-    public PositionImage(String filename, int imageFormat, NetworkArea netArea, int nodeSize, int resolution)   
+    public PositionImage(String filename, int imageFormat, NetworkArea netArea, int resolution, int nodeSize)   
     {
-	super(filename, imageFormat,(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize+1),(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize+1));
+	super(filename, imageFormat,(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize),(int) Math.ceil((netArea.maxY()-netArea.minY())*resolution+nodeSize));
 
 	image.setColor(Color.white);
-	image.fillRect(0,0,(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize+1),(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize+1));
+	image.fillRect(0,0,(int) Math.ceil((netArea.maxX()-netArea.minX())*resolution+nodeSize),(int) Math.ceil((netArea.maxY()-netArea.minY())*resolution+nodeSize));
 
 	this.resolution = resolution;
 	this.nodeSize = nodeSize;
 
-	double originX = -1*netArea.minX()*resolution+((double) nodeSize)/2;
-	double originY = -1*netArea.minY()*resolution+((double) nodeSize)/2;
+	double originX = -1*netArea.minX()*resolution;
+	double originY = -1*netArea.minY()*resolution;
 	this.origin = new Coordinate(originX,originY);
     }
 
@@ -68,8 +68,8 @@ public class PositionImage
 	for (int i = 0; i < positions.size(); i++)
 	{
 	    tmpCoord = (Positionable) positions.get(i);
-	    image.fillArc((int) (tmpCoord.x()*resolution+origin.x-(nodeSize/2)),
-			  (int) (tmpCoord.y()*resolution+origin.y-(nodeSize/2)),
+	    image.fillArc((int) (tmpCoord.x()*resolution+origin.x),
+			  (int) (tmpCoord.y()*resolution+origin.y),
 			  nodeSize,nodeSize,0,360);
 	}
 

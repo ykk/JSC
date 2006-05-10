@@ -26,12 +26,12 @@ public class CircleNetArea
 
     public double minX()
     {
-	return -1*radius;
+	return -1.0*radius;
     }
     
     public double minY()
     {
-	return -1*radius;
+	return -1.0*radius;
     }
 
     public double maxX()
@@ -51,10 +51,10 @@ public class CircleNetArea
 
     public boolean inArea(Coordinate coordinate)
     {
-	if (Math.sqrt(Math.pow(coordinate.x,2.0)+Math.pow(coordinate.x,2.0)) < radius)
+	if ((Math.sqrt(Math.pow(coordinate.x,2.0)+Math.pow(coordinate.y,2.0))) <= radius)
 	    return true;
-
-	return false;
+	else
+	    return false;
     }
 }
    

@@ -57,8 +57,8 @@ public class RectangleNetArea
 
     public boolean inArea(Coordinate coordinate)
     {
-	if (coordinate.x > 0 && coordinate.x < maxX)
-	    if (coordinate.y > 0 && coordinate.y < maxY)
+	if (coordinate.x >= 0 && coordinate.x <= maxX)
+	    if (coordinate.y >= 0 && coordinate.y <= maxY)
 		return true;
 
 	return false;

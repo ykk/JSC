@@ -58,6 +58,21 @@ public class ImageFile
     public Graphics2D image;
 
     //Methods
+    /** Main function to draw test image.
+     * A circle of given radius is drawn on the position specified
+     * on a 100 by 100 canvas.
+     * @param args 1st argument is x-coordinate of circle;
+     *             2nd argument is y-coordinate of circle;
+     *             3rd argument is radius of circle
+     */
+    public static void main(String[] args)
+    {
+	ImageFile image = new ImageFile("testImage", JPEG_TYPE, 100, 100);
+	image.image.setColor(Color.red);
+	image.image.fillArc(Integer.parseInt(args[0]),Integer.parseInt(args[1]),Integer.parseInt(args[2]),Integer.parseInt(args[2]),0,360);
+	image.write();
+    }
+
     /** Constructor to specify existing image file and read from it.
      * @param filename name of image file
      * @param imageFormat format of image file
@@ -112,5 +127,4 @@ public class ImageFile
             err.printStackTrace(System.err);
         }
     }
-
 }

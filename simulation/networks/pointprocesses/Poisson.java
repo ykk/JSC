@@ -39,16 +39,18 @@ public class Poisson
     public Poisson(double density, boolean truePoisson)
     {
 	this.density = density;
+	this.truePoisson = truePoisson;
     }
 
     public Vector getCoordinates(NetworkArea netArea)
     {
 	Vector coordinates = new Vector();
 	int nodeNumber;
+	double avNumber = density*netArea.area();
 	if (truePoisson)
-	    nodeNumber = (int) Math.round((new simulation.distributions.Poisson(density*netArea.area())).getInstance());
+	    nodeNumber = (int) Math.round((new simulation.distributions.Poisson(avNumber)).getInstance());
 	else
-	    nodeNumber = (int) Math.round(density*netArea.area());
+	    nodeNumber = (int) Math.round(avNumber);
 	Uniform x = new Uniform(netArea.minX(), netArea.maxX());
 	Uniform y = new Uniform(netArea.minY(), netArea.maxY());
 	Coordinate tmpCoord;
@@ -56,7 +58,8 @@ public class Poisson
 	while (coordinates.size() <= nodeNumber)
 	{
 	    tmpCoord = new Coordinate(x.getInstance(), y.getInstance());
-	    if (netArea.inArea(tmpCoord)) coordinates.add(tmpCoord);
+	    if (netArea.inArea(tmpCoord))
+		coordinates.add(tmpCoord);
 	}
 	
 	return coordinates;
@@ -67,8 +70,8 @@ public class Poisson
      */
     public static void main(String[] args)
     {
-	NetworkArea netArea = new RectangleNetArea(5,10);
-	Poisson pointprocess = new Poisson(Double.parseDouble(args[0]));
+	NetworkArea netArea = new CircleNetArea(10);
+	Poisson pointprocess = new Poisson(Double.parseDouble(args[0]),false);
 	testImage(netArea,pointprocess,100,20);
     }
 }
