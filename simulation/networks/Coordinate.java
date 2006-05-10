@@ -27,6 +27,13 @@ public class Coordinate
 	this.y = y;
     }
 
+    /** Provide string representation.
+     */
+    public String toString()
+    {
+	return "("+x+","+y+")";
+    }
+
     public double x()
     {
 	return x;
