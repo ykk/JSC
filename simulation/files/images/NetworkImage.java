@@ -61,7 +61,7 @@ public class NetworkImage
 		drawReceiveArcs(nodes);
     }
 
-    /** Draw arcs from nodes to nodes it is able to receive from.
+    /** Draw arcs from nodes to nodes it is able to receive from (in green).
      * @param nodes vector of nodes
      * @see Node
      */
@@ -77,14 +77,14 @@ public class NetworkImage
 	    {
 		tmpRxPartner = (Node) tmpNode.receivePartners.get(j);
 		image.drawLine((int) (tmpNode.x()*resolution+origin.x+(((double) nodeSize)/2)),
-			       (int) (tmpNode.y()*resolution+origin.y+(((double) nodeSize)/2)),
+			       (int) (tmpNode.y()*resolution+origin.y+(((double) nodeSize)/2)+1),
 			       (int) (tmpRxPartner.x()*resolution+origin.x+(((double) nodeSize)/2)),
-			       (int) (tmpRxPartner.y()*resolution+origin.y+(((double) nodeSize)/2)));
+			       (int) (tmpRxPartner.y()*resolution+origin.y+(((double) nodeSize)/2)+1));
 	    }
 	}
     }
 
-    /** Draw arcs from nodes to nodes it is able to transmit to.
+    /** Draw arcs from nodes to nodes it is able to transmit to (in red).
      * @param nodes vector of nodes
      * @see Node
      */

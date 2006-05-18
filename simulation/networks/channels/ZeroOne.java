@@ -28,5 +28,5 @@ public class ZeroOne
 	return (Math.sqrt(Math.pow(source.x - destination.x,2.0)+
 			  Math.pow(source.y - destination.y,2.0))
 		< thresholdDistance);
-    }
+    }   
 }
