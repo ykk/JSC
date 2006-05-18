@@ -84,7 +84,7 @@ public class Node
      */
     public boolean canReceive(Node source)
     {
-	return channel.canReceive(source, this);
+	return channel.canReceive(this, source);
     }
 
     public Node newNode(Coordinate coordinate)
