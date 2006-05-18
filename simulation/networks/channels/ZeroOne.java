@@ -6,7 +6,7 @@ import simulation.networks.nodes.*;
  * @author ykk
  */
 public class ZeroOne
-    extends Channel
+    extends SymmetryChannel
 {
     //Members
     /** Threshold distance.
@@ -23,7 +23,7 @@ public class ZeroOne
 	this.thresholdDistance = thresholdDistance;
     }
 
-    public boolean canTx(Node source, Node destination)
+    public boolean canCommunicate(Node source, Node destination)
     {
 	return (Math.sqrt(Math.pow(source.x - destination.x,2.0)+
 			  Math.pow(source.y - destination.y,2.0))
