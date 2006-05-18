@@ -26,7 +26,8 @@ public abstract class PointProcess
     {
 	Vector positions = pp.getCoordinates(netArea);
 
-	PositionImage image = new PositionImage("testImage.jpg", ImageFile.JPEG_TYPE,
+	PositionImage image = new PositionImage("testPointProcessImage.jpg", 
+						ImageFile.JPEG_TYPE,
 						netArea, resolution, nodeSize);
 	image.drawPositions(positions);
     }

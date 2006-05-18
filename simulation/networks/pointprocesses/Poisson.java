@@ -71,7 +71,7 @@ public class Poisson
     public static void main(String[] args)
     {
 	NetworkArea netArea = new CircleNetArea(10);
-	Poisson pointprocess = new Poisson(Double.parseDouble(args[0]),false);
+	Poisson pointprocess = new Poisson(Double.parseDouble(args[0]));
 	testImage(netArea,pointprocess,100,20);
     }
 }
