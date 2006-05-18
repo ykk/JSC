@@ -1,4 +1,4 @@
-package simulation.networks.channels;
+package simulation.communications.channels;
 
 import simulation.networks.nodes.*;
 
@@ -13,5 +13,5 @@ public abstract class CommChannel
      * @param packet packet to transmit
      * @return if packet is successfully transmitted
      */
-    public abstract boolean transmit(Node source, Node destination, Object packet);
+    public abstract boolean transmit(CommNode source, CommNode destination, Object packet);
 }
