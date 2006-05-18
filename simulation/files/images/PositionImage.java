@@ -16,19 +16,19 @@ public class PositionImage
     /** Resolution of Image.
      * i.e., one unit in network to how many pixels
      */
-    private int resolution;
+    protected int resolution;
 
     /** Size of a Node.
      * i.e., how many pixels the node spans.
      */
-    private int nodeSize;
+    protected int nodeSize;
 
     /** Coordinate of origin.
      */
-    private Coordinate origin;
+    protected Coordinate origin;
 
     //Methods
-     /** Create new image file to draw Positionable.
+     /** Create new image file to draw {@link Positionable}.
      * This will overwrite any existing file with the same name.
      * Uses 3 byte BGR Buffered image, i.e. represents an image 
      * with 8-bit RGB color components, corresponding to a 

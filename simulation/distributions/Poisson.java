@@ -44,23 +44,14 @@ public class Poisson
 	    throw new RuntimeException(this+"'s density function called with endValue <= startValue.  Note that startValue > endValue strictly");
 
 	double probSum = 0;
-
-	for (int i = (int) Math.ceil(startValue); i < endValue; i++)
-	    probSum += (Math.pow(mean,i)*Math.exp(-1*mean))/factorial(i);
-
+	double currValue=Math.exp(-1*mean);
+	for (int i = 0; i < endValue; i++)
+	{
+	    if (i >= Math.ceil(startValue))
+		probSum += currValue;
+	    currValue *= mean/(i+1);
+	}
 	return probSum;
-    }
-
-    /** Return factorial of given integer.
-     * @param i integer to consider
-     * @return factorial of given integer
-     */
-    private double factorial(int i)
-    {
-	if (i <= 1)
-	    return 1.0;
-	else
-	    return ((double) i)*factorial(i-1);
     }
 
     public double cumulativeDensity(double value)
@@ -70,14 +61,37 @@ public class Poisson
 
     /** Get instance of Poisson random variable.
      * @return instance of Poisson random variable
+     * @see #getSmallInstance()
      */
     public double getInstance()
     {
+	int value = 0;
+	for (int i = 0; i < (mean/100); i++)
+	{
+	    if ((i+1)*100 < mean)
+		value += (new Poisson(100)).getSmallInstance();
+	    else
+		value += (new Poisson(mean-(i*100))).getSmallInstance();
+	}
+
+	return (double) value;
+    }
+
+    /** Get instance of Poisson random variable with small mean.
+     * Use {@link #getInstance()} for mean greater than 100.
+     * @return instance of Poisson random variable
+     * @see #getInstance()
+     */
+    public double getSmallInstance()
+    {
+	if (mean > 100)
+	    throw new RuntimeException(this+"'s getSmallInstance function does not work for mean above 100.  Please use getInstance()!");
+
 	double randNo = Math.random();
 	int value = 0;
 	while (cumulativeDensity(((double) value)+0.1) < randNo)
 	    value++;
-
-	return value;
+	
+	return (double) value;
     }
 }
