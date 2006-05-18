@@ -39,4 +39,6 @@ public abstract class Network
 	for (int i = 0; i < positions.size(); i++)
 	    nodes.add(nodeFactory.newNode((Coordinate) positions.get(i)));
     }
+
+    
 }
