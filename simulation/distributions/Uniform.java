@@ -1,6 +1,7 @@
 package simulation.distributions;
 
 /** Class for Uniform random variable.
+ * 
  * @author ykk
  */
 public class Uniform
