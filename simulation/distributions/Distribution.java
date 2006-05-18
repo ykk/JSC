@@ -11,6 +11,7 @@ public abstract class Distribution
      * Purpose of the function is to test the distribution.
      * @param distri distribution being tested
      * @param sampleSize number of samples to take
+     * @see ResultVar
      */
     public static void testFunction(Distribution distri, int sampleSize)
     {
