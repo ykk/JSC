@@ -29,7 +29,8 @@ public class Node
 
     //Methods
     /** Constructor to get a new node.
-     * @param coordinate coordinate for new node.
+     * @param coordinate coordinate for new node
+     * @param channel channel between nodes
      */
     public Node(Coordinate coordinate, Channel channel)
     {
