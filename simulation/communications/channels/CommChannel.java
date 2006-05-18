@@ -1,6 +1,6 @@
 package simulation.communications.channels;
 
-import simulation.networks.nodes.*;
+import simulation.communications.nodes.*;
 
 /** Abstract class for a communication channel.
  * @author ykk

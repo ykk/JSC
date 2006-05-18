@@ -1,4 +1,4 @@
-package simulation.networks.nodes;
+package simulation.communications.nodes;
 
 import simulation.networks.*;
 import simulation.networks.channels.*;
