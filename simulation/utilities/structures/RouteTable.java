@@ -53,4 +53,36 @@ public class RouteTable
     {
 	return root;
     }
+
+    /** Add link.
+     * @param link link between nodes.
+     */
+    public void add(Link link)
+    {
+	table[nodes.indexOf(link.source)][nodes.indexOf(link.destination)]=1;
+    }
+
+    /** Remove link.
+     * @param link link between nodes.
+     */
+    public void remove(Link link)
+    {
+	table[nodes.indexOf(link.source)][nodes.indexOf(link.destination)]=0;
+    }
+
+    /** Return route for specified node.
+     * If root is source (see {@link #rootIsSource()}), 
+     * then return route from source (root) to specified node,
+     * else return route from specified node to destination (root).
+     * If root is source, the route is from destination to source 
+     * (i.e., {@link Route#routeFromSource()} is FALSE).
+     * @param node specified node
+     * @return route to/from root
+     */
+    public Route getRoute(Node node)
+    {
+	//If root is source, then route is from destination
+	Route route = new Route(!rootIsSource);	
+	return route;
+    }
 }
