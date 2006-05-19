@@ -1,8 +1,13 @@
 package simulation.utilities.structures;
 
 import java.util.*;
+import simulation.networks.*;
 import simulation.networks.nodes.*;
+import simulation.networks.areas.*;
+import simulation.networks.pointprocesses.*;
+import simulation.networks.channels.*;
 import simulation.utilities.structures.*;
+import simulation.files.images.*;
 
 /** Class to store a route tree from/to a node (i.e., root).
  * @author ykk
@@ -12,7 +17,7 @@ public class RouteTree
     //Members
     /** List of nodes.
      */
-    private Vector nodes = new Vector();    
+    public Vector nodes = new Vector();    
     /** List of route tree nodes.
      */
     private Vector treeNodes = new Vector();
@@ -34,6 +39,8 @@ public class RouteTree
     {
 	this.root = new RouteTreeNode(null, root);
 	this.rootIsSource = rootIsSource;
+	nodes.add(root);
+	treeNodes.add(this.root);
     }
 
     /** Indicate if root node is source.
@@ -52,8 +59,19 @@ public class RouteTree
 	return root.node;
     }
 
+    /** Get parent for specified node.
+     * @param node node to get parent for
+     * @return parent (if rootIsSource, parent is source)
+     */
+    public Node parent(Node node)
+    {
+	RouteTreeNode tmpRTNode = getRouteTreeNode(node).parent;
+	return (tmpRTNode == null)?null:tmpRTNode.node;
+    }
+
     /** Get route from/to specified node.
-     * @return route (if rootIsSource, route is not from source).
+     * @param node node to get route for
+     * @return route (if rootIsSource, route is not from source)
      */
     public Route getRoute(Node node)
     {
@@ -84,7 +102,7 @@ public class RouteTree
     public void add(Node parent, Node node)
     {
 	if (nodes.indexOf(parent) == -1)
-	    throw new RuntimeException(this+" cannot from parent "+parent+" in existing tree.");
+	    throw new RuntimeException(this+" cannot find parent "+parent+" in existing tree.");
 
 	RouteTreeNode treeParent =  getRouteTreeNode(parent);
 	nodes.add(node);
@@ -100,5 +118,37 @@ public class RouteTree
 	    add(link.source, link.destination);
 	else
 	    add(link.destination, link.source);
+    }
+
+    /** Function to draw route tree.
+     * @param filename name of image file
+     * @param imageFormat format of image
+     * @param resolution number of pixels per unit of coordinate
+     * @param nodeSize size of node in number of pixels
+     * @see ImageFile#imageFormat
+     */
+    public void draw(String filename, int imageFormat,  Network network, int resolution, int nodeSize)
+    {
+	NetworkRouteImage image = new NetworkRouteImage(filename, imageFormat, network, resolution, nodeSize);
+	image.draw(this);
+	image.write();
+    }
+
+    /** Function to test route tree by drawing it.
+     * @param args 1st argument is density of network
+     */
+    public static void main(String[] args)
+    {
+	//Create network
+	Network testNet = new Network(new CircleNetArea(10), 
+				      new Node(new Coordinate(0,0), new ZeroOne(1)), 
+				      new Poisson(Double.parseDouble(args[0])));
+	//Create random route tree
+	RouteTree testRT = new RouteTree((Node) testNet.nodes.get(0), true);
+	for (int i = 1; i < testNet.nodes.size(); i++)
+	    testRT.add((Node) testRT.nodes.get((int) Math.floor(Math.random()*testRT.nodes.size())),
+		       (Node) testNet.nodes.get(i));
+	//Draw routing tree
+	testRT.draw("testNetworkRouteImage.jpg", ImageFile.JPEG_TYPE, testNet, 100, 20);
     }
 }

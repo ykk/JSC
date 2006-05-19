@@ -66,13 +66,18 @@ public class PositionImage
 
 	image.setColor(Color.blue);
 	for (int i = 0; i < positions.size(); i++)
-	{
-	    tmpCoord = (Positionable) positions.get(i);
-	    image.fillArc((int) (tmpCoord.x()*resolution+origin.x),
-			  (int) (tmpCoord.y()*resolution+origin.y),
-			  nodeSize,nodeSize,0,360);
-	}
+	    drawPosition((Positionable) positions.get(i));
 
 	write();
+    }
+
+    /** Draw position.
+     * @param position Positionable to draw
+     */
+    public void drawPosition(Positionable position)
+    {
+	image.fillArc((int) (position.x()*resolution+origin.x),
+		      (int) (position.y()*resolution+origin.y),
+		      nodeSize,nodeSize,0,360);	
     }
 }
