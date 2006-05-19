@@ -99,11 +99,20 @@ public class NetworkImage
 	    for (int j = 0; j < tmpNode.transmitPartners.size(); j++)
 	    {
 		tmpTxPartner = (Node) tmpNode.transmitPartners.get(j);
-		image.drawLine((int) (tmpNode.x()*resolution+origin.x+(((double) nodeSize)/2)),
-			       (int) (tmpNode.y()*resolution+origin.y+(((double) nodeSize)/2)),
-			       (int) (tmpTxPartner.x()*resolution+origin.x+(((double) nodeSize)/2)),
-			       (int) (tmpTxPartner.y()*resolution+origin.y+(((double) nodeSize)/2)));
+		drawArc(tmpNode, tmpTxPartner);
 	    }
 	}
+    }
+
+    /** Draw arc.
+     * @param fromNode node to start line from
+     * @param toNode node to end line at
+     */
+    public void drawArc(Node fromNode, Node toNode)
+    {
+	image.drawLine((int) (fromNode.x()*resolution+origin.x+(((double) nodeSize)/2)),
+		       (int) (fromNode.y()*resolution+origin.y+(((double) nodeSize)/2)),
+		       (int) (toNode.x()*resolution+origin.x+(((double) nodeSize)/2)),
+		       (int) (toNode.y()*resolution+origin.y+(((double) nodeSize)/2)));
     }
 }
