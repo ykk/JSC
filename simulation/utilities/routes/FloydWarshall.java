@@ -21,6 +21,7 @@ public class FloydWarshall
 
     //Methods
     /** Constructor for a Floyd-Warshall.
+     * @param linkCost link cost definition
      */
     public FloydWarshall(LinkCost linkCost)
     {
