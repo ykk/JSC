@@ -8,11 +8,12 @@ import simulation.utilities.structures.*;
  * @author ykk
  */
 public class RouteTable
+    implements Cloneable
 {
     //Members
     /** Table of next hops.
      */
-    private Node[][] nextHop;
+    public Node[][] nextHop;
     /** Vector of nodes.
      * Cloned from vector given at construction.
      */
@@ -87,42 +88,60 @@ public class RouteTable
     public RouteTree getRouteTree(Node root, boolean rootIsSource)
     {
 	RouteTree tree = new RouteTree(root, rootIsSource);
-	return addToRouteTree(tree, root);
-    }
 
-    /** Add leaves to route tree.
-     * @param tree routing tree to add to
-     * @param parent parent node to add leave to
-     * @return resulting routing tree
-     */
-    private RouteTree addToRouteTree(RouteTree tree, Node parent)
-    {
-	int parentIndex = nodes.indexOf(parent);
-	//Get children nodes of parent
-	for (int i = 0; i < nodes.size(); i++)
+	boolean toAdd = true;
+	while (toAdd)
 	{
-	    if (tree.rootIsSource())
-	    {
-		//Root is source, i.e., parent to child link
-		if (nextHop[parentIndex][i] != null)
-		    if (nodes.get(i) == nextHop[parentIndex][i])
+	    toAdd = false;
+
+	    for (int i = 0; i < tree.nodes.size(); i++)
+		for (int j = 0; j < nodes.size(); j++)
+		    if (rootIsSource)
 		    {
-			tree.add(parent, nextHop[parentIndex][i]);
-			tree = addToRouteTree(tree, nextHop[parentIndex][i]);
+			if (nextHop((Node) tree.nodes.get(i),
+				    (Node) nodes.get(j)) == (Node) nodes.get(j))
+				if ((Node) tree.nodes.get(i) != (Node) nodes.get(j))
+				    if (tree.nodes.indexOf(nodes.get(j)) == -1)
+				    {
+					tree.add((Node) tree.nodes.get(i),(Node) nodes.get(j));
+					toAdd = true;
+				    }
 		    }
-	    }
-	    else
-	    {
-		//Root is sink, i.e. child to parent link
-		if (nextHop[i][parentIndex] != null)
-		    if (parent == nextHop[i][parentIndex])
+		    else
 		    {
-			tree.add(parent, nextHop[i][parentIndex]);
-			tree = addToRouteTree(tree, nextHop[i][parentIndex]);
-		    }		
-	    }
+			if (nextHop((Node) nodes.get(j),
+				    (Node) tree.nodes.get(i)) == (Node) nodes.get(i))
+				if ((Node) tree.nodes.get(i) != (Node) nodes.get(j))
+				    if (tree.nodes.indexOf(nodes.get(j)) == -1)
+				    {
+					tree.add((Node) tree.nodes.get(i),(Node) nodes.get(j));
+					toAdd = true;
+				    }
+		    }				
 	}
 
 	return tree;
+    }
+
+    /** Cloneable interface
+     * Returns a clone of this routing table. 
+     * The copy will contain a reference to a clone of the 
+     * internal data, not a reference to the original 
+     * internal data of this routing table.
+     * @return clone of routing table
+     */
+    public Object clone()
+    {
+	RouteTable cloned = new RouteTable(nodes);
+	int nodeNumber = nodes.size();
+	
+	for (int i = 0; i < nodeNumber; i++)
+	    for (int j = 0; j < nodeNumber; j++)
+		cloned.assignNextHop((Node) nodes.get(i),
+				     (Node) nodes.get(j),
+				     nextHop((Node) nodes.get(i),
+					     (Node) nodes.get(j)));
+	
+	return cloned;
     }
 }
