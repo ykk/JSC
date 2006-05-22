@@ -20,7 +20,7 @@ public class ResultVar
     private double squaredMean = 0;
 
     /** Function to take in a sample of result.
-     * The function also maintains an updated average and variance value s
+     * The function also maintains an updated average and variance values
      * and number of samples taken in.
      * @param inputValue sample value of result to be input
      * @see #mean 

@@ -27,6 +27,15 @@ public class Coordinate
 	this.y = y;
     }
 
+    /** Return distance between two coordinates.
+     * @param coordinate coordinate to calculate distance to
+     * @return distance between coordinates
+     */
+    public double distance(Coordinate coordinate)
+    {
+	return Math.sqrt(Math.pow(this.x-coordinate.x,2.0)+Math.pow(this.y-coordinate.y,2.0));
+    }
+
     /** Provide string representation.
      * @return string representation
      */
