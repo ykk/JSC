@@ -12,6 +12,18 @@ public class Result
      */
     public double mean = 0;
 
+    /** Maximum value maintained by class.
+     * Started at value of Double.NEGATIVE_INFINITY.
+     * @see #input(double inputValue)
+     */
+    public double max = Double.NEGATIVE_INFINITY;
+
+    /** Minimum value maintained by class.
+     * Started at value of Double.POSITIVE_INFINITY.
+     * @see #input(double inputValue)
+     */
+    public double min = Double.POSITIVE_INFINITY;
+
     /** Number of samples taken in.
      */
     public double sampleSize = 0;
@@ -28,5 +40,7 @@ public class Result
     {
 	mean = (sampleSize*mean + inputValue)/(sampleSize+1);
 	sampleSize++;
+	if (inputValue > max) max = inputValue;
+	if (inputValue < min) min = inputValue;
     }
 }
