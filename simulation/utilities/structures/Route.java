@@ -1,7 +1,10 @@
 package simulation.utilities.structures;
 
 import java.util.*;
+import simulation.networks.*;
+import simulation.networks.channels.*;
 import simulation.networks.nodes.*;
+import simulation.utilities.structures.*;
 
 /** Class to store route.
  * @author ykk
@@ -38,18 +41,18 @@ public class Route
      */
     public void add(Link link)
     {
-	if (this.size() == 0)
+	if (size() == -1)
 	{
 	    //Empty vector
 	    if (routeFromSource)
 	    {
-		this.add(link.source);
-		this.add(link.destination);
+		add(link.source);
+		add(link.destination);
 	    }
 	    else
 	    {
-		this.add(link.destination);
-		this.add(link.source);
+		add(link.destination);
+		add(link.source);
 	    }		
 	}
 	else 
@@ -57,15 +60,15 @@ public class Route
 	    //Occupied vector
 	    if (routeFromSource)
 	    {
-		if (this.lastElement() == link.source)
-		    this.add(link.destination);
+		if (lastElement() == link.source)
+		    add(link.destination);
 		else
 		    throw new RuntimeException(this+" receive link that does not form a proper route.");
 	    }
 	    else
 	    {
-		if (this.lastElement() == link.destination)
-		    this.add(link.source);
+		if (lastElement() == link.destination)
+		    add(link.source);
 		else
 		    throw new RuntimeException(this+" receive link that does not form a proper route.");
 	    }
@@ -80,14 +83,97 @@ public class Route
     public Object get(int n)
     {
 	//Check index overflow
-	if (n > (this.size()-1))
-	    throw new RuntimeException(this+" has "+(this.size()-1)+" links, thus "+n+" link does not exist.  Index overflow.");
+	if (n > this.size())
+	    throw new RuntimeException(this+" has "+this.size()+" links, thus "+n+" link does not exist.  Index overflow.");
 
 	//Get index
-	int index = (routeFromSource)?n:this.size()-n-1;
+	int index = (routeFromSource)?n:size()-n-1;
 	if (routeFromSource)
-	    return new Link((Node) get(index), (Node) get(index+1));
+	    return new Link((Node) super.get(index), (Node) super.get(index+1));
 	else
-	    return new Link((Node) get(index+1), (Node) get(index));
+	    return new Link((Node) super.get(index+1), (Node) super.get(index));
     }   
+
+    /** Return nth link.
+     * @param n index of route
+     * @return nth link, 
+     *         if routeFromSource, then nth link from source to destination;
+     *         if not routeFromSource, then nth link from destination to source
+     * @see Link
+     */
+    public Link getLink(int n)
+    {
+	//Check index overflow
+	if (n > this.size())
+	    throw new RuntimeException(this+" has "+this+" links, thus "+n+" link does not exist.  Index overflow.");
+
+	//Get index
+	if (routeFromSource)
+	    return new Link((Node) super.get(n), (Node) super.get(n+1));
+	else
+	    return new Link((Node) super.get(n+1), (Node) super.get(n));
+    }
+
+    /** Return route reversed, i.e., route from source to route from destination;
+     * and vice versa.
+     * @return reversed route
+     */
+    public Route reverseRoute()
+    {
+	Route route = new Route(!routeFromSource);
+
+	for (int i = size()-1 ; i >= 0; i--)
+	    route.add(this.getLink(i));
+
+	return route;
+    }
+
+    /** Return number of links in the route.
+     * @return number of links
+     */
+    public int size()
+    {
+	return super.size()-1;
+    }
+
+    /** Return string representation.
+     * @return string representation
+     */
+    public String toString()
+    {
+	String string = "RoutefromSource="+routeFromSource+"\n[" + super.get(0).toString();
+	for (int i = 1; i < super.size(); i++)
+	    string += "\n "+super.get(i).toString();
+	return string+"]";
+    }
+
+    /** Test function to create route and perform operations on it.
+     * @param args 1st argument is length of route in number of links
+     */
+    public static void main(String[] args)
+    {
+	int noOfLinks = Integer.parseInt(args[0]);
+	Coordinate coordinate = new Coordinate(0,0);
+	Channel channel = new ZeroOne(1.0);
+
+	Route route = new Route(true);
+	Node source = new Node(coordinate,channel);
+	Node destination;
+
+	for (int i = 0; i < noOfLinks; i++)
+	{
+	    destination = new Node(coordinate,channel);
+	    route.add(new Link(source,destination));
+	    source = destination;
+	}
+	System.out.println(route);
+	System.out.println(route.getLink(0));
+	System.out.println(route.get(0));
+	System.out.println();
+
+	route = route.reverseRoute();
+	System.out.println(route);
+	System.out.println(route.getLink(0));
+	System.out.println(route.get(0));
+    }
 }

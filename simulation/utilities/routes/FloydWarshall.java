@@ -73,7 +73,7 @@ public class FloydWarshall
 	    improvement = false;
 
 	    for (int i = 0; i < netSize; i++)
-		for (int j = 1; j < netSize; j++)
+		for (int j = 0; j < netSize; j++)
 		{
 		    nextCost[i][j] = cost[i][j];
 		    nextTable.assignNextHop((Node) nextTable.nodes.get(i),
@@ -92,8 +92,10 @@ public class FloydWarshall
 			}
 		}
 
-	    cost = nextCost;
-	    table = nextTable;
+	    for (int i = 0; i < cost.length; i++)
+	    	for (int j = 0; j < cost.length; j++)
+		    cost[i][j] = nextCost[i][j];
+	    table = (RouteTable) nextTable.clone();
 	}
 	
 	return table;
@@ -112,6 +114,9 @@ public class FloydWarshall
 	//Get SPST
 	FloydWarshall spst = new FloydWarshall(new Constant());
 	RouteTable table = spst.spst(testNet);
+	System.out.println("Fully connected="+table.connected());
+	System.out.println("Maximum Tree Size="+table.maxTreeSize(true)+" out of "+
+			   table.nodes.size()+"("+(table.nodes.size()-table.maxTreeSize(true))+")");
 
 	//Draw result
 	RouteTree testRT = table.getRouteTree((Node) testNet.nodes.get(0), true);	

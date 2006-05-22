@@ -25,4 +25,12 @@ public class Link
 	this.source = source;
 	this.destination = destination;
     }
+
+    /** Return string representation.
+     * @return string representation
+     */
+    public String toString()
+    {
+	return super.toString()+"\n("+source+"\n->"+destination+")";
+    }   
 }
