@@ -38,6 +38,51 @@ public class RouteTable
 		    nextHop[i][j] = null;
     }
 
+    /** Return route tree size of node as source/sink.
+     * @param node node to be root
+     * @param rootIsSource indicate if root is source, else is sink
+     * @return size of route tree
+     */
+    public int treeSize(Node node, boolean rootIsSource)
+    {
+	int size = 0;
+	int index = nodes.indexOf(node);
+	for (int i = 0; i < nodes.size(); i++)
+	    if (rootIsSource)
+		size += (nextHop[index][i] != null) ?1:0;
+	    else
+		size += (nextHop[i][index] != null) ?1:0;
+
+	return size;
+    }
+
+    /** Return node giving maximum route tree size as source/sink.
+     * @param rootIsSource indicate if root is source, else is sink
+     * @return node providing maximum route tree size
+     */
+    public Node maxTreeNode(boolean rootIsSource)
+    {
+	Node maxNode = null;
+	int maxSize = 0;
+	for (int i = 0; i < nodes.size(); i++)
+	    if (treeSize((Node) nodes.get(i), rootIsSource) > maxSize)
+	    {
+		maxNode = (Node) nodes.get(i);
+		maxSize = treeSize(maxNode, rootIsSource);
+	    }
+	
+	return maxNode;
+    }
+
+    /** Return maximum route tree size as any node as source/sink.
+     * @param rootIsSource indicate if root is source, else is sink
+     * @return maximum route tree size
+     */
+    public int maxTreeSize(boolean rootIsSource)
+    {
+	return treeSize(maxTreeNode(rootIsSource), rootIsSource);
+    }
+
     /** Assign next hop
      * @param source source node
      * @param destination destination node
@@ -88,36 +133,18 @@ public class RouteTable
     public RouteTree getRouteTree(Node root, boolean rootIsSource)
     {
 	RouteTree tree = new RouteTree(root, rootIsSource);
+	int rootIndex = nodes.indexOf(root);
+	Route route;
 
-	boolean toAdd = true;
-	while (toAdd)
+	for (int i = 0; i < nodes.size(); i++)
 	{
-	    toAdd = false;
+	    if (rootIsSource)
+		route = getRoute(root, (Node) nodes.get(i));
+	    else
+		route = getRoute((Node) nodes.get(i), root);
 
-	    for (int i = 0; i < tree.nodes.size(); i++)
-		for (int j = 0; j < nodes.size(); j++)
-		    if (rootIsSource)
-		    {
-			if (nextHop((Node) tree.nodes.get(i),
-				    (Node) nodes.get(j)) == (Node) nodes.get(j))
-				if ((Node) tree.nodes.get(i) != (Node) nodes.get(j))
-				    if (tree.nodes.indexOf(nodes.get(j)) == -1)
-				    {
-					tree.add((Node) tree.nodes.get(i),(Node) nodes.get(j));
-					toAdd = true;
-				    }
-		    }
-		    else
-		    {
-			if (nextHop((Node) nodes.get(j),
-				    (Node) tree.nodes.get(i)) == (Node) nodes.get(i))
-				if ((Node) tree.nodes.get(i) != (Node) nodes.get(j))
-				    if (tree.nodes.indexOf(nodes.get(j)) == -1)
-				    {
-					tree.add((Node) tree.nodes.get(i),(Node) nodes.get(j));
-					toAdd = true;
-				    }
-		    }				
+	    if (route != null)
+		tree.add(route);
 	}
 
 	return tree;
@@ -143,5 +170,18 @@ public class RouteTable
 					     (Node) nodes.get(j)));
 	
 	return cloned;
+    }
+
+    /** Check if fully connected.
+     * @return if fully connected
+     */
+    public boolean connected()
+    {
+	for (int i = 0; i < nodes.size(); i++)
+	    for (int j = 0; j < nodes.size(); j++)
+		if (nextHop[i][j] == null)
+		    return false;
+
+	return true;
     }
 }

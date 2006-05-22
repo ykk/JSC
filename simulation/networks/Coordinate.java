@@ -28,10 +28,11 @@ public class Coordinate
     }
 
     /** Provide string representation.
+     * @return string representation
      */
     public String toString()
     {
-	return "("+x+","+y+")";
+	return super.toString()+"("+x+","+y+")";
     }
 
     public double x()

@@ -114,12 +114,47 @@ public class RouteTree
      */
     public void add(Link link)
     {
+	if (linkExist(link))
+	    return;
+
 	if (rootIsSource)
 	    add(link.source, link.destination);
 	else
 	    add(link.destination, link.source);
     }
 
+    /** Add route.
+     * To add all links in route to tree.
+     * @param route route to add to tree
+     */
+    public void add(Route route)
+    {
+	Route addRoute;
+	if (route.routeFromSource() == rootIsSource)
+	    addRoute = route.reverseRoute();
+	else
+	    addRoute = route;
+
+	
+	for (int i = 0; i < addRoute.size(); i++)
+	    this.add(route.getLink(i));
+    }
+
+    /** Check if link exist.
+     * @param link link to check existance for
+     * @return if specified link exist in tree
+     */
+    public boolean linkExist(Link link)
+    {
+	int childIndex;
+	if (rootIsSource)
+	    childIndex = nodes.indexOf(link.destination);
+	else
+	    childIndex = nodes.indexOf(link.source);
+	
+	return (childIndex != -1);
+    }
+    
     /** Function to draw route tree.
      * @param filename name of image file
      * @param imageFormat format of image
