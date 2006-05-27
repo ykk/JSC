@@ -27,7 +27,7 @@ public class Event
      * @param time time to run event
      * @param object event triggered object to process event
      * @param event event string reference
-     * @see event
+     * @see #event
      */
     public Event(double time, EventTriggered object, String event)
     {
