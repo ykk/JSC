@@ -32,8 +32,16 @@ public class Simulator
      */
     public void runNextEvent()
     {
-	Event event = (Event) queue.remove(0);
-	event.object.run(event,this);
+	runEvent((Event) queue.remove(0));
+    }
+
+    /** Run specified event. 
+     * @param event event definition
+     * @see EventTriggered#run(double time, String event, Simulator simulator)
+     */
+    public void runEvent(Event event)
+    {
+	event.object.run(event.time, event.event, this);
     }
 
     /** Return current time.
