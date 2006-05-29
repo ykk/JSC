@@ -1,6 +1,6 @@
 package simulation.communications.packets;
 
-/** Class for communication packet definition.
+/** Class for communication packet with only payload
  * @author ykk
  */
 public class Packet
@@ -19,10 +19,18 @@ public class Packet
 	this.length = length;
     }
     
-    /** Return length of packet's payload.
+    /** Return length of packet's payload in bytes.
      * @return length of payload
      */
     public int payLoad()
+    {
+	return length;
+    }
+
+    /** Reutrn total length of packet in bytes.
+     * @return total length of packet
+     */
+    public int totalLength()
     {
 	return length;
     }
