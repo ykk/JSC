@@ -4,6 +4,7 @@ import simulation.networks.*;
 import simulation.networks.channels.*;
 import simulation.networks.nodes.*;
 import simulation.communications.channels.*;
+import simulation.communications.queues.*;
 
 /** Basic class for a communication node.
  * @author ykk
@@ -15,6 +16,9 @@ public abstract class CommNode
     /** Communication channel used by the nodes.
      */
     public CommChannel commChannel;
+    /** Link layer queue.
+     */
+    public Queue queue;
 
     //Methods
     /** Constructor to get a new node.
@@ -22,10 +26,11 @@ public abstract class CommNode
      * @param channel channel between nodes
      * @param commChannel channel used from communicating between nodes
      */
-    public CommNode(Coordinate coordinate, Channel channel, CommChannel commChannel)
+    public CommNode(Coordinate coordinate, Channel channel, CommChannel commChannel, Queue queue)
     {
 	super(coordinate, channel);
 	this.commChannel = commChannel;
+	this.queue = queue;
     }
 
     /** Receive packet from a node.
