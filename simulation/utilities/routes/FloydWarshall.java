@@ -18,6 +18,12 @@ public class FloydWarshall
     /** Link cost reference.
      */
     public LinkCost linkCost;
+    /** Reference to last constructed route.
+     */
+    public RouteTable table;
+    /** Reference to last constructed route cost.
+     */
+    public double[][] cost;
 
     //Methods
     /** Constructor for a Floyd-Warshall.
@@ -45,11 +51,11 @@ public class FloydWarshall
      */
     public RouteTable spst(Network network)
     {
-	RouteTable table = new RouteTable(network.nodes);
+	table = new RouteTable(network.nodes);
 	int netSize = network.nodes.size(); 
 	
 	//Initialise
-	double[][] cost = new double[netSize][netSize];
+	cost = new double[netSize][netSize];
 	for (int i = 0; i < netSize; i++)
 	    for (int j = 0; j < netSize; j++)
 		if(i==j)
