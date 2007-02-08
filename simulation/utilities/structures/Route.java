@@ -5,6 +5,7 @@ import simulation.networks.*;
 import simulation.networks.channels.*;
 import simulation.networks.nodes.*;
 import simulation.utilities.structures.*;
+import simulation.files.images.*;
 
 /** Class to store route.
  * @author ykk
@@ -53,7 +54,7 @@ public class Route
 	    {
 		add(link.destination);
 		add(link.source);
-	    }		
+	    }
 	}
 	else 
 	{
@@ -63,14 +64,14 @@ public class Route
 		if (lastElement() == link.source)
 		    add(link.destination);
 		else
-		    throw new RuntimeException(this+" receive link that does not form a proper route.");
+		    throw new RuntimeException(this+" receive link "+link+" that does not form a proper route.");
 	    }
 	    else
 	    {
 		if (lastElement() == link.destination)
 		    add(link.source);
 		else
-		    throw new RuntimeException(this+" receive link that does not form a proper route.");
+		    throw new RuntimeException(this+" receive link "+link+" that does not form a proper route.");
 	    }
 	}
     }
@@ -145,6 +146,20 @@ public class Route
 	for (int i = 1; i < super.size(); i++)
 	    string += "\n "+super.get(i).toString();
 	return string+"]";
+    }
+
+    /** Function to draw route.
+     * @param filename name of image file
+     * @param imageFormat format of image
+     * @param resolution number of pixels per unit of coordinate
+     * @param nodeSize size of node in number of pixels
+     * @see ImageFile#imageFormat
+     */
+    public void draw(String filename, int imageFormat,  Network network, int resolution, int nodeSize)
+    {
+        NetworkRouteImage image = new NetworkRouteImage(filename, imageFormat, network, resolution, nodeSize);
+        image.draw(this);
+        image.write();
     }
 
     /** Test function to create route and perform operations on it.

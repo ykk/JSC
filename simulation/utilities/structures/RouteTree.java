@@ -71,17 +71,21 @@ public class RouteTree
 
     /** Get route from/to specified node.
      * @param node node to get route for
-     * @return route (if rootIsSource, route is not from source)
+     * @return route (if rootIsSource, route is not from source
+     * since the tree is being traced up to the root)
      */
     public Route getRoute(Node node)
     {
 	Route route = new Route(!rootIsSource);
 	RouteTreeNode currNode = getRouteTreeNode(node);
 	while (currNode.parent != null)
+	{
 	    if (rootIsSource)
 		route.add(new Link(currNode.parent.node, currNode.node));
 	    else
 		route.add(new Link(currNode.node, currNode.parent.node));
+	    currNode = currNode.parent;
+	}
 
 	return route;
     }

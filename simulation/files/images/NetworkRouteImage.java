@@ -31,6 +31,21 @@ public class NetworkRouteImage
 	super(filename, imageFormat, network, resolution, nodeSize);
     }
 
+    /** Draw route.
+     * @param route route to draw
+     */
+    public void drawRouteArcs(Route route)
+    {
+	image.setColor(Color.red);
+	
+	Link link;
+	for (int i = 0; i < route.size(); i++)
+	{
+	    link = route.getLink(i);
+	    drawArc(link.source,link.destination);
+	}
+    }
+
     /** Draw routing tree.
      * @param tree routing tree to draw
      */
@@ -48,6 +63,7 @@ public class NetworkRouteImage
     }
 
     /** Draw network with routing tree.
+     * @param tree tree to draw
      * @see #drawTreeArcs(RouteTree tree)
      * @see #drawPositions(Vector positions)
      */
@@ -57,6 +73,22 @@ public class NetworkRouteImage
 	drawPositions(network.nodes);
 	image.setColor(Color.red);	
 	drawPosition(tree.root());
+    }
+
+    /** Draw network with route.
+     * @param route route to draw
+     * @see #drawTreeArcs(RouteTree tree)
+     * @see #drawPositions(Vector positions)
+     */
+    public void draw(Route route)
+    {
+	drawRouteArcs(route);
+        drawPositions(network.nodes);
+        image.setColor(Color.red);
+	if (route.routeFromSource())
+	    drawPosition(route.getLink(route.size()-1).source);
+	else
+	    drawPosition(route.getLink(0).destination);
     }
 
 }
