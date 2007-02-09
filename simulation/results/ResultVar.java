@@ -19,6 +19,14 @@ public class ResultVar
      */
     private double squaredMean = 0;
 
+    /** Function to return standard deviation.
+     * @return standard deviation
+     */
+    public double stdDev()
+    {
+	return Math.sqrt(variance);
+    }
+
     /** Function to take in a sample of result.
      * The function also maintains an updated average and variance values
      * and number of samples taken in.
