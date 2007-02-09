@@ -44,6 +44,52 @@ public class Table
 	    ((TableRow) get(i)).separator = separator;
     }
 
+    /** Changed column from string to double.
+     * @param index index of column
+     */
+    public void stringToDouble(int index)
+    {
+        for (int i = 0; i < size(); i++)
+            get(i).stringToDouble(index);
+    }
+
+    /** Changed column from string to long.
+     * @param index index of column
+     */
+    public void stringToLong(int index)
+    {
+        for (int i = 0; i < size(); i++)
+            get(i).stringToLong(index);
+    }
+
+    /** Changed column from string to integer.
+     * @param index index of column
+     */
+    public void stringToInt(int index)
+    {
+        for (int i = 0; i < size(); i++)
+            get(i).stringToInt(index);
+    }
+
+    /** Add column to table with index specified.
+     * @param index index to add column to
+     * @param column column to add
+     */
+    public void addCol(int index, Vector column)
+    {
+	for (int i = 0 ; i < size(); i++)
+	    get(i).add(index,column.get(i));
+    }
+
+    /** Add column to table.
+     * @param column column to add
+     */
+    public void addCol(Vector column)
+    {
+        for (int i = 0 ; i < size(); i++)
+            get(i).add(column.get(i));
+    }
+
     /** Create table from vector of strings.
      * @param stringVector vector of strings
      */
@@ -51,6 +97,20 @@ public class Table
     {
         for (int i = 0; i < stringVector.size(); i++)
             add(new TableRow((String) stringVector.get(i), separator));
+    }
+
+    /** Get column from table.
+     * @param index index of column to grab
+     * @return column of specified index
+     */
+    public Vector getCol(int index)
+    {
+	Vector col = new Vector();
+
+	for (int i = 0; i < size(); i++)
+	    col.add(getItem(i,index));
+
+	return col;
     }
 
     /** Get row from table.
