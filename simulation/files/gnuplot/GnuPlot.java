@@ -66,8 +66,8 @@ public abstract class GnuPlot
      */
     public String axesString()
     {
-	return "set xlabel "+xlabel+"\n"+
-	    "set ylabel "+ylabel;
+	return "set xlabel \'"+xlabel+"\'\n"+
+	    "set ylabel \'"+ylabel+"\'";
     }
 
     /** Return plot string.
