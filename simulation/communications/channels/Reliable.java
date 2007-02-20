@@ -21,10 +21,11 @@ public class Reliable
      * @param source source node
      * @param destination destination node
      * @param packet packet to transmit
-     * @return if packet is successfully transmitted
+     * @return if packet is successfully transmitted (always true)
      */
     public boolean transmit(CommNode source, CommNode destination, Object packet)
     {
+	destination.receive(source, packet);
 	return true;
-    }  
+    }
 }
