@@ -173,7 +173,7 @@ public class ALOHA
     }
 
     /** Trial run of MAC simulation.
-     * @param args 1st argument can be density of Poisson network [optional]
+     * @param args 1st argument can be density of Grid network [optional]
      */
     public static void main(String[] args)
     {
@@ -182,10 +182,11 @@ public class ALOHA
 	    trial.pointprocess = new Grid(Double.parseDouble(args[0]));
 	trial.generateNetwork(new ALOHA(new Coordinate(0,0), trial.networkChannel, trial.commChannel,
 					trial.queue, trial.processor, trial.waitTime));
+	//Trigger by scheduling end of wait.
 	for (int i = 0; i < trial.network.nodes.size(); i++)
 	    trial.simulator.add(new Event(trial.waitTime.getInstance(),
 					  ((ALOHA) trial.network.nodes.get(i)),
-					  ((ALOHA) trial.network.nodes.get(i)).events[2])); //Wait Ended Scheduled
+					  ((ALOHA) trial.network.nodes.get(i)).events[2]));
 	trial.run();
     }
 }
