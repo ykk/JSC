@@ -33,6 +33,17 @@ public class TimedPacket
 	this.startTime = startTime;
     }
 
+    /** Duplicate timed packet with start time.
+     * @param startTime start time of duplicated packet
+     */
+    public TimedPacket duplicate(double startTime)
+    {
+	TimedPacket packet = (TimedPacket) super.duplicate();
+	packet.startTime = startTime;
+	return packet;
+    }
+    
+
     /** Record end time of packet.
      * @param endTime end time of packet
      */

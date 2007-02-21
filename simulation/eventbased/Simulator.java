@@ -2,11 +2,13 @@ package simulation.eventbased;
 
 import simulation.eventbased.*;
 import simulation.utilities.structures.*;
+import simulation.utilities.references.*;
 
 /** Event based simulators.
  * @author ykk
  */
 public class Simulator
+    implements TimeReference
 {
     //Members
     /** Current time of simulator.
