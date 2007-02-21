@@ -4,6 +4,7 @@ package simulation.communications.packets;
  * @author ykk
  */
 public class Packet
+    implements PacketFactory
 {
     //Members
     /** Packet length.
@@ -33,5 +34,13 @@ public class Packet
     public int totalLength()
     {
 	return length;
+    }
+
+    /** Duplicate packets.
+     * @return duplicated packet
+     */
+    public Packet duplicate()
+    {
+	return new Packet(length);
     }
 }
