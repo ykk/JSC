@@ -38,7 +38,7 @@ public class TimedPacket
      */
     public TimedPacket duplicate(double startTime)
     {
-	TimedPacket packet = (TimedPacket) super.duplicate();
+	TimedPacket packet = new TimedPacket(length, startTime);
 	packet.startTime = startTime;
 	return packet;
     }

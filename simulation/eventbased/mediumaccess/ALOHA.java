@@ -87,7 +87,7 @@ public class ALOHA
 					this.events[2])); //Wait Ended Scheduled
 	    }
 	    if (state != stateCollided)
-		queue.receive(packet);
+		processor.receive(packet,queue);
 	    break;
 	case 1: //Transmission Ended
 	    isTransmitting = false;
@@ -100,7 +100,7 @@ public class ALOHA
 	    }
 	    break;
 	case 2: //Wait Ended
-	    Object packet = queue.get();
+	    Object packet = processor.get(queue);
 	    if (packet != null)
 		startTransmission((Packet) packet, simulator);
 	    else
@@ -146,7 +146,7 @@ public class ALOHA
     {
 	if (state == stateIdle)
 	{
-	    Object packet = queue.get();
+	    Object packet = processor.get(queue);
 	    if (packet != null)
 		startTransmission((Packet) packet, simulator);
 	}
@@ -163,5 +163,18 @@ public class ALOHA
     {
 	super(coordinate, channel, commChannel, queue, processor);
 	this.waitTime = waitTime;
+    }
+
+    /** Trial run of MAC simulation.
+     */
+    public static void main(String[] args)
+    {
+	MACTrial trial = new MACTrial(new Simulator());
+	trial.run(new ALOHA(new Coordinate(0,0),
+			    trial.networkChannel,
+			    trial.commChannel,
+			    trial.queue,
+			    trial.processor,
+			    trial.waitTime));
     }
 }
