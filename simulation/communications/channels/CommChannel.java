@@ -1,6 +1,8 @@
 package simulation.communications.channels;
 
 import simulation.communications.nodes.*;
+import simulation.eventbased.*;
+import simulation.eventbased.mediumaccess.*;
 
 /** Abstract class for a communication channel.
  * @author ykk
@@ -36,5 +38,16 @@ public abstract class CommChannel
      * @param packet packet to transmit
      * @return if packet is successfully transmitted
      */
-    public abstract boolean transmit(CommNode source, CommNode destination, Object packet);
+    public abstract boolean transmit(CommNode source, CommNode destination, 
+				     Object packet);
+
+    /** Transmit packet from source to destination.
+     * @param source source node
+     * @param destination destination node
+     * @param packet packet to transmit
+     * @param simulator reference to simulator
+     * @return if packet is successfully transmitted (always true)
+     */
+    public abstract boolean transmit(MACNode source, MACNode destination, 
+				     Object packet, Simulator simulator);
 }

@@ -130,7 +130,8 @@ public class ALOHA
 
 	//Set neighbors' receive
 	for (int i = 0; i < transmitPartners.size(); i++)
-	    ((ALOHA) transmitPartners.get(i)).receive(this, packet, simulator);
+	    commChannel.transmit(this, (ALOHA) transmitPartners.get(i),
+				 packet,simulator);
     }
 
     public void receive(CommNode source, Object packet, Simulator simulator)
