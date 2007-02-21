@@ -15,4 +15,9 @@ public abstract class Queue
      * @return packet to be transmitted; or null if queue is empty
      */
     public abstract Object get();
+
+    /** Duplicate queue.
+     * @return new instance of queue
+     */
+    public abstract Queue newQueue();
 }

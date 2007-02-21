@@ -57,4 +57,9 @@ public class FIFO
 	else
 	    return queue.remove(0);
     }
+
+    public Queue newQueue()
+    {
+	return new FIFO(this.queueSize);
+    }
 }

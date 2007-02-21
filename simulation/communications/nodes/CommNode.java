@@ -21,7 +21,7 @@ public abstract class CommNode
     public Queue queue;
 
     //Methods
-    /** Constructor to get a new node.
+    /** Constructor to get a new node, having a new instance of queue.
      * @param coordinate coordinate for new node.
      * @param channel channel between nodes
      * @param commChannel channel used from communicating between nodes

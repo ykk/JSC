@@ -9,6 +9,7 @@ import simulation.networks.*;
 import simulation.networks.nodes.*;
 import simulation.networks.channels.*;
 import simulation.utilities.structures.*;
+import simulation.utilities.packetprocessors.*;
 import simulation.distributions.*;
 
 /** Class to implement ALOHA medium access control.
@@ -154,13 +155,13 @@ public class ALOHA
     public Node newNode(Coordinate coordinate)
     {
 	return new ALOHA(coordinate, this.channel, this.commChannel, 
-			 this.queue, this.waitTime);
+			 this.queue, this.processor, this.waitTime);
     }
 
     public ALOHA(Coordinate coordinate, Channel channel, CommChannel commChannel, 
-		 Queue queue, Distribution waitTime)
+		 Queue queue, PacketProcessor processor, Distribution waitTime)
     {
-	super(coordinate, channel, commChannel, queue);
+	super(coordinate, channel, commChannel, queue, processor);
 	this.waitTime = waitTime;
     }
 }
