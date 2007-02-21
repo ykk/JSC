@@ -21,7 +21,10 @@ public class AlwaysFull
     /** Delay result container.
      */
     public Result delay = new Result();
-    
+    /** Reference to last packet.
+     */
+    private TimedPacket lastPacket=null;
+
     //Methods
     /** Constructor for packet processor.
      * @param length length of packet to generate (in bytes)
@@ -39,8 +42,10 @@ public class AlwaysFull
      */
     public void receive(Object packet, simulation.communications.queues.Queue queue)
     {
+	if (packet == lastPacket) return;
 	((TimedPacket) packet).endTime = timeRef.time();
 	delay.input(((TimedPacket) packet).delay());
+	lastPacket = (TimedPacket) packet;
     }
 
     /** Function to get next packet to send

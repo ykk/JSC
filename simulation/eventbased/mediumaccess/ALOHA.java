@@ -7,6 +7,7 @@ import simulation.communications.queues.*;
 import simulation.communications.packets.*;
 import simulation.networks.*;
 import simulation.networks.nodes.*;
+import simulation.networks.pointprocesses.*;
 import simulation.networks.channels.*;
 import simulation.utilities.structures.*;
 import simulation.utilities.packetprocessors.*;
@@ -171,12 +172,13 @@ public class ALOHA
     }
 
     /** Trial run of MAC simulation.
+     * @param args 1st argument can be density of Poisson network [optional]
      */
     public static void main(String[] args)
     {
 	MACTrial trial = new MACTrial(new Simulator());
-	if (args.length > 1)
-	    trial.pointprocess = new simulation.networks.pointprocesses.Poisson(Double.parseDouble(args[0]));
+	if (args.length >= 1)
+	    trial.pointprocess = new Grid(Double.parseDouble(args[0]));
 	trial.generateNetwork(new ALOHA(new Coordinate(0,0), trial.networkChannel, trial.commChannel,
 					trial.queue, trial.processor, trial.waitTime));
 	for (int i = 0; i < trial.network.nodes.size(); i++)
