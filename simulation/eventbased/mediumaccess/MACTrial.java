@@ -18,6 +18,7 @@ import simulation.communications.channels.*;
 import simulation.communications.queues.*;
 
 /** Class to test medium access node.
+ * Defaulted to setting node in a single hop network and fully loaded queue.
  * @see MACNode
  * @author ykk
  */
@@ -40,20 +41,20 @@ public class MACTrial
      */
     public simulation.communications.queues.Queue queue = new FIFO();
     /** Distribution of backoff time.
-     * Defaulted to Exponential distribution with mean 10.0.
+     * Defaulted to Exponential distribution with mean 16.0.
      * @see Exponential
      */
-    public Distribution waitTime = new Exponential(10.0);
+    public Distribution waitTime = new Exponential(16.0);
     /** Network area definition.
      * Defaulted to Circle network with radius 1.0.
      * @see CircleNetArea
      */
     public NetworkArea netArea= new CircleNetArea(1.0);
     /** Distribution of nodes.
-     * Defaulted to Poisson point process with density 3.
-     * @see simulation.networks.pointprocesses.Poisson
+     * Defaulted to Grid point process with density 3.
+     * @see Grid
      */
-    public PointProcess pointprocess = new simulation.networks.pointprocesses.Poisson(3.0);
+    public PointProcess pointprocess = new Grid(3.0);
     /** Packet processor.
      * Defined AlwaysFull with length 128 bytes.
      */
@@ -87,6 +88,7 @@ public class MACTrial
 	    simulator.runNextEvent();
 
 	System.out.println("Sample Size ="+processor.delay.sampleSize);
+	System.out.println("Simulator Time ="+simulator.time());
 	System.out.println("Throughput ="+(processor.delay.sampleSize/simulator.time()));
     }
 
