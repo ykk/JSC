@@ -18,7 +18,11 @@ public class Simulator
     /** Event queue.
      */
     public SortedVector queue = new SortedVector();
-    
+    /** Debug flag.
+     * Default is false
+     */
+    public boolean debug = false;
+   
     //Methods
     /** Add event to queue.
      */
@@ -43,6 +47,8 @@ public class Simulator
      */
     public void runEvent(Event event)
     {
+	if (debug) System.out.println(event);
+	time = event.time;
 	event.object.run(event.time, event.event, this);
     }
 
