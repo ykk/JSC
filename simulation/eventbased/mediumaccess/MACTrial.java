@@ -40,20 +40,20 @@ public class MACTrial
      */
     public simulation.communications.queues.Queue queue = new FIFO();
     /** Distribution of backoff time.
-     * Defaulted to Exponential distribution with mean 1.
+     * Defaulted to Exponential distribution with mean 10.0.
      * @see Exponential
      */
-    public Distribution waitTime = new Exponential(1.0);
+    public Distribution waitTime = new Exponential(10.0);
     /** Network area definition.
      * Defaulted to Circle network with radius 1.0.
      * @see CircleNetArea
      */
     public NetworkArea netArea= new CircleNetArea(1.0);
     /** Distribution of nodes.
-     * Defaulted to Poisson point process with density 8.
+     * Defaulted to Poisson point process with density 3.
      * @see simulation.networks.pointprocesses.Poisson
      */
-    public PointProcess pointprocess = new simulation.networks.pointprocesses.Poisson(8.0);
+    public PointProcess pointprocess = new simulation.networks.pointprocesses.Poisson(3.0);
     /** Packet processor.
      * Defined AlwaysFull with length 128 bytes.
      */
@@ -80,21 +80,14 @@ public class MACTrial
     }
 
     /** Main function to run trial simulation.
-     * @param nodefactory factory to generate network.
      */
-    public void run(NodeFactory nodefactory)
+    public void run()
     {
-	generateNetwork(nodefactory);
-	for (int i = 0; i < network.nodes.size(); i++)
-	    ((ALOHA) network.nodes.get(i)).trigger(simulator);
 	while ((processor.delay.sampleSize < sampleNeeded) && (simulator.queue.size() != 0))
-	{
 	    simulator.runNextEvent();
-	    System.out.println(simulator.queue.size());
-	}
 
 	System.out.println("Sample Size ="+processor.delay.sampleSize);
-	System.out.println("Mean delay ="+processor.delay.mean);
+	System.out.println("Throughput ="+(processor.delay.sampleSize/simulator.time()));
     }
 
     /** Generate network for simulation.

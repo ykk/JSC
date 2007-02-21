@@ -97,6 +97,7 @@ public class ALOHA
 		simulator.add(new Event(simulator.time()+waitTime.getInstance(),
 					this,
 					this.events[2])); //Wait Ended Scheduled
+		System.out.println("\t"+simulator.time());
 	    }
 	    break;
 	case 2: //Wait Ended
@@ -125,6 +126,10 @@ public class ALOHA
 				commChannel.transmitDuration(packet.totalLength()),
 				this,
 				this.events[1])); //Transmission Ended scheduled
+
+	//Set neighbors' receive
+	for (int i = 0; i < transmitPartners.size(); i++)
+	    ((ALOHA) transmitPartners.get(i)).receive(this, packet, simulator);
     }
 
     public void receive(CommNode source, Object packet, Simulator simulator)
@@ -170,11 +175,14 @@ public class ALOHA
     public static void main(String[] args)
     {
 	MACTrial trial = new MACTrial(new Simulator());
-	trial.run(new ALOHA(new Coordinate(0,0),
-			    trial.networkChannel,
-			    trial.commChannel,
-			    trial.queue,
-			    trial.processor,
-			    trial.waitTime));
+	if (args.length > 1)
+	    trial.pointprocess = new simulation.networks.pointprocesses.Poisson(Double.parseDouble(args[0]));
+	trial.generateNetwork(new ALOHA(new Coordinate(0,0), trial.networkChannel, trial.commChannel,
+					trial.queue, trial.processor, trial.waitTime));
+	for (int i = 0; i < trial.network.nodes.size(); i++)
+	    trial.simulator.add(new Event(trial.waitTime.getInstance(),
+					  ((ALOHA) trial.network.nodes.get(i)),
+					  ((ALOHA) trial.network.nodes.get(i)).events[2])); //Wait Ended Scheduled
+	trial.run();
     }
 }
