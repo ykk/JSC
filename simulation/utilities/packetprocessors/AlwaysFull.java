@@ -1,5 +1,9 @@
 package simulation.utilities.packetprocessors;
 
+import simulation.communications.packets.*;
+import simulation.results.*;
+import simulation.utilities.references.*;
+
 /** Packet processor that maintains full queue.
  * @author ykk
  */
@@ -7,13 +11,27 @@ public class AlwaysFull
     extends PacketProcessor
 {
     //Members
-    /** 
+    /** Packet factory to generate packet.
+     * Length defaulted to 8 bytes.
      */
-
+    public TimedPacket packetFactory;
+    /** Time reference.
+     */
+    public TimeReference timeRef;
+    /** Delay result container.
+     */
+    public Result delay = new Result();
+    
     //Methods
     /** Constructor for packet processor.
+     * @param length length of packet to generate (in bytes)
+     * @param timeRef time reference for packet generation
      */
-    
+    public AlwaysFull(int length)
+    {
+	packetFactory = new TimedPacket(length);
+	this.timeRef = timeRef;
+    }
 
     /** Function to receive packets.
      * @param packet packet received
@@ -21,7 +39,8 @@ public class AlwaysFull
      */
     public void receive(Object packet, simulation.communications.queues.Queue queue)
     {
-	
+	((TimedPacket) packet).endTime = timeRef.time();
+	delay.input(((TimedPacket) packet).delay());
     }
 
     /** Function to get next packet to send
@@ -29,6 +48,6 @@ public class AlwaysFull
      */
     public Object get(simulation.communications.queues.Queue queue)
     {
-	return null;
+	return packetFactory.duplicate(timeRef.time());
     }
 }
