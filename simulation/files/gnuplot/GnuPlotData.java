@@ -15,6 +15,9 @@ public class GnuPlotData
     /** Index of y data.
      */
     public int yIndex;
+    /** Title of data set.
+     */
+    public String name = null;
     /** Plot style.
      * Defaults to linespoint.
      * @see #STYLE_LINEPOINTS
@@ -26,6 +29,9 @@ public class GnuPlotData
 
     //Methods
     /** Constructor.
+     * @param filename filename of data set
+     * @param xIndex index to plot as x-axis
+     * @param yIndex index to plot as y-axis
      */
     public GnuPlotData(String filename,int xIndex, int yIndex)
     {
@@ -34,13 +40,27 @@ public class GnuPlotData
 	this.yIndex = yIndex;
     }
 
+    /** Constructor.
+     * @param filename filename of data set
+     * @param xIndex index to plot as x-axis
+     * @param yIndex index to plot as y-axis
+     * @param name name of data set
+     */
+    public GnuPlotData(String filename,int xIndex, int yIndex, String name)
+    {
+	this.filename = filename;
+	this.xIndex = xIndex;
+	this.yIndex = yIndex;
+	this.name = name;
+    }
+
     /** Output string to plot data.
      * @return string to add to plot command.
      */
     public String toString()
     {
-	return "\'"+filename+"\'"+
-	    " using "+xIndex+":"+yIndex+
-	    " with "+plotStyle;
+	String pString = "\'"+filename+"\'"+" using "+xIndex+":"+yIndex+" with "+plotStyle;
+	if (name != null) pString +=" title \'"+name+"\'";
+	return pString;
     }
 }
