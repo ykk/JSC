@@ -19,7 +19,22 @@ public abstract class GnuPlot
     /** Indicate if plot has legend/key.
      * Defaults to true.
      */
-    public boolean hasKey = true;
+    public boolean hasKey = true;    
+    /** Indicate horizontal position of legend/key.
+     */
+    public boolean keyIsLeft = false;
+    /** Indicate vertical position of legend/key.
+     */
+    public boolean keyIsTop = true;
+    /** Indicate if key is placed outside graph.
+     */
+    public boolean keyOutside = false;
+    /** Indicate if key is placed below graph.
+     */
+    public boolean keyBelow = false;
+    /** Indicate symbols position in key.
+     */
+    public boolean keySymLeft = false;
 
     /** Label for x-axis.
      */
@@ -92,6 +107,11 @@ public abstract class GnuPlot
     {
 	String keyString = "set key";
 	keyString += (hasKey)? " on" : " off";
+	keyString += (keyIsLeft)? " left" : " right";
+	keyString += (keyIsTop)? " top" : " bottom";
+	if (keyOutside) keyString+=" outside";
+	if (keyBelow) keyString+=" below";
+	if (keySymLeft) keyString+=" reverse";
 
 	return keyString;
     }
@@ -100,7 +120,7 @@ public abstract class GnuPlot
      * @param args arguments
      * @return input file
      */
-    public FileVector process(String[] args)
+    private FileVector process(String[] args)
     {
 	parseInput(args);
 	return getFile();
@@ -143,7 +163,7 @@ public abstract class GnuPlot
     /** Return input file for GnuPlot.
      * @return input file
      */
-    private FileVector getFile()
+    public FileVector getFile()
     {
 	FileVector file = new FileVector(filename);
 	file.content.add(termString());
