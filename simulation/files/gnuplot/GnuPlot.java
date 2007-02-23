@@ -1,5 +1,6 @@
 package simulation.files.gnuplot;
 
+import java.io.*;
 import java.util.*;
 import simulation.files.text.*;
 
@@ -175,4 +176,24 @@ public abstract class GnuPlot
 	return file;
     }
 
+    /** Create file and plot the graph.
+     */
+    public void execPlot()
+    {
+	String output;
+	FileVector file = getFile();
+	file.write();
+
+	try
+	{
+	    Process process = Runtime.getRuntime().exec("gnuplot < "+filename);
+	    BufferedReader outcome = new 
+		BufferedReader(new InputStreamReader(process.getInputStream()));
+	    while ((output = outcome.readLine()) != null)
+		System.out.println(output);
+	} catch (IOException err)
+	{
+	    System.err.println(this + " generates "+ err);
+	}
+    }
 }
