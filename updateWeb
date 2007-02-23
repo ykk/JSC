@@ -1,0 +1,6 @@
+#!/bin/sh
+make doc
+make jar
+rm -Rf /var/www/html/Projects/JSC/doc
+cp -r doc /var/www/html/Projects/JSC/.
+cp jsc.jar /var/www/html/Projects/JSC/.
