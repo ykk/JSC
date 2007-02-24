@@ -11,10 +11,10 @@ import simulation.utilities.routes.*;
 import simulation.utilities.linkcosts.*;
 import simulation.files.images.*;
 
-/** Class to discover routes using Dijsktra algorithm.
+/** Class to discover routes using Minimum Spanning Tree algorithm.
  * @author ykk
  */
-public class Dijkstra
+public class MST
 {
     //Members
     /** Link cost reference.
@@ -25,28 +25,17 @@ public class Dijkstra
     public boolean rootIsSource;
 
     //Methods
-    /** Constructor for creating Dijkstra.
+    /** Constructor for creating MST.
      * @param linkCost link cost definition between nodes
      * @param rootIsSource indicate if root is source or sink
      */
-    public Dijkstra(LinkCost linkCost, boolean rootIsSource)
+    public MST(LinkCost linkCost, boolean rootIsSource)
     {
 	this.linkCost = linkCost;
 	this.rootIsSource = rootIsSource;
     }
 
-    /** Return shortest path spanning tree.
-     * Uses Dijsktra algorithm, therefore no negative link cost is allowed.
-     * Reference to
-     * <PRE>@InBook{Bertsekas92,
-     * author = {Dimitri Bertsekas and Robert Gallager},
-     * title = {Data Networks},
-     * chapter = {5.2},
-     * publisher = {Prentice Hall},
-     * year = {1992},
-     * edition = {2},
-     * pages = {401--403},
-     * }</PRE>
+    /** Return minimum spanning tree.
      * @param network reference to network
      * @param root reference to root node
      * @return return shortest path spanning tree
@@ -54,39 +43,20 @@ public class Dijkstra
     public RouteTree spst(Network network, Node root)
     {
 	Vector nodes = (Vector) network.nodes.clone();
-	Vector costToNode = new Vector();
 	RouteTree tree = new RouteTree(root, rootIsSource);
 	Link minCostLink = new Link(null,null);
-	double costToParent;
-	double costOfLink;
-
-	//Remove root and add its cost to vector of costs
 	nodes.remove(root);
-	costToNode.add(new Double(0));
 
 	while ((nodes.size() != 0) && (minCostLink != null))
 	{
-	    minCostLink = getMinLink(tree.nodes, costToNode, nodes);
+	    minCostLink = getMinLink(tree.nodes, nodes);
 	    if (minCostLink != null)
 	    {
 		tree.add(minCostLink);
 		if (rootIsSource)
-		{
-		    costToParent = ((Double) 
-				    costToNode.get(tree.nodes.indexOf(minCostLink.source))).doubleValue();
-		    costOfLink = linkCost.cost(minCostLink.source, minCostLink.destination);
-		    costToNode.add(new Double(costToParent+costOfLink));
 		    nodes.remove(minCostLink.destination);
-		}
 		else
-		{
-		    costToParent = ((Double) 
-				    costToNode.get(tree.
-						   nodes.indexOf(minCostLink.destination))).doubleValue();
-		    costOfLink = linkCost.cost(minCostLink.source, minCostLink.destination);
-		    costToNode.add(new Double(costToParent+costOfLink));
 		    nodes.remove(minCostLink.source);
-		}
 	    }
 	}
 
@@ -95,11 +65,10 @@ public class Dijkstra
 
     /** Find minimum cost link from/to selected set.
      * @param selected selected set of nodes
-     * @param costToSelected cost to selected nodes
      * @param notSelected set of nodes not selected
      * @return minimum cost link from/to selected set
      */
-    private Link getMinLink(Vector selected, Vector costToSelected, Vector nonSelected)
+    private Link getMinLink(Vector selected, Vector nonSelected)
     {
 	Node parent =null;
 	Node child = null;
@@ -109,27 +78,25 @@ public class Dijkstra
 	    for (int j = 0; j < nonSelected.size(); j++)
 		if (rootIsSource)
 		{
-		    if ((linkCost.cost((Node) selected.get(i),(Node) nonSelected.get(j)) +
-			 ((Double) costToSelected.get(i)).doubleValue()) < minCost)
+		    if (linkCost.cost((Node) selected.get(i), 
+				      (Node) nonSelected.get(j)) < minCost)
 		    {
 			parent = (Node) selected.get(i);
 			child = (Node) nonSelected.get(j);
-			minCost = linkCost.cost(parent,child) + 
-			    ((Double) costToSelected.get(i)).doubleValue();
+			minCost = linkCost.cost(parent,child);
 		    }
 		}
 		else
 		{
-		    if ((linkCost.cost((Node) nonSelected.get(j),(Node) selected.get(i))+
-			 ((Double) costToSelected.get(i)).doubleValue()) < minCost)
+		    if (linkCost.cost((Node) nonSelected.get(j),
+				      (Node) selected.get(i)) < minCost)
 		    {
 			parent = (Node) selected.get(i);
 			child = (Node) nonSelected.get(j);
-			minCost = linkCost.cost(child,parent) +
-			    ((Double) costToSelected.get(i)).doubleValue();
+			minCost = linkCost.cost(child,parent);
 		    }
 		}
-		      
+		       
 	if (minCost == Double.MAX_VALUE)
 	    return null;
 	else if (rootIsSource)
@@ -138,7 +105,7 @@ public class Dijkstra
 	    return new Link(child,parent);
     }
 
-   /** Function to test Dijsktra by using it on a network and drawing the result.
+   /** Function to test MST by using it on a network and drawing the result.
      * @param args 1st argument is density of network
      */
     public static void main(String[] args)
@@ -152,6 +119,6 @@ public class Dijkstra
 	RouteTree testRT = spst.spst(testNet, (Node) testNet.nodes.get(0));
 
 	//Draw routing tree
-	testRT.draw("testDijsktraImage.jpg", ImageFile.JPEG_TYPE, testNet, 100, 20);
+	testRT.draw("testMSTImage.jpg", ImageFile.JPEG_TYPE, testNet, 100, 20);
     }
 }
