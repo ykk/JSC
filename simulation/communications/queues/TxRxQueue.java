@@ -9,10 +9,10 @@ public class TxRxQueue
     //Members
     /** Transmit queue.
      */
-    Queue transmit;
+    public Queue transmit;
     /** Receive queue.
      */
-    Queue receive;
+    public Queue receive;
 
     //Methods
     /** Constructor.
