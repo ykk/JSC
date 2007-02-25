@@ -52,6 +52,53 @@ public class Simulator
 	event.object.run(event.time, event.event, this);
     }
 
+    /** Cancel first event found with the same string reference and object associated.
+     * This means that it is the next event of the same string reference and object
+     * associated to be run from the queue.
+     * @param event event string reference
+     * @param object object associated
+     * @return returns if event is cancelled
+     */
+    public boolean cancel(String event, EventTriggered object)
+    {
+	for (int i = 0; i < queue.size(); i++)
+	    if ((((Event) queue.get(i)).event == event) &&
+		(((Event) queue.get(i)).object == object))
+	    {
+		queue.remove(i);
+		return true;
+	    }
+	return false;
+    }
+
+    /** Cancel first event found with the same string reference and object associated.
+     * This means that it is the next event of the same string reference and object
+     * associated to be run from the queue.  Time of the event is ignored.
+     * @param event event reference
+     * @return returns if event is cancelled
+     */
+    public boolean cancel(Event event)
+    {
+	return cancel(event.event, event.object);
+    }
+
+    /** Cancel first event found with the same string reference.
+     * This means that it is the next event of the same string reference to be
+     * run from the queue.
+     * @param event event string reference
+     * @return returns if event is cancelled
+     */
+    public boolean cancel(String event)
+    {
+	for (int i = 0; i < queue.size(); i++)
+	    if (((Event) queue.get(i)).event == event)
+	    {
+		queue.remove(i);
+		return true;
+	    }
+	return false;
+    }
+
     /** Return current time.
      * @return time
      */
