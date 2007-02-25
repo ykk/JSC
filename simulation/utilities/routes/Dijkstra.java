@@ -90,7 +90,7 @@ public class Dijkstra
 		    costToParent = ((Double) 
 				    costToNode.get(tree.nodes.indexOf(minCostLink.source))).doubleValue();
 		    costOfLink = linkCost.cost(minCostLink.source, minCostLink.destination);
-		    costToNode.add(new Double(costToParent+costOfLink));
+		    costToNode.add(new Double(costSum(costToParent,costOfLink)));
 		    nodes.remove(minCostLink.destination);
 		}
 		else
@@ -99,7 +99,7 @@ public class Dijkstra
 				    costToNode.get(tree.
 						   nodes.indexOf(minCostLink.destination))).doubleValue();
 		    costOfLink = linkCost.cost(minCostLink.source, minCostLink.destination);
-		    costToNode.add(new Double(costToParent+costOfLink));
+		    costToNode.add(new Double(costSum(costToParent,costOfLink)));
 		    nodes.remove(minCostLink.source);
 		}
 	    }
@@ -124,27 +124,27 @@ public class Dijkstra
 	    for (int j = 0; j < nonSelected.size(); j++)
 		if (rootIsSource)
 		{
-		    if ((linkCost.cost((Node) selected.get(i),(Node) nonSelected.get(j)) +
-			 ((Double) costToSelected.get(i)).doubleValue()) < minCost)
+		    if (costSum(linkCost.cost((Node) selected.get(i),(Node) nonSelected.get(j)),
+				((Double) costToSelected.get(i)).doubleValue()) < minCost)
 		    {
 			parent = (Node) selected.get(i);
 			child = (Node) nonSelected.get(j);
-			minCost = linkCost.cost(parent,child) + 
-			    ((Double) costToSelected.get(i)).doubleValue();
+			minCost = costSum(linkCost.cost(parent,child), 
+					  ((Double) costToSelected.get(i)).doubleValue());
 		    }
 		}
 		else
 		{
-		    if ((linkCost.cost((Node) nonSelected.get(j),(Node) selected.get(i))+
-			 ((Double) costToSelected.get(i)).doubleValue()) < minCost)
+		    if (costSum(linkCost.cost((Node) nonSelected.get(j),(Node) selected.get(i)),
+				((Double) costToSelected.get(i)).doubleValue()) < minCost)
 		    {
 			parent = (Node) selected.get(i);
 			child = (Node) nonSelected.get(j);
-			minCost = linkCost.cost(child,parent) +
-			    ((Double) costToSelected.get(i)).doubleValue();
+			minCost = costSum(linkCost.cost(child,parent),
+					  ((Double) costToSelected.get(i)).doubleValue());
 		    }
 		}
-		      
+
 	if (minCost == Double.MAX_VALUE)
 	    return null;
 	else if (rootIsSource)
@@ -153,7 +153,20 @@ public class Dijkstra
 	    return new Link(child,parent);
     }
 
-   /** Function to test Dijsktra by using it on a network and drawing the result.
+    /** Function to sum two link costs.
+     * @param cost1 first cost
+     * @param cost2 second cost
+     * @return sum of costs
+     */
+    protected double costSum(double cost1, double cost2)
+    {
+	if ((cost1 < 0) || (cost2 < 0))
+	    throw new RuntimeException(this+" experiences negative link cost of "+
+				       cost1 +" or/and "+cost2 +" which is not allowed.");
+	return cost1+cost2;
+    }
+     
+    /** Function to test Dijsktra by using it on a network and drawing the result.
      * @param args 1st argument is density of network
      */
     public static void main(String[] args)
