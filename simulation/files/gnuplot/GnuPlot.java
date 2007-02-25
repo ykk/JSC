@@ -56,6 +56,23 @@ public abstract class GnuPlot
      */
     public String title = "Please add some title";
 
+    /** Minimum of y axis.
+     * Defaulted to Double.MIN_VALUE, giving autoscale.
+     */
+    public double ymin = Double.MIN_VALUE;
+    /** Maximum of y axis.
+     * Defaulted to Double.MAX_VALUE, giving autoscale.
+     */
+    public double ymax = Double.MAX_VALUE;
+    /** Minimum of x axis.
+     * Defaulted to Double.MIN_VALUE, giving autoscale.
+     */
+    public double xmin = Double.MIN_VALUE;
+    /** Maximum of x axis.
+     * Defaulted to Double.MAX_VALUE, giving autoscale.
+     */
+    public double xmax = Double.MAX_VALUE;
+
     /** Vector of data.
      * @see GnuPlotData
      */
@@ -82,8 +99,15 @@ public abstract class GnuPlot
      */
     public String axesString()
     {
-	return "set xlabel \'"+xlabel+"\'\n"+
+	String axes = "set xlabel \'"+xlabel+"\'\n"+
 	    "set ylabel \'"+ylabel+"\'";
+	if ((ymin != Double.MIN_VALUE) || (ymax != Double.MAX_VALUE))
+	    axes += "\nset yrange ["+((ymin != Double.MIN_VALUE)?ymin:"")+
+		":"+((ymax != Double.MAX_VALUE)?ymax:"")+"]";
+	if ((xmin != Double.MIN_VALUE) || (xmax != Double.MAX_VALUE))
+	    axes += "\nset yrange ["+((xmin != Double.MIN_VALUE)?xmin:"")+
+		":"+((xmax != Double.MAX_VALUE)?xmax:"")+"]";
+	return axes;
     }
 
     /** Return plot string.

@@ -77,7 +77,7 @@ public class Dijkstra
 
 	//Remove root and add its cost to vector of costs
 	nodes.remove(root);
-	costToNode.add(new Double(0));
+	costToNode.add(new Double(1.0)); //Start with 1.0 for DijsktraMultiply
 
 	while ((nodes.size() != 0) && (minCostLink != null))
 	{
@@ -145,6 +145,7 @@ public class Dijkstra
 		    }
 		}
 
+	System.out.println(minCost);
 	if (minCost == Double.MAX_VALUE)
 	    return null;
 	else if (rootIsSource)

@@ -2,13 +2,13 @@ package simulation.utilities.linkcosts;
 
 import simulation.networks.nodes.*;
 
-/** Class to provide link cost which is the exponent of distance, $e^{\alpha d}$.
- * Returns 0 if source cannot communicate with destination.
+/** Class to provide link cost which is one minus exponent of distance, $1- e^{\alpha d}$.
+ * Returns Double.MAX_VALUE if source cannot communicate with destination.
  * Cost is bounded between 0 and 1, if exponent < 0.
- * Can be thought of as probability of correct reception.
+ * Can be thought of as probability of errorneous reception.
  * @author ykk
  */
-public class DistanceExponent
+public class DistanceExponentReverse
     extends LinkCost
 {
     //Members
@@ -20,7 +20,7 @@ public class DistanceExponent
     /** Constructor.
      * @param exponent exponent to use
      */
-    public DistanceExponent(double exponent)
+    public DistanceExponentReverse(double exponent)
     {
 	this.exponent = exponent;
     }
@@ -28,14 +28,14 @@ public class DistanceExponent
     /** Provide link cost to transmit from source to destination.
      * @param source source node
      * @param destination destination node
-     * @return exponential of distance in between if source can transmit to destination, 
-     * else 0.0
+     * @return one minus exponetial of distance in between 
+     * if source can transmit to destination, else 1.0
      */
     public double cost(Node source, Node destination)
     {
 	if(source.transmitPartners.contains(destination))
-	    return Math.pow(Math.E,source.distance(destination)*exponent);
+	    return 1-Math.pow(Math.E,source.distance(destination)*exponent);
 	else
-	    return 0.0;
+	    return Double.MAX_VALUE;
     }
 }

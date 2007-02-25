@@ -12,7 +12,7 @@ import simulation.utilities.structures.*;
 public class DijkstraMultiply
     extends Dijkstra   
 {
-     //Methods
+    //Methods
     /** Constructor for creating DijkstraMultiply.
      * @param linkCost link cost definition between nodes
      * @param rootIsSource indicate if root is source or sink
@@ -44,10 +44,10 @@ public class DijkstraMultiply
      */
     protected double costSum(double cost1, double cost2)
     {
-	if ((cost1 < 0) || (cost1 > 1) || 
-	    (cost2 < 0) || (cost2 > 1))
-	    throw new RuntimeException(this+" experiences link cost of "+
-				       cost1 +" or/and "+cost2 +" which is not allowed.");
-	return cost1+cost2;
+	if (((cost1 < 0) || (cost1 > 1)) && (cost1 != Double.MAX_VALUE)) 
+	    if (((cost2 < 0) || (cost2 > 1)) && (cost2 != Double.MAX_VALUE))
+		throw new RuntimeException(this+" experiences link cost of "+
+					   cost1 +" or/and "+cost2 +" which is not allowed.");
+	return cost1*cost2;
     }
 }
