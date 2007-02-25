@@ -25,8 +25,36 @@ public class GnuPlotData
     public String plotStyle = STYLE_LINESPOINT;
     /** Various plot styles
      */
+    public static final String STYLE_PM3D = "pm3d";
+    public static final String STYLE_VECTORS = "vectors";
+    public static final String STYLE_FINANCEBARS = "financebars";
+    public static final String STYLE_CANDLESTICKS = "candlesticks";
+    public static final String STYLE_FILLEDCURVES = "filledcurves";
+    public static final String STYLE_BOXES = "boxes";
+    public static final String STYLE_HISTEPS = "histeps";
+    public static final String STYLE_FSTEPS = "fsteps";
+    public static final String STYLE_DOTS = "dots";
+    public static final String STYLE_STEPS = "steps";
+    public static final String STYLE_IMPULSES = "impulses";
+    public static final String STYLE_POINTS = "points";
+    public static final String STYLE_LINES = "lines";
     public static final String STYLE_LINESPOINT = "linespoint";
-
+    /** Point size.
+     * -1 for default.
+     */
+    public double pointSize = -1.0;
+    /** Point type.
+     * -1 for default.
+     */
+    public int pointType = -1;
+    /** Line width
+     * -1 for default.
+     */
+    public double lineWidth = -1.0;
+    /** Line type.
+     * -1 for default.
+     */
+    public int lineType = -1;
     //Methods
     /** Constructor.
      * @param filename filename of data set
@@ -60,6 +88,10 @@ public class GnuPlotData
     public String toString()
     {
 	String pString = "\'"+filename+"\'"+" using "+xIndex+":"+yIndex+" with "+plotStyle;
+	if (lineType != -1) pString += " lt "+lineType;
+	if (lineWidth != -1) pString += " lw "+lineWidth;
+	if (pointType != -1) pString += " pt "+pointType;
+	if (pointSize != -1) pString += " ps "+pointSize;
 	if (name != null) pString +=" title \'"+name+"\'";
 	return pString;
     }

@@ -31,7 +31,7 @@ public class Reliability
     /** Provide link cost to transmit from source to destination.
      * @param source source node
      * @param destination destination node
-     * @return distance in between if source can transmit to destination, 
+     * @return reliability faced if source can transmit to destination, 
      *         else 0
      */
     public double cost(Node source, Node destination)

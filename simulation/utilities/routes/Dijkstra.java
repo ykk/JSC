@@ -25,7 +25,7 @@ public class Dijkstra
     public boolean rootIsSource;
     /** Debug flag.
      */
-    private boolean debug = true;
+    private boolean debug = false;
 
     //Methods
     /** Constructor for creating Dijkstra.

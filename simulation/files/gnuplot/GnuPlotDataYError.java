@@ -54,12 +54,12 @@ public class GnuPlotDataYError
      */
     public String toString()
     {
-	String pString = super.toString(); 
+	String pString = ""; 
 	if (yLowIndex != yHighIndex)
-	    pString += ", \'"+filename+"\'"+" using "+xIndex+":"+yIndex+":"+
+	    pString += "\'"+filename+"\'"+" using "+xIndex+":"+yIndex+":"+
 		yLowIndex+":"+yHighIndex+" with yerrorbars";
 	else
-	    pString += ", \'"+filename+"\'"+" using "+xIndex+":"+yIndex+":"+
+	    pString += "\'"+filename+"\'"+" using "+xIndex+":"+yIndex+":"+
 		yLowIndex+" with yerrorbars";
 	    
 	if (errName == null)
@@ -73,6 +73,6 @@ public class GnuPlotDataYError
 	else
 	    pString +=" title \'"+errName+"\'";
 	    
-	return pString;
+	return pString+", "+super.toString();
     }
 }
