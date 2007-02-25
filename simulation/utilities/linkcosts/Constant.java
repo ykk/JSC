@@ -12,7 +12,7 @@ public class Constant
     /** Provide link cost to transmit from source to destination.
      * @param source source node
      * @param destination destination node
-     * @return 1 if source can transmit todestination, 
+     * @return 1 if source can transmit to destination, 
      *         else Double.POSITIVE_INFINITY
      */
     public double cost(Node source, Node destination)
