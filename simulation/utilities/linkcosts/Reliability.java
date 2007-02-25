@@ -2,13 +2,13 @@ package simulation.utilities.linkcosts;
 
 import simulation.networks.nodes.*;
 
-/** Class to provide link cost which is the exponent of distance, $e^{\alpha d}$.
- * Returns 0 if source cannot communicate with destination.
- * Cost is bounded between 0 and 1, if exponent < 0.
- * Can be thought of as probability of correct reception.
+/** Class to provide link cost which is decreasing with the distance between source and destination.
+ * This can be to abstract the reliability between the source and destination.
+ * Cost is given be $e^{\alpha d}$, $\alpha$ is the exponent (<0) and d is the distance. 
+ * Returns 0.0 if source cannot communicate with destination.
  * @author ykk
  */
-public class DistanceExponent
+public class Reliability
     extends LinkCost
 {
     //Members
@@ -20,16 +20,19 @@ public class DistanceExponent
     /** Constructor.
      * @param exponent exponent to use
      */
-    public DistanceExponent(double exponent)
+    public Reliability(double exponent)
     {
+	if (exponent >= 0)
+	    throw new RuntimeException(this+" declared with exponent "+exponent+
+				       " which is greater than or equal to 0.");
 	this.exponent = exponent;
     }
 
     /** Provide link cost to transmit from source to destination.
      * @param source source node
      * @param destination destination node
-     * @return exponential of distance in between if source can transmit to destination, 
-     * else 0.0
+     * @return distance in between if source can transmit to destination, 
+     *         else 0
      */
     public double cost(Node source, Node destination)
     {

@@ -23,6 +23,9 @@ public class Dijkstra
     /** Indicate if root of tree is source or sink
      */
     public boolean rootIsSource;
+    /** Debug flag.
+     */
+    private boolean debug = true;
 
     //Methods
     /** Constructor for creating Dijkstra.
@@ -77,7 +80,7 @@ public class Dijkstra
 
 	//Remove root and add its cost to vector of costs
 	nodes.remove(root);
-	costToNode.add(new Double(1.0)); //Start with 1.0 for DijsktraMultiply
+	costToNode.add(new Double(0.0));
 
 	while ((nodes.size() != 0) && (minCostLink != null))
 	{
@@ -145,7 +148,7 @@ public class Dijkstra
 		    }
 		}
 
-	System.out.println(minCost);
+	if (debug) System.out.println(minCost);
 	if (minCost == Double.MAX_VALUE)
 	    return null;
 	else if (rootIsSource)
@@ -159,7 +162,7 @@ public class Dijkstra
      * @param cost2 second cost
      * @return sum of costs
      */
-    protected double costSum(double cost1, double cost2)
+    private double costSum(double cost1, double cost2)
     {
 	if ((cost1 < 0) || (cost2 < 0))
 	    throw new RuntimeException(this+" experiences negative link cost of "+
