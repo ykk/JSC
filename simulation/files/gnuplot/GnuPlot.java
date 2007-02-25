@@ -105,7 +105,7 @@ public abstract class GnuPlot
 	    axes += "\nset yrange ["+((ymin != Double.MIN_VALUE)?ymin:"")+
 		":"+((ymax != Double.MAX_VALUE)?ymax:"")+"]";
 	if ((xmin != Double.MIN_VALUE) || (xmax != Double.MAX_VALUE))
-	    axes += "\nset yrange ["+((xmin != Double.MIN_VALUE)?xmin:"")+
+	    axes += "\nset xrange ["+((xmin != Double.MIN_VALUE)?xmin:"")+
 		":"+((xmax != Double.MAX_VALUE)?xmax:"")+"]";
 	return axes;
     }
