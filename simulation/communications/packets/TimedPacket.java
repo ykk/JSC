@@ -1,6 +1,6 @@
 package simulation.communications.packets;
 
-/** Class for communication packet with payload and time.
+/** Class for communication packet with timing.
  * @author ykk
  */
 public class TimedPacket

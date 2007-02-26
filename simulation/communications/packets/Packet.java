@@ -1,6 +1,6 @@
 package simulation.communications.packets;
 
-/** Class for communication packet with only payload
+/** Class for communication packet with header and payload.
  * @author ykk
  */
 public class Packet
@@ -10,6 +10,10 @@ public class Packet
     /** Packet length.
      */
     public int length;
+    /** Header length.
+     * Defaulted to 0.
+     */
+    public int headerLength = 0;
 
     //Methods
     /** Constructor for packet.
@@ -20,6 +24,17 @@ public class Packet
 	this.length = length;
     }
     
+    /** Constructor for packet.
+     * @param length length of payload
+     * @param headerLength length of header
+     */
+    public Packet(int length, int headerLength)
+    {
+	this.length = length;
+	this.headerLength = headerLength;
+    }
+    
+
     /** Return length of packet's payload in bytes.
      * @return length of payload
      */
@@ -28,12 +43,20 @@ public class Packet
 	return length;
     }
 
+    /** Return length of packet's header in bytes.
+     * @return length of header
+     */
+    public int header()
+    {
+	return headerLength;
+    }
+
     /** Reutrn total length of packet in bytes.
      * @return total length of packet
      */
     public int totalLength()
     {
-	return length;
+	return headerLength+length;
     }
 
     /** Duplicate packets.
@@ -41,6 +64,6 @@ public class Packet
      */
     public Packet duplicate()
     {
-	return new Packet(length);
+	return new Packet(length, headerLength);
     }
 }
