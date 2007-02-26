@@ -1,5 +1,6 @@
 package simulation.eventbased;
 
+import java.util.*;
 import simulation.eventbased.*;
 import simulation.utilities.structures.*;
 import simulation.utilities.references.*;
@@ -69,6 +70,20 @@ public class Simulator
 		return true;
 	    }
 	return false;
+    }
+
+    /** Return vector of events lined up for an object.
+     * @param object object events to be associated with
+     * @return vector of events associated with object
+     */
+    public Vector eventLinedUp(EventTriggered object)
+    {
+	Vector interestEvents = new Vector();
+	for (int i = 0; i < queue.size(); i++)
+	    if (((Event) queue.get(i)).object == object)
+		interestEvents.add(queue.get(i));
+	    
+	return interestEvents;
     }
 
     /** Cancel first event found with the same string reference and object associated.
