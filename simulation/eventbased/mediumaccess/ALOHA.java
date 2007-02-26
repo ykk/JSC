@@ -57,10 +57,13 @@ public class ALOHA
     private boolean isTransmitting = false;
     /** Distribution of random wait.
      */
-    Distribution waitTime;
+    public Distribution waitTime;
     /** Currently receiving packet.
      */
-    Object packet;
+    private Object packet;
+    /** Currently receiving from.
+     */
+    private CommNode currSource;
 
     //Methods
     /** Event triggered interface.
@@ -88,7 +91,7 @@ public class ALOHA
 					this.events[2])); //Wait Ended Scheduled
 	    }
 	    if (state != stateCollided)
-		processor.receive(packet,queue);
+		processor.receive(currSource,packet,queue);
 	    break;
 	case 1: //Transmission Ended
 	    isTransmitting = false;
@@ -147,6 +150,7 @@ public class ALOHA
 				this,
 				this.events[0])); //Receive Ended scheduled
 	this.packet = packet;
+	this.currSource = source;
     }
 
     public void trigger(Simulator simulator)

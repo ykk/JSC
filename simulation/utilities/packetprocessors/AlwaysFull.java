@@ -1,6 +1,7 @@
 package simulation.utilities.packetprocessors;
 
 import simulation.communications.packets.*;
+import simulation.communications.nodes.*;
 import simulation.results.*;
 import simulation.utilities.references.*;
 
@@ -37,10 +38,11 @@ public class AlwaysFull
     }
 
     /** Function to receive packets.
+     * @param source source node
      * @param packet packet received
      * @param queue queue of the node
      */
-    public void receive(Object packet, simulation.communications.queues.Queue queue)
+    public void receive(CommNode source, Object packet, simulation.communications.queues.Queue queue)
     {
 	if (packet == lastPacket) return;
 	((TimedPacket) packet).endTime = timeRef.time();
