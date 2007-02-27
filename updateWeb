@@ -1,4 +1,6 @@
 #!/bin/sh
+make clean
+make
 make doc
 make jar
 rm -Rf /var/www/html/Projects/JSC/doc
