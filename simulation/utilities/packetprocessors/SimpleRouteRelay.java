@@ -37,10 +37,13 @@ public class SimpleRouteRelay
     public void receive(CommNode source, CommNode currNode, Object packet, 
 			simulation.communications.queues.Queue queue)
     {
-	System.out.println(packet);
 	RoutedPacket pkt = (RoutedPacket) packet;
+
+	if (!pkt.route.inRoute(source))
+	    System.out.println("error"+source+"sending packet");
+
 	if (pkt.route.destination() == currNode)
-	    System.out.println(this+" received "+pkt);
+	    System.out.println(currNode+" received "+pkt);
 	else if (pkt.route.inRoute(currNode))
 	    queue.receive(packet);
     }

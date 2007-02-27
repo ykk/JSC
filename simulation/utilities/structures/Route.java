@@ -120,7 +120,7 @@ public class Route
      */
     public boolean inRoute(Node node)
     {
-	return (nodes().indexOf(node) == -1);
+	return (nodes().indexOf(node) != -1);
     }
 
     /** Return source of route.
@@ -128,10 +128,7 @@ public class Route
      */
     public Node destination()
     {
-	if (routeFromSource)
-	    return ((Link) this.get(0)).source;
-	else
-	    return ((Link) this.get(this.size()-1)).destination;
+	return ((Link) this.get(this.size()-1)).destination;
     }
 
     /** Return source of route.
@@ -139,10 +136,7 @@ public class Route
      */
     public Node source()
     {
-	if (!routeFromSource)
-	    return ((Link) this.get(0)).source;
-	else
-	    return ((Link) this.get(this.size()-1)).destination;
+	return ((Link) this.get(0)).source;
     }
 
     /** Return nodes in route.
@@ -150,13 +144,12 @@ public class Route
      */
     public Vector nodes()
     {
-	Vector routeNode = new Vector();
-	for (int i = 0; i < this.size(); i++)
-	{
-	    if (i == 0)	routeNode.add(getLink(i).source);
-	    routeNode.add(getLink(i).destination);
-	}
-	return routeNode;
+	Vector retNodes = new Vector();
+	if (size() > 0)	retNodes.add(((Link) this.get(0)).source);
+	for (int i = 0; i < size(); i++)
+	    retNodes.add(((Link) this.get(i)).destination);
+
+	return retNodes;
     }
 
     /** Return route reversed, i.e., route from source to route from destination;

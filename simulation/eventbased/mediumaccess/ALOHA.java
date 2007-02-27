@@ -90,7 +90,7 @@ public class ALOHA
 					this,
 					this.events[2])); //Wait Ended Scheduled
 	    }
-	    if (state != stateCollided)
+	    if ((onGoing == 0) && (state != stateCollided))
 		processor.receive(currSource,this,packet,queue);
 	    break;
 	case 1: //Transmission Ended
