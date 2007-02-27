@@ -82,6 +82,17 @@ public class PacketSource
 	}
     }
     
+    /** Trigger start of packet generation.
+     * @param simulator reference to simulator
+     * @param delayFromNow time to start generation in terms of delay from current simulator time
+     */
+    public void trigger(Simulator simulator, double delayFromNow)
+    {
+	simulator.add(new Event(simulator.time()+delayFromNow,
+				this,
+				this.events[0])); //Waiting Ended scheduled
+    }
+    
     /** Create new packet.
      * @param simulator reference to simulator
      * @see #packetNumber

@@ -11,7 +11,7 @@ public class RoutedPacket
     //Members
     /** Route reference.
      */
-    Route route;
+    public Route route;
 
     //Methods
     /** Constructor for packet.
@@ -20,5 +20,44 @@ public class RoutedPacket
     public RoutedPacket(int length)
     {
 	super(length);
+    }
+
+    /** Constructor for packet with start time.
+     * @param length length of payload
+     * @param startTime start time of packet
+     */
+    public RoutedPacket(int length, double startTime)
+    {
+	super(length, startTime);
+    }
+
+    /** Constructor for packet with start time.
+     * @param length length of payload
+     * @param headerLength length of header
+     * @param startTime start time of packet
+     */
+    public RoutedPacket(int length, int headerLength, double startTime)
+    {
+	super(length, headerLength, startTime);
+    }
+
+    /** Constructor for packet with start time and route.
+     * @param length length of payload
+     * @param headerLength length of header
+     * @param startTime start time of packet
+     * @param route route for packet
+     */
+    public RoutedPacket(int length, int headerLength, double startTime, Route route)
+    {
+	super(length, headerLength, startTime);
+	this.route = route;
+    }
+
+    /** Duplicate timed packet with start time.
+     * @param startTime start time of duplicated packet
+     */
+    public RoutedPacket duplicate(double startTime)
+    {
+	return new RoutedPacket(length, headerLength, startTime, route);
     }
 }

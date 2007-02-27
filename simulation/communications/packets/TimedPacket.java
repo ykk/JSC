@@ -33,17 +33,25 @@ public class TimedPacket
 	this.startTime = startTime;
     }
 
+    /** Constructor for packet with start time.
+     * @param length length of payload
+     * @param headerLength length of header
+     * @param startTime start time of packet
+     */
+    public TimedPacket(int length, int headerLength, double startTime)
+    {
+	super(length, headerLength);
+	this.startTime = startTime;
+    }
+
     /** Duplicate timed packet with start time.
      * @param startTime start time of duplicated packet
      */
     public TimedPacket duplicate(double startTime)
     {
-	TimedPacket packet = new TimedPacket(length, startTime);
-	packet.startTime = startTime;
-	return packet;
+	return new TimedPacket(length, headerLength, startTime);
     }
     
-
     /** Record end time of packet.
      * @param endTime end time of packet
      */
