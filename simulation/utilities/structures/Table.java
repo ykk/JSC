@@ -16,6 +16,12 @@ public class Table
     private String separator="\t";
 
     //Methods
+    /** Constructor to create empty table.
+     */
+    public Table()
+    {
+    }
+
     /** Constructor to create table from vector of strings with separator.
      * @param stringVector vector of strings
      * @param separator separator for strings

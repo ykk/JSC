@@ -20,4 +20,9 @@ public abstract class Queue
      * @return new instance of queue
      */
     public abstract Queue newQueue();
+
+    /** Return size of queue.
+     * @return queue size
+     */
+    public abstract int size();
 }

@@ -41,13 +41,18 @@ public class FIFO
      */
     public boolean receive(Object packet)
     {
-	if (queue.size() < queueSize)
+	if ((queueSize == 0) || (queue.size() < queueSize))
 	{
 	    queue.add(packet);
 	    return true;
 	}
 	else
 	    return false;
+    }
+
+    public int size()
+    {
+	return queue.size();
     }
 
     public Object get()

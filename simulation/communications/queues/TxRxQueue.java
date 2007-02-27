@@ -49,4 +49,12 @@ public class TxRxQueue
     {
 	return new TxRxQueue(transmit.newQueue(), receive.newQueue());
     }
+
+    /** Return size of queue, but useless due to the 2 queues.
+     * @return -1
+     */
+    public int size()
+    {
+	return -1;
+    }
 }

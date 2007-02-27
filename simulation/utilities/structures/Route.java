@@ -115,7 +115,38 @@ public class Route
 	    return new Link((Node) super.get(n+1), (Node) super.get(n));
     }
 
-    /** Return nodes in routes.
+    /** Check if node is in route.
+     * @return return true if node is in route
+     */
+    public boolean inRoute(Node node)
+    {
+	return (nodes().indexOf(node) == -1);
+    }
+
+    /** Return source of route.
+     * @return source of route
+     */
+    public Node destination()
+    {
+	if (routeFromSource)
+	    return ((Link) this.get(0)).source;
+	else
+	    return ((Link) this.get(this.size()-1)).destination;
+    }
+
+    /** Return source of route.
+     * @return source of route
+     */
+    public Node source()
+    {
+	if (!routeFromSource)
+	    return ((Link) this.get(0)).source;
+	else
+	    return ((Link) this.get(this.size()-1)).destination;
+    }
+
+    /** Return nodes in route.
+     * @return nodes in route
      */
     public Vector nodes()
     {
