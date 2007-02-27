@@ -53,7 +53,15 @@ public class RoutedPacket
 	this.route = route;
     }
 
-    /** Duplicate timed packet with start time.
+    /** Duplicate routed packet without start time.
+     * @param startTime start time of duplicated packet
+     */
+    public RoutedPacket duplicate()
+    {
+	return new RoutedPacket(length, headerLength, 0.0, route);
+    }
+
+    /** Duplicate routed packet with start time.
      * @param startTime start time of duplicated packet
      */
     public RoutedPacket duplicate(double startTime)

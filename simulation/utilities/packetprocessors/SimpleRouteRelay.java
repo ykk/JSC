@@ -27,12 +27,6 @@ public class SimpleRouteRelay
 	this.timeRef = timeRef;
     }
 
-    /** Overwritten.
-     */
-    public void receive(CommNode source, Object packet, simulation.communications.queues.Queue queue)
-    {
-    }
-
     /** Function to receive packets.
      * Overwriting receive function.
      * @param source source node
@@ -43,6 +37,7 @@ public class SimpleRouteRelay
     public void receive(CommNode source, CommNode currNode, Object packet, 
 			simulation.communications.queues.Queue queue)
     {
+	System.out.println(packet);
 	RoutedPacket pkt = (RoutedPacket) packet;
 	if (pkt.route.destination() == currNode)
 	    System.out.println(this+" received "+pkt);

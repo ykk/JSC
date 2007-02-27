@@ -10,10 +10,12 @@ public abstract class PacketProcessor
 {
     /** Function to receive packets.
      * @param source source node
+     * @param currNode current  node
      * @param packet packet received
      * @param queue queue of the node
      */
-    public abstract void receive(CommNode source, Object packet, simulation.communications.queues.Queue queue);
+    public abstract void receive(CommNode source, CommNode currNode, Object packet, 
+				 simulation.communications.queues.Queue queue);
 
     /** Function to get next packet to send
      * @return packet to send and null if no packet available
