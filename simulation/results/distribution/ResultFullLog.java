@@ -17,7 +17,15 @@ public class ResultFullLog
      * Defaulted to 20. 
      */
     public int binNumber = 20;
-    
+    /** Distribution maximum.
+     * Defaulted to Double.MAX_VALUE for autoscale.
+     */
+    public double disMax = Double.MAX_VALUE;
+    /** Distribution minimum.
+     * Defaulted to Double.MIN_VALUE for autoscale.
+     */
+    public double disMin = Double.MIN_VALUE;
+
     //Members
     /** Function to take in a sample of result.
      * Maintain the first and second order statistics while logging all inputs.
@@ -34,7 +42,9 @@ public class ResultFullLog
      */
     public ProbDistribution distribution()
     {
-	ProbDistribution distro = new ProbDistribution(min, max, binNumber);
+	double pmin = (disMin == Double.MIN_VALUE)?min:disMin;
+	double pmax = (disMax == Double.MAX_VALUE)?max:disMax;
+	ProbDistribution distro = new ProbDistribution(pmin, pmax, binNumber);
 	int binIndex;
 	double value;
 	for (int i = 1; i < log.size(); i++)
@@ -43,6 +53,10 @@ public class ResultFullLog
 	    binIndex = distro.binIndex(value);
 	    distro.writeBin(binIndex, distro.readBin(binIndex)+1);
 	}
+
+	//Normalize
+	for (int i = 0; i < distro.binNumber; i++)
+	    distro.writeBin(i, distro.readBin(i)/((double) log.size()));
 	return distro;
     }
 }

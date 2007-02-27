@@ -32,7 +32,7 @@ public class ProbDistribution
 	this.binMin = binMin;
 	this.binSize = binSize;
 	for (int i = 0; i < binNumber; i++)
-	    this.add(new Integer(0));
+	    this.add(new Double(0));
     }
 
     /** Constructor.
@@ -71,12 +71,12 @@ public class ProbDistribution
      * @param binIndex index of bin to read
      * @return value of bin
      */
-    public int readBin(int binIndex)
+    public double readBin(int binIndex)
     {
 	if ((binIndex < 0) || (binIndex >= this.size()))
 	    return -1;
 	else
-	    return ((Integer) this.get(binIndex)).intValue();
+	    return ((Double) this.get(binIndex)).doubleValue();
     }
 
     /** Write bin with new value.
@@ -84,14 +84,14 @@ public class ProbDistribution
      * @param value to overwrite bin value with
      * @return if successful
      */
-    public boolean writeBin(int binIndex, int value)
+    public boolean writeBin(int binIndex, double value)
     {
 	if ((binIndex < 0) || (binIndex >= this.size()))
 	    return false;
 	else
         {
 	    this.remove(binIndex);
-	    this.add(binIndex, new Integer(value));
+	    this.add(binIndex, new Double(value));
 	    return true;
 	}
     }

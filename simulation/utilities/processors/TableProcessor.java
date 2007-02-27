@@ -29,6 +29,40 @@ public class TableProcessor
 	this.table = table;
     }
 
+    /** Return operation within single column of Double.
+     * Operate using adjacent members of column.
+     * @param index index of column
+     * @param operation operation to perform
+     * @see #ADD
+     * @see #SUBTRACT
+     */
+    public Vector singColDoubleOperate(int index, int operation)
+    {
+	Vector ans = new Vector();
+	double last, current;
+
+	last = ((Double) table.getItem(0,index)).doubleValue();
+	for (int i = 1; i < table.size(); i++)
+	{
+            current = ((Double) table.getItem(i,index)).doubleValue();
+	    switch (operation)
+	    {
+	    case ADD:
+		ans.add(new Double(last+current));
+		break;
+	    case SUBTRACT:
+		ans.add(new Double(current-last));
+		break;
+	    default:
+		throw new RuntimeException("Unknown operation "+operation+
+					   " requested in "+this);
+	    }
+	    last = current;
+	}
+
+	return ans;
+    }
+
     /** Return operation between columns of Double.
      * @param firstIndex index of first column
      * @param secondIndex index of second column
