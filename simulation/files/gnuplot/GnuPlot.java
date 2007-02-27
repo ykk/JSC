@@ -145,7 +145,7 @@ public abstract class GnuPlot
      * @param args arguments
      * @return input file
      */
-    private FileVector process(String[] args)
+    protected FileVector process(String[] args)
     {
 	parseInput(args);
 	return getFile();
