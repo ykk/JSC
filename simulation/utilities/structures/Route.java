@@ -115,6 +115,19 @@ public class Route
 	    return new Link((Node) super.get(n+1), (Node) super.get(n));
     }
 
+    /** Return nodes in routes.
+     */
+    public Vector nodes()
+    {
+	Vector routeNode = new Vector();
+	for (int i = 0; i < this.size(); i++)
+	{
+	    if (i == 0)	routeNode.add(getLink(i).source);
+	    routeNode.add(getLink(i).destination);
+	}
+	return routeNode;
+    }
+
     /** Return route reversed, i.e., route from source to route from destination;
      * and vice versa.
      * @return reversed route

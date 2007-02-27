@@ -73,9 +73,10 @@ public class PacketSource
 	{
 	case 0: //Waiting Ended
 	    newPacket(simulator);
-	    simulator.add(new Event(simulator.time()+interarrival.getInstance(),
-				    this,
-				    this.events[0])); //Waiting Ended scheduled
+	    if ((packetNumber == 0) || (generatedNo < packetNumber))
+		simulator.add(new Event(simulator.time()+interarrival.getInstance(),
+					this,
+					this.events[0])); //Waiting Ended scheduled
 	    break;
 	default:
 	    throw new RuntimeException(this+" encounters unknown event "+event);

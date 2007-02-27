@@ -5,43 +5,24 @@ import simulation.communications.nodes.*;
 import simulation.results.*;
 import simulation.utilities.references.*;
 
-/** Packet processor that maintains full queue.
+/** Packet processor that simply rely packets.
  * @author ykk
  */
-public class AlwaysFull
+public class SimpleRouteRelay
     extends PacketProcessor
 {
     //Members
-    /** Packet factory to generate packet.
-     * Length defaulted to 8 bytes.
-     */
-    public TimedPacket packetFactory;
     /** Time reference.
      */
     public TimeReference timeRef;
-    /** Delay result container.
-     */
-    public Result delay = new Result();
-    /** Reference to last packet.
-     */
-    private TimedPacket lastPacket=null;
+    /*
 
     //Methods
     /** Constructor for packet processor.
-     * @param length length of packet to generate (in bytes)
-     */
-    public AlwaysFull(int length)
-    {
-	packetFactory = new TimedPacket(length);
-    }
-
-    /** Constructor for packet processor.
-     * @param length length of packet to generate (in bytes)
      * @param timeRef time reference for packet generation
      */
-    public AlwaysFull(int length, TimeReference timeRef)
+    public SimpleRouteRelay(TimeReference timeRef)
     {
-	packetFactory = new TimedPacket(length);
 	this.timeRef = timeRef;
     }
 
@@ -52,10 +33,10 @@ public class AlwaysFull
      */
     public void receive(CommNode source, Object packet, simulation.communications.queues.Queue queue)
     {
-	if (packet == lastPacket) return;
-	((TimedPacket) packet).endTime = timeRef.time();
-	delay.input(((TimedPacket) packet).delay());
-	lastPacket = (TimedPacket) packet;
+	RoutedPacket pkt = (RoutedPacket) packet;
+	if ((pkt.route.nodes()).indexOf(this) != -1)
+	    queue.receive(packet);
+
     }
 
     /** Function to get next packet to send
@@ -63,6 +44,6 @@ public class AlwaysFull
      */
     public Object get(simulation.communications.queues.Queue queue)
     {
-	return packetFactory.duplicate(timeRef.time());
+	return queue.get();
     }
 }
