@@ -25,6 +25,7 @@ public class ZeroOne
 
     public boolean canCommunicate(Node source, Node destination)
     {
+	if (source == destination) return false;
 	return (Math.sqrt(Math.pow(source.x - destination.x,2.0)+
 			  Math.pow(source.y - destination.y,2.0))
 		< thresholdDistance);

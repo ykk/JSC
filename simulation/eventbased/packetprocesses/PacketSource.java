@@ -32,6 +32,9 @@ public class PacketSource
     /** Source node.
      */
     public MACNode source;
+    /** Debug flag.
+     */
+    public boolean debug = false;
 
     //Methods
     /** Constructor.
@@ -95,6 +98,7 @@ public class PacketSource
     }
     
     /** Create new packet.
+     * Provisioned for {@link TimedPacket}.
      * @param simulator reference to simulator
      * @see #packetNumber
      */
@@ -102,7 +106,16 @@ public class PacketSource
     {
 	if ((packetNumber == 0) || (generatedNo < packetNumber))
 	{
-	    source.queue.receive(packetFactory.duplicate());
+	    Packet pack;
+	    if (packetFactory instanceof TimedPacket)
+	    {
+		pack = ((TimedPacket) packetFactory).duplicate(simulator.time());
+		((TimedPacket) pack).seqNumber = generatedNo + 1;
+	    }
+	    else
+		pack = packetFactory.duplicate();
+	    if (debug) System.out.println(this + " generated "+pack+" for "+source);
+	    source.queue.receive(pack);
 	    source.trigger(simulator);
 	    generatedNo++;
 	}

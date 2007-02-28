@@ -68,6 +68,6 @@ public class Event
      */
     public String toString()
     {
-	return time+"-"+event+" by "+object;
+	return time+"\t"+event+" by "+object;
     }
 }

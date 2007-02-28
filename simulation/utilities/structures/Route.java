@@ -123,6 +123,19 @@ public class Route
 	return (nodes().indexOf(node) != -1);
     }
 
+    /** Return next hop of route.
+     * @param currNode current node
+     */
+    public Node nextHop(Node currNode)
+    {
+	Vector routeNode = nodes();
+	int i = routeNode.indexOf(currNode);
+	if (i < (routeNode.size()-1))
+	    return (Node) routeNode.get(i+1);
+	else
+	    return null;
+    }
+
     /** Return source of route.
      * @return source of route
      */

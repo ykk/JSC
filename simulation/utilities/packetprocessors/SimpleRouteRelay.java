@@ -39,13 +39,14 @@ public class SimpleRouteRelay
     {
 	RoutedPacket pkt = (RoutedPacket) packet;
 
-	if (!pkt.route.inRoute(source))
-	    System.out.println("error"+source+"sending packet");
-
-	if (pkt.route.destination() == currNode)
-	    System.out.println(currNode+" received "+pkt);
-	else if (pkt.route.inRoute(currNode))
-	    queue.receive(packet);
+	if (pkt.route.nextHop(source) == currNode)
+	    if (pkt.route.destination() == currNode)
+	    {
+		pkt.recordEnd(timeRef.time());
+		System.out.println(currNode+" received "+pkt);
+	    }
+	    else
+		queue.receive(packet);
     }
 
     /** Function to get next packet to send

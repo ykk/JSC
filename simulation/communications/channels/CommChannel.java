@@ -1,6 +1,7 @@
 package simulation.communications.channels;
 
 import simulation.communications.nodes.*;
+import simulation.communications.packets.*;
 import simulation.eventbased.*;
 import simulation.eventbased.mediumaccess.*;
 
@@ -13,6 +14,10 @@ public abstract class CommChannel
     /** Transmission rate (in bytes per second).
      */
     public double rate;
+    /** Header transmission rate (in bytes per second).
+     * Defaulted to be same as rate.
+     */
+    public double headerRate;
 
     //Methods
     /** Constructor to generate communication channel.
@@ -21,6 +26,17 @@ public abstract class CommChannel
     public CommChannel(double rate)
     {
 	this.rate = rate;
+	this.headerRate = rate;
+    }
+
+    /** Constructor to generate communication channel.
+     * @param rate transmission rate
+     * @param headerRate transmission rate for header
+     */
+    public CommChannel(double rate, double headerRate)
+    {
+	this.rate = rate;
+	this.headerRate = headerRate;
     }
 
     /** Return transmission duration required for n bytes.
@@ -30,6 +46,16 @@ public abstract class CommChannel
     public double transmitDuration(int n)
     {
 	return ((double) n)/rate;
+    }
+
+    /** Return transmission duration required for packet.
+     * @param packet packet to transmit
+     * @return duration required to transmit 
+     */
+    public double transmitDuration(Packet packet)
+    {
+	return (((double) packet.length)/rate) +
+	    (((double) packet.headerLength)/headerRate);
     }
 
     /** Transmit packet from source to destination.

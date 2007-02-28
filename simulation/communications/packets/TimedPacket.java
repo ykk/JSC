@@ -13,6 +13,10 @@ public class TimedPacket
     /** End time of packet.
      */
     public double endTime=0;
+    /** Sequence number.
+     * Defaulted to 0.
+     */
+    public int seqNumber = 0;
 
     //Methods
     /** Constructor for packet.
@@ -70,5 +74,13 @@ public class TimedPacket
 				       " which is less than or equal to zero");
 	else
 	    return endTime-startTime;
+    }
+
+    /** String representation.
+     * @return string with start and end time
+     */
+    public String toString()
+    {
+	return super.toString() + "["+seqNumber+":"+startTime+"--"+endTime+"]";
     }
 }

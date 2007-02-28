@@ -35,6 +35,20 @@ public class PathLoss
 	    throw new RuntimeException(this+" given exponent "+exponent+" which is not allowed.");
     }
 
+    /** Constructor to generate communication channel.
+     * @param rate transmission rate
+     * @param headerRate transmission rate for header
+     * @param exponent path loss exponent
+     */
+    public PathLoss(double rate, double headerRate, double exponent)
+    {
+	super(rate, headerRate);
+	if (exponent < 0)
+	    this.exponent = exponent;
+	else
+	    throw new RuntimeException(this+" given exponent "+exponent+" which is not allowed.");
+    }
+
     /** Transmit packet from source to destination.
      * @param source source node
      * @param destination destination node

@@ -19,6 +19,15 @@ public class Reliable
 	super(rate);
     }
 
+    /** Constructor to generate communication channel.
+     * @param rate transmission rate
+     * @param headerRate transmission rate for header
+     */
+    public Reliable(double rate, double headerRate)
+    {
+	super(rate,headerRate);
+    }
+
     /** Transmit packet from source to destination.
      * @param source source node
      * @param destination destination node

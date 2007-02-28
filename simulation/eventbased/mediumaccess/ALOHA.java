@@ -101,7 +101,6 @@ public class ALOHA
 		simulator.add(new Event(simulator.time()+waitTime.getInstance(),
 					this,
 					this.events[2])); //Wait Ended Scheduled
-		System.out.println("\t"+simulator.time());
 	    }
 	    break;
 	case 2: //Wait Ended
@@ -127,7 +126,7 @@ public class ALOHA
 	    state = stateTransmitting;
 	isTransmitting = true;
 	simulator.add(new Event(simulator.time()+
-				commChannel.transmitDuration(packet.totalLength()),
+				commChannel.transmitDuration(packet),
 				this,
 				this.events[1])); //Transmission Ended scheduled
 
@@ -166,7 +165,7 @@ public class ALOHA
     public Node newNode(Coordinate coordinate)
     {
 	return new ALOHA(coordinate, this.channel, this.commChannel, 
-			 this.queue, this.processor, this.waitTime);
+			 this.queue.newQueue(), this.processor, this.waitTime);
     }
 
     public ALOHA(Coordinate coordinate, Channel channel, CommChannel commChannel, 
