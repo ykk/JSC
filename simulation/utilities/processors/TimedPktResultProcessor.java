@@ -36,7 +36,8 @@ public class TimedPktResultProcessor
      */
     public String string(TimedPacket pkt)
     {
-	return pkt.startTime+separator+
+	return pkt.seqNumber+separator+
+	    pkt.startTime+separator+
 	    pkt.endTime+separator+
 	    pkt.delay();
     }
