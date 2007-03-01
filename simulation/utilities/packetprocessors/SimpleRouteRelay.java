@@ -20,11 +20,6 @@ public class SimpleRouteRelay
     /** Result processing object.
      */
     public ResultProcessor result;
-    /** Objects to associated with delay
-     */
-    public static final String delay = "delay";
-    public static final String start = "starttime";
-    public static final String end = "endtime";
 
     //Methods
     /** Constructor for packet processor.
@@ -33,10 +28,8 @@ public class SimpleRouteRelay
     public SimpleRouteRelay(TimeReference timeRef)
     {
 	this.timeRef = timeRef;
-	result = new ResultProcessor();
-	result.register(delay, new ResultPrint());
-	result.register(start, new ResultPrint());
-	result.register(end, new ResultPrint());
+	result = new RoutedPktResultProcessor();
+	((RoutedPktResultProcessor) result).printing = true;
     }
 
     /** Constructor for packet processor with result reference.
@@ -65,9 +58,7 @@ public class SimpleRouteRelay
 	    if (pkt.route.destination() == currNode)
 	    {
 		pkt.recordEnd(timeRef.time());
-		result.input(delay, pkt.delay());
-		result.input(start, pkt.startTime);
-		result.input(end, pkt.endTime);
+		result.input(pkt);
 	    }
 	    else
 		queue.receive(packet);
