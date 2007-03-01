@@ -5,6 +5,7 @@ import simulation.communications.nodes.*;
 import simulation.communications.queues.*;
 import simulation.results.*;
 import simulation.utilities.references.*;
+import simulation.utilities.processors.*;
 
 /** Packet processor that simply rely packets.
  * @author ykk
@@ -16,7 +17,14 @@ public class SimpleRouteRelay
     /** Time reference.
      */
     public TimeReference timeRef;
-    /*
+    /** Result processing object.
+     */
+    public ResultProcessor result;
+    /** Objects to associated with delay
+     */
+    public static final String delay = "delay";
+    public static final String start = "starttime";
+    public static final String end = "endtime";
 
     //Methods
     /** Constructor for packet processor.
@@ -25,6 +33,20 @@ public class SimpleRouteRelay
     public SimpleRouteRelay(TimeReference timeRef)
     {
 	this.timeRef = timeRef;
+	result = new ResultProcessor();
+	result.register(delay, new ResultPrint());
+	result.register(start, new ResultPrint());
+	result.register(end, new ResultPrint());
+    }
+
+    /** Constructor for packet processor with result reference.
+     * @param timeRef time reference for packet generation
+     * @param result result object
+     */
+    public SimpleRouteRelay(TimeReference timeRef, ResultProcessor result)
+    {
+	this.timeRef = timeRef;
+	this.result = result;
     }
 
     /** Function to receive packets.
@@ -43,7 +65,9 @@ public class SimpleRouteRelay
 	    if (pkt.route.destination() == currNode)
 	    {
 		pkt.recordEnd(timeRef.time());
-		System.out.println(currNode+" received "+pkt);
+		result.input(delay, pkt.delay());
+		result.input(start, pkt.startTime);
+		result.input(end, pkt.endTime);
 	    }
 	    else
 		queue.receive(packet);
