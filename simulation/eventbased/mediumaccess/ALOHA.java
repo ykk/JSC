@@ -145,7 +145,7 @@ public class ALOHA
 	    state = stateReceiving;
 	onGoing++;
 	simulator.add(new Event(simulator.time()+
-				commChannel.transmitDuration(((Packet) packet).totalLength()),
+				commChannel.transmitDuration((Packet) packet),
 				this,
 				this.events[0])); //Receive Ended scheduled
 	this.packet = packet;

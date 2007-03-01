@@ -16,6 +16,22 @@ public class GnuPlotDataYError
     /** Index of upper error bar.
      */
     public int yHighIndex = 0;
+    /** Point size for error bar.
+     * -1 for default.
+     */
+    public double errPointSize = -1.0;
+    /** Point type for error bar.
+     * -1 for default.
+     */
+    public int errPointType = -1;
+    /** Line width for error bar.
+     * -1 for default.
+     */
+    public double errLineWidth = -1.0;
+    /** Line type for error bar.
+     * -1 for default.
+     */
+    public int errLineType = -1;
 
     //Methods
     /** Constructor.
@@ -61,7 +77,10 @@ public class GnuPlotDataYError
 	else
 	    pString += "\'"+filename+"\'"+" using "+xIndex+":"+yIndex+":"+
 		yLowIndex+" with yerrorbars";
-	    
+	if (errLineType != -1) pString += " lt "+lineType;
+	if (errLineWidth != -1) pString += " lw "+lineWidth;
+	if (errPointType != -1) pString += " pt "+pointType;
+	if (errPointSize != -1) pString += " ps "+pointSize;    
 	if (errName == null)
 	{
 	    if (name != null) 

@@ -47,7 +47,7 @@ public class GnuPlotData
      * -1 for default.
      */
     public int pointType = -1;
-    /** Line width
+    /** Line width.
      * -1 for default.
      */
     public double lineWidth = -1.0;
@@ -55,6 +55,7 @@ public class GnuPlotData
      * -1 for default.
      */
     public int lineType = -1;
+
     //Methods
     /** Constructor.
      * @param filename filename of data set

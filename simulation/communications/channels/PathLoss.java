@@ -58,8 +58,12 @@ public class PathLoss
     public boolean transmit(CommNode source, CommNode destination, Object packet)
     {
 	if (txSuccess(source,destination))
+	{
 	    destination.receive(source, packet);
-	return true;
+	    return true;
+	}
+	else
+	    return false;
     }
 
     /** Transmit packet from source to destination.
