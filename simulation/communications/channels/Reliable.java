@@ -36,7 +36,8 @@ public class Reliable
      */
     public boolean transmit(CommNode source, CommNode destination, Object packet)
     {
-	destination.receive(source, packet);
+	if (source.transmitPartners.indexOf(destination) != -1)
+	    destination.receive(source, packet);
 	return true;
     }
 
@@ -50,7 +51,21 @@ public class Reliable
     public boolean transmit(MACNode source, MACNode destination, 
 			    Object packet, Simulator simulator)
     {
-	destination.receive(source, packet, simulator);
+	if (source.transmitPartners.indexOf(destination) != -1)
+	    destination.receive(source, packet, simulator);
 	return true;
+    }
+
+    /** Provide probability of success to transmit packet from source to destination.
+     * @param source source node
+     * @param destination destination node
+     * @return probability of success
+     */
+    public double transmitProb(CommNode source, CommNode destination)
+    {
+	if (source.transmitPartners.indexOf(destination) != -1)
+	    return 1.0;
+	else
+	    return 0.0;
     }
 }

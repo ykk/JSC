@@ -86,9 +86,22 @@ public class PathLoss
      * @param destination destination node
      * @return if an instance of transmission is successful
      */
-    public boolean txSuccess(CommNode source, CommNode destination)
+    private boolean txSuccess(CommNode source, CommNode destination)
     {
-	return (random.getInstance() < 
-		Math.pow(Math.E,source.distance(destination)*exponent));
+	return (random.getInstance() < transmitProb(source,destination));
+    }
+
+
+    /** Provide probability of success to transmit packet from source to destination.
+     * @param source source node
+     * @param destination destination node
+     * @return probability of success
+     */
+    public double transmitProb(CommNode source, CommNode destination)
+    {
+	if (source.transmitPartners.indexOf(destination) != -1)
+	    return Math.pow(Math.E,source.distance(destination)*exponent);
+	else
+	    return 0.0;
     }
 }

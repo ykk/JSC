@@ -76,4 +76,11 @@ public abstract class CommChannel
      */
     public abstract boolean transmit(MACNode source, MACNode destination, 
 				     Object packet, Simulator simulator);
+
+    /** Provide probability of success to transmit packet from source to destination.
+     * @param source source node
+     * @param destination destination node
+     * @return probability of success
+     */
+    public abstract double transmitProb(CommNode source, CommNode destination);
 }
