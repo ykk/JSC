@@ -21,6 +21,14 @@ public abstract class Queue
      */
     public abstract Queue newQueue();
 
+    /** Check if queue is empty.
+     * @return if queue is empty
+     */
+    public boolean isEmpty()
+    {
+	return (this.size() == 0);
+    }
+
     /** Return size of queue.
      * @return queue size
      */
