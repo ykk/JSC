@@ -23,6 +23,8 @@ public class SimpleRouteRelay
 
     //Methods
     /** Constructor for packet processor.
+     * Defaults result to {@link RoutedPktResultProcessor}.
+     * @see #SimpleRouteRelay(TimeReference timeRef, ResultProcessor result)
      * @param timeRef time reference for packet generation
      */
     public SimpleRouteRelay(TimeReference timeRef)
