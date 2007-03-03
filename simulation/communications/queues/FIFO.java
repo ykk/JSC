@@ -35,6 +35,14 @@ public class FIFO
 	this.queueSize = 0;
     }
 
+    /** Check if queue is in queue.
+     * @param packet packet reference
+     */
+    public boolean inQueue(Object packet)
+    {
+	return (queue.indexOf(packet) != -1);
+    }
+
     /** Remove packet from queue.
      * @para packet reference
      */

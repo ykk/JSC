@@ -29,8 +29,13 @@ public abstract class Queue
 	return (this.size() == 0);
     }
 
+    /** Check if queue is in queue.
+     * @param packet packet reference
+     */
+    public abstract boolean inQueue(Object packet);
+
     /** Remove packet from queue.
-     * @para packet reference
+     * @param packet packet reference
      */
     public abstract void remove(Object packet);
 

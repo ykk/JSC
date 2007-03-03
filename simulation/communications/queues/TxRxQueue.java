@@ -42,6 +42,14 @@ public class TxRxQueue
 	return transmit.get();
     }
 
+    /** Check if queue is in transmit queue.
+     * @param packet packet reference
+     */
+    public boolean inQueue(Object packet)
+    {
+	return transmit.inQueue(packet);
+    }
+
     /** Remove packet from transmit queue.
      * @para packet reference
      */
