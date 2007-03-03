@@ -42,6 +42,14 @@ public class TxRxQueue
 	return transmit.get();
     }
 
+    /** Remove packet from transmit queue.
+     * @para packet reference
+     */
+    public void remove(Object packet)
+    {
+	transmit.remove(packet);
+    }
+
     /** Duplicate queue.
      * @return new instance of queue
      */

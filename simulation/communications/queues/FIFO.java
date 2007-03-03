@@ -35,6 +35,14 @@ public class FIFO
 	this.queueSize = 0;
     }
 
+    /** Remove packet from queue.
+     * @para packet reference
+     */
+    public void remove(Object packet)
+    {
+	queue.remove(queue.indexOf(packet));
+    }
+
     /** Receive packet into queue.  Drops packet if queue is full.
      * @param packet packet to be received by queue
      * @return if packet is dropped

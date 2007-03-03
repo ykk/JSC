@@ -29,6 +29,11 @@ public abstract class Queue
 	return (this.size() == 0);
     }
 
+    /** Remove packet from queue.
+     * @para packet reference
+     */
+    public abstract void remove(Object packet);
+
     /** Return size of queue.
      * @return queue size
      */
