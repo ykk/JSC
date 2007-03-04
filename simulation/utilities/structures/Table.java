@@ -96,6 +96,15 @@ public class Table
             get(i).add(column.get(i));
     }
 
+    /** Remove column from table.
+     * @param index index of column to remove
+     */
+    public void removeCol(int col)
+    {
+        for (int i = 0 ; i < size(); i++)
+            get(i).remove(col);
+    }
+
     /** Create table from vector of strings.
      * @param stringVector vector of strings
      */
