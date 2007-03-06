@@ -37,6 +37,12 @@ public abstract class GnuPlot
      */
     public boolean keySymLeft = false;
 
+    /** Indicate if y-axis is logscale.
+     */
+    public boolean yIsLog = false;
+    /** Indicate if x-axis is logscale.
+     */
+    public boolean xIsLog = false;
     /** Label for x-axis.
      */
     public String xlabel;
@@ -107,6 +113,9 @@ public abstract class GnuPlot
 	if ((xmin != Double.MIN_VALUE) || (xmax != Double.MAX_VALUE))
 	    axes += "\nset xrange ["+((xmin != Double.MIN_VALUE)?xmin:"")+
 		":"+((xmax != Double.MAX_VALUE)?xmax:"")+"]";
+	if (xIsLog) axes+= "\nset logscale x";
+	if (yIsLog) axes+= "\nset logscale y";
+
 	return axes;
     }
 
