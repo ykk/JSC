@@ -17,6 +17,15 @@ public abstract class GnuPlot
      */
     public String filename = "gnuplotfile";
 
+    /** Indicate view, x rotation.
+     */
+    public int xViewRotate = -1;
+    /** Indicate view, y rotation.
+     */
+    public int yViewRotate = -1;
+    /** Indicate if contour is too be shown.
+     */
+    public boolean hasContour = false;
     /** Indicate if plot has legend/key.
      * Defaults to true.
      */
@@ -49,6 +58,9 @@ public abstract class GnuPlot
     /** Label for y-axis.
      */
     public String ylabel;
+    /** Label for z-axis.
+     */
+    public String zlabel;
 
     /** Name for graphics file.
      */
@@ -62,6 +74,14 @@ public abstract class GnuPlot
      */
     public String title = "Please add some title";
 
+    /** Minimum of z axis.
+     * Defaulted to Double.MIN_VALUE, giving autoscale.
+     */
+    public double zmin = Double.MIN_VALUE;
+    /** Maximum of z axis.
+     * Defaulted to Double.MAX_VALUE, giving autoscale.
+     */
+    public double zmax = Double.MAX_VALUE;
     /** Minimum of y axis.
      * Defaulted to Double.MIN_VALUE, giving autoscale.
      */
@@ -107,6 +127,10 @@ public abstract class GnuPlot
     {
 	String axes = "set xlabel \'"+xlabel+"\'\n"+
 	    "set ylabel \'"+ylabel+"\'";
+	if (zlabel != null) axes += "\nset zlabel \'"+zlabel+"\'";
+	if ((zmin != Double.MIN_VALUE) || (zmax != Double.MAX_VALUE))
+	    axes += "\nset zrange ["+((zmin != Double.MIN_VALUE)?zmin:"")+
+		":"+((zmax != Double.MAX_VALUE)?zmax:"")+"]";
 	if ((ymin != Double.MIN_VALUE) || (ymax != Double.MAX_VALUE))
 	    axes += "\nset yrange ["+((ymin != Double.MIN_VALUE)?ymin:"")+
 		":"+((ymax != Double.MAX_VALUE)?ymax:"")+"]";
@@ -116,6 +140,11 @@ public abstract class GnuPlot
 	if (xIsLog) axes+= "\nset logscale x";
 	if (yIsLog) axes+= "\nset logscale y";
 
+	if (hasContour)
+	    axes+= "\nset contour";
+	if (xViewRotate != -1 && yViewRotate != -1)
+	    axes+= "\nset view "+xViewRotate+","+yViewRotate;
+
 	return axes;
     }
 
@@ -124,10 +153,31 @@ public abstract class GnuPlot
      */
     public String plotString()
     {
-	String plotStr = "plot";
+	int type=-1;
+	String plotStr = new String();
+
+	if (data.get(0) instanceof GnuPlotData)
+	{
+	    plotStr = "plot";
+	    type = 0;
+	}
+	else if (data.get(0) instanceof GnuPlotSfData)
+	{
+	    plotStr = "splot";
+	    type = 1;
+	}
+
 	for (int i = 0; i < data.size(); i++)
 	{
-	    plotStr += " "+(GnuPlotData) data.get(i);
+	    switch(type)
+	    {
+	    case 0:
+		plotStr += " "+(GnuPlotData) data.get(i);
+		break;
+	    case 1:
+		plotStr += " "+(GnuPlotSfData) data.get(i);
+		break;
+	    }
 	    if (i != (data.size()-1)) plotStr += ",";
 	}
 
@@ -172,7 +222,7 @@ public abstract class GnuPlot
 	    System.err.println("<filename> <graphic output file> "+
 			       "<xlabel> <ylabel>");
 	    System.err.print("datafile1 columnx columny");
-	    System.err.println("[datafile2 columnx columny] ...");
+	    System.err.println(" [datafile2 columnx columny] ...");
 	    System.exit(1);
 	}
 	
