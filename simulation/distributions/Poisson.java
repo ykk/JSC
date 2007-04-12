@@ -7,6 +7,9 @@ public class Poisson
     extends Distribution
 {
     //Members
+    /** Exponential as interarrival.
+     */
+    private Exponential interarrive;
     /** Mean of distribution.
      * Defaulted to 1.
      */
@@ -31,6 +34,7 @@ public class Poisson
     public Poisson(double mean)
     {
 	this.mean = mean;
+	interarrive = new Exponential(1/mean);
     }
 
     public boolean isDiscrete()
@@ -60,38 +64,21 @@ public class Poisson
     }
 
     /** Get instance of Poisson random variable.
+     * Uses the property that its interarrival is exponential of reciprocal mean.
      * @return instance of Poisson random variable
      * @see #getSmallInstance()
      */
     public double getInstance()
     {
-	int value = 0;
-	for (int i = 0; i < (mean/100); i++)
+	int result = -1;
+	double sum = 0;
+
+	while (sum < 1)
 	{
-	    if ((i+1)*100 < mean)
-		value += (new Poisson(100)).getSmallInstance();
-	    else
-		value += (new Poisson(mean-(i*100))).getSmallInstance();
+	    result++;
+	    sum += interarrive.getInstance();
 	}
 
-	return (double) value;
-    }
-
-    /** Get instance of Poisson random variable with small mean.
-     * Use {@link #getInstance()} for mean greater than 100.
-     * @return instance of Poisson random variable
-     * @see #getInstance()
-     */
-    public double getSmallInstance()
-    {
-	if (mean > 100)
-	    throw new RuntimeException(this+"'s getSmallInstance function does not work for mean above 100.  Please use getInstance()!");
-
-	double randNo = Math.random();
-	int value = 0;
-	while (cumulativeDensity(((double) value)+0.1) < randNo)
-	    value++;
-	
-	return (double) value;
+	return result;
     }
 }
