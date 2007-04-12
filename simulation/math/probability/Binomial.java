@@ -7,7 +7,31 @@ import java.util.*;
  */
 public class Binomial
 {
+    //Members
+    /** Pretabulated Binomial.
+     */
+    public Vector linesOfPascal = new Vector();
+    /** Flag to indicate if result is stored.
+     * Turned on by default.
+     */
+    public boolean storeResult = true;
+
     //Methods
+    /** Constructor.
+     */
+    public Binomial()
+    {
+	//Add boundary cases
+	Vector tmpVec = new Vector();
+	tmpVec.add(new Double(1));
+	linesOfPascal.add(tmpVec);
+
+	tmpVec = new Vector();
+	tmpVec.add(new Double(1));
+	tmpVec.add(new Double(1));
+	linesOfPascal.add(tmpVec);
+    }
+
     /** Tabulate Binomial coefficient of m choose n.
      * @param m number of elements to choose from
      * @param n number of elements to choose
@@ -41,15 +65,11 @@ public class Binomial
 	if (m < 0)
 	    throw new RuntimeException("There is no line "+m+" for the Pascal triangle.");
 
-	//Boundary cases
-	if (m == 0)
-	    return result;
-	else if (m == 1)
-	{
-	    result.add(new Double(1));
-	    return result;
-	}
+	//Check previous
+	if (linesOfPascal.size() > m)
+	    return ((Vector) linesOfPascal.get(m));
 
+	//If no previous, tabulate
 	Vector prevLine = lineOfPascal(m-1);
 	double tmpDouble;
 	for (int i = 0; i < m-1; i++)
@@ -60,6 +80,10 @@ public class Binomial
 	    result.add(new Double(tmpDouble));
 	}
 	result.add(new Double(1));
+
+	//Store results if required
+	if (linesOfPascal.size() == m && storeResult)
+	    linesOfPascal.add(result);
 
 	return result;
     }
