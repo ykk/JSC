@@ -15,6 +15,10 @@ public class Binomial
      * Turned on by default.
      */
     public boolean storeResult = true;
+    /** Flag to print warnings.
+     * Defaulted to true.
+     */
+    public boolean printWarning = true;
 
     //Methods
     /** Constructor.
@@ -33,6 +37,7 @@ public class Binomial
     }
 
     /** Tabulate Binomial coefficient of m choose n.
+     * Print warnings when required, see {@link #printWarning}.
      * @param m number of elements to choose from
      * @param n number of elements to choose
      * @return Binomial coefficient of m choose n
@@ -41,11 +46,19 @@ public class Binomial
     {
 	//Check for valid n
 	if (n > m)
-	    throw new RuntimeException("n must be less than or equal to m, m="+m+" & n="+n+" is not valid.");
+	{
+	    if (printWarning)
+		System.out.println("n must be less than or equal to m, m="+m+" & n="+n+" is not valid.");
+	    return 0;
+	}
 
 	//Check for valid n
 	if (n < 0)
-	    throw new RuntimeException("n must be greater or equal to 0, n="+n+" is not valid.");
+	{
+	    if (printWarning)
+		System.out.println("n must be greater or equal to 0, n="+n+" is not valid.");
+	    return 0;
+	}
 
 	Vector pascalLine = lineOfPascal(m);
 
