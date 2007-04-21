@@ -11,7 +11,7 @@ public class Binomial
     //Members
     /** Object to tabulate Binomial coefficents.
      */
-    simulation.math.probability.Binomial binomCoeff = new simulation.math.probability.Binomial();
+    public simulation.math.probability.Binomial binomCoeff = new simulation.math.probability.Binomial();
     /** Probability of Bernoulli trial.
      */
     public double probability;
