@@ -59,6 +59,32 @@ public class FileVector
         }
     }
 
+    /** Check if file exist.
+     */
+    public boolean exist()
+    {
+        FileInputStream infile;
+
+        try
+	{
+	    infile = new FileInputStream(filename);
+        } catch (FileNotFoundException errItem)
+        {
+            return false;
+        }
+
+	//Close File
+        try
+        {
+            infile.close();
+        } catch (IOException errItem)
+        {
+            System.err.println(errItem);
+        }
+
+	return true;
+    }
+
     /** Read file into vector.
      */
     public void read()
