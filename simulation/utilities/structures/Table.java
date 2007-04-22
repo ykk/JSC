@@ -137,6 +137,36 @@ public class Table
 	return (TableRow) super.get(index);
     }
 
+    /** Get maximum number of columns in all rows.
+     * Returns Integer.MIN_VALUE for empty table.
+     * @return maximum number of columns in all rows.
+     */
+    public int maxCol()
+    {
+	int max = Integer.MIN_VALUE;
+
+	for (int i = 0 ; i < size(); i++)
+            if(get(i).size() > max)
+		max = get(i).size();
+
+	return max;
+    }
+
+    /** Get minimum number of columns in all rows.
+     * Returns Integer.MAX_VALUE for empty table.
+     * @return minimum number of columns in all rows.
+     */
+    public int minCol()
+    {
+	int min = Integer.MAX_VALUE;
+
+	for (int i = 0 ; i < size(); i++)
+            if(get(i).size() < min)
+		min = get(i).size();
+
+	return min;
+    }
+
     /** Get item from table.
      * @param row index of row
      * @param column index of column
