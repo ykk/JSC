@@ -2,10 +2,10 @@ package simulation.utilities.structures;
 
 import java.util.*;
 
-/** Class to hold distributions.
+/** Class to hold data distributions.
  * @author ykk
  */
-public class Distributions
+public class DataDistribution
     extends Vector
 {
     //Members 
@@ -26,7 +26,7 @@ public class Distributions
      * @param binMin minimum value of all bins
      * @param binSize size of each bin
      */
-    public Distributions(int binNumber, double binMin, double binSize)
+    public DataDistribution(int binNumber, double binMin, double binSize)
     {
 	this.binNumber = binNumber;
 	this.binMin = binMin;
@@ -40,7 +40,7 @@ public class Distributions
      * @param max maximum of sample values
      * @param binNumber number of bins
      */
-    public Distributions(double min, double max, int binNumber)
+    public DataDistribution(double min, double max, int binNumber)
     {
 	this(binNumber, min,(max-min)/((double) binNumber));
     }

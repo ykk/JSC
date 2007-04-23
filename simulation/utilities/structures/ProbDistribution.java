@@ -4,7 +4,7 @@ package simulation.utilities.structures;
  * @author ykk
  */
 public class ProbDistribution
-    extends Distributions
+    extends DataDistribution
 {
     //Members
     /** Constructor.
@@ -34,5 +34,21 @@ public class ProbDistribution
 	double total = sum();
 	for (int i = 0; i < binNumber; i++)
 	    writeBin(i,readBin(i)/total);
+    }
+
+    /** Increment bin value by 1.
+     * @param index index of bin
+     */
+    public void increment(int index)
+    {
+	writeBin(index, readBin(index)+1);
+    }
+
+    /** Decrement bin value by 1.
+     * @param index index of bin
+     */
+    public void decrement(int index)
+    {
+	writeBin(index, readBin(index)-1);
     }
 }

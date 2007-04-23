@@ -41,7 +41,7 @@ public class ResultFullLog
     /** Return distribution of results.
      * @return return probability distribution
      */
-    public Distributions distribution()
+    public DataDistribution distribution()
     {
 	double pmin = (disMin == Double.MIN_VALUE)?min:disMin;
 	double pmax = (disMax == Double.MAX_VALUE)?max:disMax;

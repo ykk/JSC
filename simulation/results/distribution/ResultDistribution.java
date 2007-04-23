@@ -13,5 +13,5 @@ public abstract class ResultDistribution
     /** Return distribution of results.
      *@return result distribution
      */
-    public abstract Distributions distribution();
+    public abstract DataDistribution distribution();
 }
