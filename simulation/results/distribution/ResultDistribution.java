@@ -1,5 +1,6 @@
 package simulation.results.distribution;
 
+import simulation.utilities.structures.*;
 import simulation.results.*;
 
 /** Abstract class for recording and providing distribution of the result.
@@ -9,7 +10,8 @@ public abstract class ResultDistribution
     extends ResultVar
 {
     //Methods
-    /** Function to return distribution of samples.
+    /** Return distribution of results.
+     *@return result distribution
      */
-    
+    public abstract Distributions distribution();
 }
