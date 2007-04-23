@@ -37,9 +37,9 @@ public class ResultBins
 	this.binDistro = binDistro;
 	for (int i = 0; i < binDistro.binNumber; i++)
 	    if (maintainVar)
-		results.add(new Result());
-	    else
 		results.add(new ResultVar());
+	    else
+		results.add(new Result());
     }
 
     /** Input values.
@@ -50,6 +50,35 @@ public class ResultBins
     {
 	int binIndex = binDistro.binIndex(binValue);
 	((Result) results.get(binIndex)).input(value);
+    }
+
+
+    /** Return distribution of standard deviation for results.
+     *@return distribution of standard deviation for each bin
+     */
+    public DataDistribution stdDevDistribution()
+    {
+	DataDistribution distro = new DataDistribution(binDistro.binNumber,
+						       binDistro.binMin,
+						       binDistro.binSize);
+	for (int i = 0; i < results.size(); i++)
+	    distro.writeBin(i, ((ResultVar) results.get(i)).stdDev());
+
+	return distro;
+    }
+
+    /** Return distribution of sample size for results.
+     *@return distribution of count for each bin
+     */
+    public DataDistribution countDistribution()
+    {
+	DataDistribution distro = new DataDistribution(binDistro.binNumber,
+						       binDistro.binMin,
+						       binDistro.binSize);
+	for (int i = 0; i < results.size(); i++)
+	    distro.writeBin(i, ((Result) results.get(i)).sampleSize);
+
+	return distro;
     }
 
     /** Return distribution of mean for results.

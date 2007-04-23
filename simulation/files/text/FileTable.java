@@ -11,7 +11,7 @@ public class FileTable
     //Members
     /** Table to hold content. 
      */
-    public Table content;
+    public Table content = new Table();
     /** Separator to use when reading file.
      * Defaulted to tab.
      */
@@ -42,5 +42,15 @@ public class FileTable
     {
 	super.read();
 	this.content = new Table(super.content, separator);
+    }
+
+    /** Write table into file.
+     */
+    public void write()
+    {
+	for (int i = 0; i < content.size(); i++)
+	    super.content.add(content.get(i));
+
+	super.write();
     }
 }
