@@ -47,10 +47,10 @@ public class ChannelMap
 	int networkSize = network.nodes.size();
 	this.chanProb = new double[networkSize][networkSize];
 	
-
 	for (int i = 0; i < networkSize; i++)
 	    for (int j = 0; j < networkSize; j++)
-		if (i != j)
+		if (i != j ||
+		    ((Node) network.nodes.get(i)).transmitPartners.indexOf((Node) network.nodes.get(j)) != -1)
 		{
 		    chanProb[i][j] = -1;
 		    chanInfo = getChanInfo(((Node) network.nodes.get(i)).distance((Node) network.nodes.get(j)));
@@ -79,4 +79,6 @@ public class ChannelMap
 	else
 	    return prevChan;
     }
+
+
 }
