@@ -6,7 +6,7 @@ import simulation.files.images.*;
  * @author ykk
  */
 public class ReceiveProb
-    implements Positionable
+    implements Positionable, Comparable
 {
     //Members
     /** Distance.
