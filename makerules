@@ -1,4 +1,5 @@
 #SOURCE:=$(wildcard *.java)
+DATASOURCE=$(filter %.dat,$(shell find .))
 SOURCE:=$(filter %.java,$(shell find .))
 SOURCEBACKUP:=$(SOURCE:.java=.java~)
 FILES:=$(SOURCE:.java=.class)
@@ -13,7 +14,7 @@ all: $(FILES)
 doc: $(DOCDIR)/index.html
 
 jar: $(FILES)
-	jar cfv $(NAME).jar $(FILES)
+	jar cfv $(NAME).jar $(FILES) $(DATASOURCE)
 
 clean:
 	rm -Rf $(DOCDIR); rm $(FILES) $(SOURCEBACKUP)
