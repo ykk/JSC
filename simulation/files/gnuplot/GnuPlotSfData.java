@@ -55,6 +55,7 @@ public class GnuPlotSfData
      * @param filename filename of data set
      * @param xIndex index to plot as x-axis
      * @param yIndex index to plot as y-axis
+     * @param zIndex index to plot as z-axis
      */
     public GnuPlotSfData(String filename,int xIndex, int yIndex, int zIndex)
     {
@@ -68,6 +69,7 @@ public class GnuPlotSfData
      * @param filename filename of data set
      * @param xIndex index to plot as x-axis
      * @param yIndex index to plot as y-axis
+     * @param zIndex index to plot as z-axis
      * @param name name of data set
      */
     public GnuPlotSfData(String filename,int xIndex, int yIndex, int zIndex, String name)

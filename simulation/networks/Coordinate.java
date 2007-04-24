@@ -17,7 +17,7 @@ public class Coordinate
     public double y;
 
     //Methods
-    /** Constructor
+    /** Constructor.
      * @param x x-coordinate
      * @param y y-coordinate
      */
@@ -25,6 +25,15 @@ public class Coordinate
     {
 	this.x = x;
 	this.y = y;
+    }
+
+    /** Constructor.
+     * @param position position object
+     */
+    public Coordinate(Positionable position)
+    {
+	this.x = position.x();
+	this.y = position.y();
     }
 
     /** Return distance between two coordinates.
