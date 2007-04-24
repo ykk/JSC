@@ -14,22 +14,27 @@ public class RoofnetChannel
     private JarTable data = new JarTable("/simulation/communications/channels/data/roofnetChannel.dat");
     /** Short packets [60 bytes] at 1 Mbps.
      * Value is 1.
+     * <BR><img src="doc-files/roofnetchannel1.png"><BR>
      */
     public static final int SHORT_1MBPS = 1;
     /** Long packets [1500 bytes] at 1 Mbps.
      * Value is 2.
+     * <BR><img src="doc-files/roofnetchannel2.png"><BR>
      */
     public static final int LONG_1MBPS = 2;
     /** Long packets [1500 bytes] at 2 Mbps.
      * Value is 3.
+     * <BR><img src="doc-files/roofnetchannel3.png"><BR>
      */
     public static final int LONG_2MBPS = 3;
     /** Long packets [1500 bytes] at 5.5 Mbps.
      * Value is 4.
+     * <BR><img src="doc-files/roofnetchannel4.png"><BR>
      */
     public static final int LONG_5MBPS = 4;
     /** Long packets [1500 bytes] at 11 Mbps.
      * Value is 5.
+     * <BR><img src="doc-files/roofnetchannel5.png"><BR>
      */
     public static final int LONG_11MBPS = 5;
 
