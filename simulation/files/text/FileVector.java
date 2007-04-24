@@ -17,7 +17,7 @@ public class FileVector
     public String filename;
 
     //Methods
-    /** Constructor new file in a vector.
+    /** Constructor for new file into a vector.
      * @param filename name of file
      */
     public FileVector(String filename)
