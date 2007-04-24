@@ -5,6 +5,7 @@ package simulation.distributions;
  */
 public class Gaussian
     extends Distribution
+    implements MeanVarDistribution
 {
     //Members
     /** Mean of distribution.
@@ -39,6 +40,15 @@ public class Gaussian
     {
 	this.mean = mean;
 	this.variance = variance;
+    }
+
+    /** Generate instance of distribution, using mean and variance.
+     * @param mean mean of distribution
+     * @param variance variance of distribution 
+     */
+    public Distribution newDistribution(double mean, double variance)
+    {
+	return new Gaussian(mean, variance);
     }
 
     public boolean isDiscrete()
