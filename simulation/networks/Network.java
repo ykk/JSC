@@ -27,6 +27,12 @@ public class Network
     public NodeFactory nodeFactory;
 
     //Methods
+    /** Empty constructor for extension.
+     */
+    protected Network()
+    {
+    }
+    
     /** Constructor for generic network.
      * @param netArea network area definition
      * @param nodeFactory factory to generate nodes
@@ -36,6 +42,16 @@ public class Network
     {
 	this.netArea = netArea;
 	this.nodeFactory = nodeFactory;
+	
+	generateNodes(pointProcess);
+    }
+
+    /** Function to generate nodes.
+     * @param pointProcess process to generate coordinates of nodes
+     */
+    public void generateNodes(PointProcess pointProcess)
+    {
+	nodes.clear();
 
 	//Create nodes
 	Vector positions = pointProcess.getCoordinates(netArea);

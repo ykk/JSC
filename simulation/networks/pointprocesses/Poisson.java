@@ -15,6 +15,7 @@ public class Poisson
      * Note that a "true" Poisson Point Process has a random number
      * of nodes in an area.  Else, the number of nodes can be constant
      * and directly proportional to the network area.
+     * Default is true.
      */
     public boolean truePoisson = true;
 
