@@ -66,9 +66,9 @@ public class MACTrial
      */
     public Simulator simulator;
     /** Number of samples to collect.
-     * Defaulted to 100.
+     * Defaulted to 1000.
      */
-    public int sampleNeeded = 100;
+    public int sampleNeeded = 1000;
 
     //Methods
     /** Constructor for MAC trial.

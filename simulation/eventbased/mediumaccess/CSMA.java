@@ -14,6 +14,8 @@ import simulation.utilities.packetprocessors.*;
 import simulation.distributions.*;
 
 /** Class to implement CSMA medium access control.
+ * Added to ALOHA, a carrier sense before transmission and
+ * the delayed triggered of receive in destinations due to propagation delay.
  * @author ykk
  */
 public class CSMA
