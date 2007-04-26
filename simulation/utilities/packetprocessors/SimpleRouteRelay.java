@@ -73,4 +73,9 @@ public class SimpleRouteRelay
     {
 	return queue.get();
     }
+
+    public boolean hasPkt(simulation.communications.queues.Queue queue)
+    {
+	return !queue.isEmpty();
+    }
 }

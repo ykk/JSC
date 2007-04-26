@@ -47,6 +47,13 @@ public abstract class MACNode
 	throw new RuntimeException(this+" called receive(CommNode source, Object packet) function that has been replaced by receive(CommNode source, Object packet, Simulator simulator).");
     }
 
+    /** Constructor.
+     * @param coordinate coordinate of ALOHA node
+     * @param channel network channel in use
+     * @param commChannel communication channel
+     * @param queue queue of the node
+     * @param processor reference to packet processor
+     */
     public MACNode(Coordinate coordinate, Channel channel, CommChannel commChannel, 
 		   Queue queue, PacketProcessor processor)
     {
@@ -54,6 +61,11 @@ public abstract class MACNode
 	this.processor = processor;
     }
 
+    /** Create new node with the specified coordinate.
+     * Generate new queue for node.
+     * @param coordinate coordinate of new node
+     * @return new node instance
+     */
     public Node newNode(Coordinate coordinate)
     {
 	MACNode node = (MACNode) super.newNode(coordinate);

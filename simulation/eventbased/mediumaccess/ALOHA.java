@@ -51,19 +51,19 @@ public class ALOHA
     public static final String[] events = {"Receive Ended", "Transmission Ended", "Wait Ended"};
     /** Number of ongoing receptions.
      */
-    private int onGoing = 0;
+    protected int onGoing = 0;
     /** Indicate of transmitting.
      */
-    private boolean isTransmitting = false;
+    protected boolean isTransmitting = false;
     /** Distribution of random wait.
      */
     public Distribution waitTime;
     /** Currently receiving packet.
      */
-    private Object packet;
+    protected Object packet;
     /** Currently receiving from.
      */
-    private CommNode currSource;
+    protected CommNode currSource;
 
     //Methods
     /** Event triggered interface.
@@ -104,9 +104,8 @@ public class ALOHA
 	    }
 	    break;
 	case 2: //Wait Ended
-	    Object packet = processor.get(queue);
-	    if (packet != null)
-		startTransmission((Packet) packet, simulator);
+	    if (processor.hasPkt(queue))
+		startTransmission(simulator);
 	    else
 		state = stateIdle;
 	    break;
@@ -118,12 +117,14 @@ public class ALOHA
     /** Start transmission.
      * @param packet packet to transmit
      */
-    public void startTransmission(Packet packet, Simulator simulator)
+    public void startTransmission(Simulator simulator)
     {
 	if (onGoing != 0)
 	    state = stateCollided;
 	else
 	    state = stateTransmitting;
+
+	Packet packet = (Packet) processor.get(queue);
 	isTransmitting = true;
 	simulator.add(new Event(simulator.time()+
 				commChannel.transmitDuration(packet),
@@ -156,9 +157,8 @@ public class ALOHA
     {
 	if (state == stateIdle)
 	{
-	    Object packet = processor.get(queue);
-	    if (packet != null)
-		startTransmission((Packet) packet, simulator);
+	    if (processor.hasPkt(queue))
+		startTransmission(simulator);
 	}
     }
 
@@ -168,6 +168,14 @@ public class ALOHA
 			 this.queue.newQueue(), this.processor, this.waitTime);
     }
 
+    /** Constructor.
+     * @param coordinate coordinate of ALOHA node
+     * @param channel network channel in use
+     * @param commChannel communication channel
+     * @param queue queue of the node
+     * @param processor reference to packet processor
+     * @param waitTime distribution of waiting time
+     */
     public ALOHA(Coordinate coordinate, Channel channel, CommChannel commChannel, 
 		 Queue queue, PacketProcessor processor, Distribution waitTime)
     {

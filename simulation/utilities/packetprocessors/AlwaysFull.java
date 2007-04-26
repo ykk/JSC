@@ -67,4 +67,9 @@ public class AlwaysFull
     {
 	return packetFactory.duplicate(timeRef.time());
     }
+
+    public boolean hasPkt(simulation.communications.queues.Queue queue)
+    {
+	return true;
+    }
 }

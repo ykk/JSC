@@ -21,4 +21,9 @@ public abstract class PacketProcessor
      * @return packet to send and null if no packet available
      */
     public abstract Object get(simulation.communications.queues.Queue queue);
+
+    /** Function to check if there is packet to send.
+     * @return packet to send or not
+     */
+    public abstract boolean hasPkt(simulation.communications.queues.Queue queue);
 }
