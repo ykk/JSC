@@ -5,6 +5,8 @@ import simulation.networks.areas.*;
 import simulation.networks.pointprocesses.*;
 import simulation.networks.nodes.*;
 import simulation.networks.channels.*;
+import simulation.communications.channels.*;
+import simulation.communications.nodes.*;
 import java.util.*;
 
 /** Basic class for network.
@@ -78,6 +80,40 @@ public class Network
 	image.write();
     }
     
+    /** Prune networks with communication channel.
+     * This removes links that has probability of reception below specified.
+     * Only for network of {@link CommNode}.
+     * Caution: this assumes that nodes can interfer if and not if they can communicate,
+     * since the network channel defines the interference range,
+     * while the communication channel defines the communication reach.
+     * @param commChannel communication channel used
+     * @param minProb minimum reception probability
+     */
+    public void prune(CommChannel commChannel, double minProb)
+    {
+	CommNode currNode, tmpNode;
+	for (int i = 0; i < nodes.size(); i++)
+	{
+	    currNode = (CommNode) nodes.get(i);
+
+	    for (int j = 0; j < currNode.transmitPartners.size(); j++)
+		if (commChannel.transmitProb(currNode,
+					     (CommNode) currNode.transmitPartners.get(j)) < minProb)
+		{
+		    currNode.transmitPartners.remove(j);
+		    j--;
+		}
+
+	    for (int j = 0; j < currNode.receivePartners.size(); j++)
+		if (commChannel.transmitProb((CommNode) currNode.transmitPartners.get(j),
+					     currNode) < minProb)
+		{
+		    currNode.receivePartners.remove(j);
+		    j--;
+		}
+	}
+    }
+
     /** Function to test network by drawing it.
      * @param args 1st argument is density of network
      */

@@ -27,14 +27,11 @@ public class PreDefinedNetwork
     public PointProcess pointProcess;
 
     //Methods
-    /** Constructor.
-     * Nodefactory defaulted to {@link Node}.
-     * @param networkSize size of network, assuming square network.
-     * @param density density of nodes
+    /** Empty constructor for extension.
      */
-    public PreDefinedNetwork(double networkSize, double density)
+    protected PreDefinedNetwork()
     {
-	this(networkSize, density, new Node(new Coordinate(0,0), new ZeroOne(1)));
+	super();
     }
 
     /** Constructor
@@ -66,7 +63,8 @@ public class PreDefinedNetwork
     public static void main(String[] args)
     {
 	PreDefinedNetwork testNet = new PreDefinedNetwork(Double.parseDouble(args[1]),
-						Double.parseDouble(args[0]));
+							  Double.parseDouble(args[0]),
+							  new Node(new Coordinate(0,0), new ZeroOne(1)));
 	testNet.generateNetwork();
 	testNet.draw("testNetworkImage.jpg", ImageFile.JPEG_TYPE, 100, 20);
     }

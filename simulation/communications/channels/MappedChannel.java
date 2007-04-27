@@ -24,7 +24,7 @@ public class MappedChannel
      */
     public MappedChannel(double rate, ChannelMap channel)
     {
-	super(rate, 0);
+	super(rate, -0.263);
 	this.channel = channel;
     }
 

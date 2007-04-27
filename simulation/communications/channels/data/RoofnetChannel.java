@@ -1,9 +1,11 @@
 package simulation.communications.channels.data;
 
 import simulation.files.text.*;
+import simulation.communications.channels.*;
+import simulation.networks.*;
 
 /** Data from Roofnet.
- * Provides {@link ReceiveProbVar}
+ * Provides {@link ReceiveProbVar} for mapping to channels.
  * @author ykk
  */
 public class RoofnetChannel
@@ -79,5 +81,27 @@ public class RoofnetChannel
 			 ((Double) data.content.getItem(i,(index-1)*2+1)).doubleValue()/100,
 			 ((Double) data.content.getItem(i,(index-1)*2+2)).doubleValue()/100);
 	return chanData;
+    }
+
+    /** Provide roofnet channel.
+     * This is a {@link ChannelBySize} with rate 1 Mbps for packet smaller than 200 bytes.
+     * The rate of the larger packets (200 to 4096 bytes) are to be chosen.
+     * @see #LONG_1MBPS
+     * @see #LONG_2MBPS
+     * @see #LONG_5MBPS
+     * @see #LONG_11MBPS
+     * @param datarate rate of usual data
+     * @return channel measured from roofnet
+     */
+    public static CommChannel channel(Network network, int rate)
+    {
+	RoofnetChannel roofnet = new RoofnetChannel();
+	ChannelMap channelMap =  new ChannelMap(network, roofnet.getChannel(roofnet.SHORT_1MBPS));
+	ChannelBySize defaultChannel = new ChannelBySize(new MappedChannel((1e6)/8.0,channelMap)); 
+	defaultChannel.addChannel(200,4096,
+				  new MappedChannel((1e6)/8.0,
+						    channelMap.newMapByDiff(roofnet.getChannel(rate))));
+
+	return defaultChannel;
     }
 }
