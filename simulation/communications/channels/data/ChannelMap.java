@@ -42,8 +42,6 @@ public class ChannelMap
 	this.network = network;
 	this.chanData = chanData;
 	this.distro = distro;
-
-	buildMap();
     }
 
     /** Constructor
@@ -54,8 +52,6 @@ public class ChannelMap
     {
 	this.network = network;
 	this.chanData = chanData;
-
-	buildMap();
     }
 
     /** Function to map channel probability map.
@@ -156,6 +152,7 @@ public class ChannelMap
 	double distance;
 	int networkSize = network.nodes.size();
 	ChannelMap newMap = new ChannelMap(network, newChanData, distro);
+	newMap.buildMap();
 
 	double[][] newChanProb = new double[networkSize][networkSize];
 

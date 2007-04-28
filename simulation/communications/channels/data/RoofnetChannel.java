@@ -9,8 +9,12 @@ import simulation.networks.*;
  * @author ykk
  */
 public class RoofnetChannel
+    extends ChannelBySize
 {
     //Members
+    /** Reference to network.
+     */
+    public Network network;
     /** JarTable for data.
      */
     private JarTable data = new JarTable("/simulation/communications/channels/data/roofnetChannel.dat");
@@ -39,13 +43,26 @@ public class RoofnetChannel
      * <BR><img src="doc-files/roofnetchannel5.png"><BR>
      */
     public static final int LONG_11MBPS = 5;
-
+    /** Channel rate.
+     */
+    public int rate;
 
     //Methods
     /** Constructor.
+     * The rate of the larger packets (200 to 4096 bytes) are to be chosen.
+     * @see #LONG_1MBPS
+     * @see #LONG_2MBPS
+     * @see #LONG_5MBPS
+     * @see #LONG_11MBPS
+     * @param datarate rate of usual data
+     * @param network reference to network
      */
-    public RoofnetChannel()
+    public RoofnetChannel(int datarate, Network network)
     {
+	super(null);
+	rate = datarate;
+	this.network = network;
+
 	data.read();
 	for (int i = 0; i < 11; i++)
 	    data.content.stringToDouble(i);
@@ -60,7 +77,7 @@ public class RoofnetChannel
     {
 	int index = Integer.parseInt(args[0]);
 
-	RoofnetChannel channel = new RoofnetChannel();
+	RoofnetChannel channel = new RoofnetChannel(0, null);
 	System.out.println(channel.getChannel(index));
     }
 
@@ -84,24 +101,16 @@ public class RoofnetChannel
     }
 
     /** Provide roofnet channel.
-     * This is a {@link ChannelBySize} with rate 1 Mbps for packet smaller than 200 bytes.
-     * The rate of the larger packets (200 to 4096 bytes) are to be chosen.
-     * @see #LONG_1MBPS
-     * @see #LONG_2MBPS
-     * @see #LONG_5MBPS
-     * @see #LONG_11MBPS
-     * @param datarate rate of usual data
-     * @return channel measured from roofnet
      */
-    public static CommChannel channel(Network network, int rate)
+    public void buildChannel()
     {
-	RoofnetChannel roofnet = new RoofnetChannel();
-	ChannelMap channelMap =  new ChannelMap(network, roofnet.getChannel(roofnet.SHORT_1MBPS));
-	ChannelBySize defaultChannel = new ChannelBySize(new MappedChannel((1e6)/8.0,channelMap)); 
-	defaultChannel.addChannel(200,4096,
-				  new MappedChannel((1e6)/8.0,
-						    channelMap.newMapByDiff(roofnet.getChannel(rate))));
-
-	return defaultChannel;
+	channels.clear();
+	ChannelMap channelMap =  new ChannelMap(network, getChannel(SHORT_1MBPS));
+	MappedChannel dChannel = new MappedChannel((1e6)/8.0,channelMap);
+	dChannel.buildChannel();
+	channels.add(dChannel);
+	addChannel(200,4096,
+		   new MappedChannel((1e6)/8.0,
+				     channelMap.newMapByDiff(getChannel(rate))));
     }
 }

@@ -2,6 +2,7 @@ package simulation.communications.channels;
 
 import simulation.communications.channels.data.*;
 import simulation.communications.nodes.*;
+import simulation.networks.*;
 
 /** Unreliable communication channel from a {@link ChannelMap}.
  * @author ykk
@@ -24,7 +25,7 @@ public class MappedChannel
      */
     public MappedChannel(double rate, ChannelMap channel)
     {
-	super(rate, -0.263);
+	super(rate, -0.134);
 	this.channel = channel;
     }
 
@@ -58,5 +59,12 @@ public class MappedChannel
 	}
 	else
 	    return 0.0;
-    }   
+    }
+
+    /** Build channel map of channel.
+     */
+    public void buildChannel()
+    {
+	channel.buildMap();
+    }
 }

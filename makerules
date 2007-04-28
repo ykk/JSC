@@ -13,8 +13,11 @@ all: $(FILES)
 
 doc: $(DOCDIR)/index.html
 
-jar: $(FILES)
+jar: $(FILES) $(DATASOURCE)
 	jar cfv $(NAME).jar $(FILES) $(DATASOURCE)
+
+tar: $(SOURCE) $(DATASOURCE)
+	tar czvf $(NAME).tgz $(SOURCE) $(DATASOURCE)
 
 clean:
 	rm -Rf $(DOCDIR); rm $(FILES) $(SOURCEBACKUP)

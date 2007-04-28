@@ -41,7 +41,7 @@ public class Roofnet
     public Roofnet()
     {
 	super();
-	commChannel = RoofnetChannel.channel(this, RoofnetChannel.LONG_11MBPS);
+	commChannel = new RoofnetChannel(RoofnetChannel.LONG_11MBPS, this);
     }
 
     /** Constructor.
@@ -51,8 +51,8 @@ public class Roofnet
     public Roofnet(int channelRate, NodeFactory nodeFactory)
     {
 	super();
-	commChannel = RoofnetChannel.channel(this, channelRate);
 	this.nodeFactory = nodeFactory;
+	commChannel = new RoofnetChannel(channelRate, this);
     }
 
     /** Generate new network.
@@ -62,6 +62,11 @@ public class Roofnet
 	netArea = new RectangleNetArea(networkWidth, networkHeight);
 	pointProcess = new Poisson(density);
 	generateNodes(pointProcess);
+
+	if (commChannel instanceof MappedChannel)
+	    ((MappedChannel) commChannel).buildChannel();
+	else if (commChannel instanceof MultiChannel)
+	    ((MultiChannel) commChannel).buildChannel();
     }
 
     /** Function to test network by drawing it.
@@ -72,7 +77,7 @@ public class Roofnet
 	testNet.nodeFactory = new ALOHA(new Coordinate(0,0), new ZeroOne(2.1), testNet.commChannel, 
 					new FIFO(),null,null);
 	testNet.generateNetwork();
-	testNet.prune((CommChannel) ((ChannelBySize) testNet.commChannel).channels.get(0),0);
+	testNet.prune((MappedChannel) ((RoofnetChannel) testNet.commChannel).channels.get(0), 0.7);
 	testNet.draw("testNetworkImage.jpg", ImageFile.JPEG_TYPE, 100, 20);
     }
 }

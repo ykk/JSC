@@ -81,6 +81,14 @@ public abstract class MultiChannel
 	return getChannel((Packet) packet).transmit(source, destination, packet);
     }
 
+    /** Build any {@link MappedChannel} in the channel list.
+     */
+    public void buildChannel()
+    {
+	for (int i = 0; i < channels.size(); i++)
+	    if (channels.get(i) instanceof MappedChannel)
+		((MappedChannel) channels.get(i)).buildChannel();
+    }
 
     /** Transmit packet from source to destination.
      * @param source source node
