@@ -43,6 +43,9 @@ public class RoofnetChannel
      * <BR><img src="doc-files/roofnetchannel5.png"><BR>
      */
     public static final int LONG_11MBPS = 5;
+    /** Channel rates.
+     */
+    public static final double[] rates = {1e6, 1e6, 2e6, 5.5e6, 11e6};
     /** Channel rate.
      */
     public int rate;
@@ -106,11 +109,11 @@ public class RoofnetChannel
     {
 	channels.clear();
 	ChannelMap channelMap =  new ChannelMap(network, getChannel(SHORT_1MBPS));
-	MappedChannel dChannel = new MappedChannel((1e6)/8.0,channelMap);
+	MappedChannel dChannel = new MappedChannel((1e6)/8.0, (1e6)/8.0, channelMap);
 	dChannel.buildChannel();
 	channels.add(dChannel);
 	addChannel(200,4096,
-		   new MappedChannel((1e6)/8.0,
+		   new MappedChannel(rates[rate]/8.0,(1e6)/8.0,
 				     channelMap.newMapByDiff(getChannel(rate))));
     }
 }

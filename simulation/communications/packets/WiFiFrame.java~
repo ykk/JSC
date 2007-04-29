@@ -1,5 +1,0 @@
-package simulation.communications.packets;
-
-/** Class to contain information needed for WiFi.
- * @author ykk
- */
