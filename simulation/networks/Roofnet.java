@@ -70,6 +70,7 @@ public class Roofnet
     }
 
     /** Function to test network by drawing it.
+     * @param args 1st argument is the probability of reception to draw
      */
     public static void main(String[] args)
     {
@@ -77,7 +78,8 @@ public class Roofnet
 	testNet.nodeFactory = new ALOHA(new Coordinate(0,0), new ZeroOne(2.1), testNet.commChannel, 
 					new FIFO(),null,null);
 	testNet.generateNetwork();
-	testNet.prune((MappedChannel) ((RoofnetChannel) testNet.commChannel).channels.get(0), 0.7);
+	testNet.prune((MappedChannel) ((RoofnetChannel) testNet.commChannel).channels.get(0),
+		      Double.parseDouble(args[0]));
 	testNet.draw("testNetworkImage.jpg", ImageFile.JPEG_TYPE, 100, 20);
     }
 }
