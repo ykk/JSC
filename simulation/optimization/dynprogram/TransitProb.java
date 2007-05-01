@@ -1,6 +1,6 @@
 package simulation.optimization.dynprogram;
 
-/** Class to store action for transition probabilities.
+/** Class to store transition probabilities for state-action pair.
  * @author ykk
  */
 public class TransitProb

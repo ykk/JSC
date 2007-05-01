@@ -1,5 +1,6 @@
 package simulation.optimization.dynprogram;
 
+import simulation.optimization.*;
 import java.util.*;
 
 /** Definition dynamic program.
@@ -22,6 +23,42 @@ public class DynamicProgram
     public TransitProb[][] transitProb;
 
     //Methods
+    /** Output Markov Chain for given policy.
+     * @param policy policy to use
+     * @return Markov chain when using policy.
+     */
+    public MarkovChain getMarkovChain(Policy policy)
+    {
+	MarkovChain mc = new MarkovChain(states);
+	TransitProb tp;
+	for (int i = 0; i < policy.actions.size(); i++)
+	{
+	    tp = getProb((State) states.get(i),
+			 (Action) policy.actions.get(i));
+	    for (int j = 0; j < tp.prob.length; j++)
+		mc.transitProb[i][j] = tp.prob[j];
+	}
+
+	return mc;
+    }
+
+    /** Cost of policy.
+     * @param policy specified policy
+     * @return cost of policy
+     */
+    public double policyCost(Policy policy)
+    {
+	MarkovChain mc = getMarkovChain(policy);
+	double[] steadystate = mc.getSteadyState();
+	double cost = 0;
+
+	for (int i = 0; i < steadystate.length; i++)
+	    cost += steadystate[i]*getCost((State) states.get(i),
+					   (Action) policy.actions.get(i));
+	
+	return cost;
+    }
+
     /** Initiate transition probability array.
      * Default all entries to null.
      */

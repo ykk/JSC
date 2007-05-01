@@ -146,6 +146,5 @@ public class PolicyIterate
 	Matrix val = pM.solve(cM);
 
 	return Array.changeDim(val.getArray());
-    }
-    
+    }   
 }
