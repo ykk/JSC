@@ -7,6 +7,7 @@ import simulation.distributions.*;
  * @author ykk
  */
 public class Policy
+    implements Comparable
 {
     //Members
     /** Reference to vector of states.
@@ -23,6 +24,15 @@ public class Policy
     public Policy(Vector states)
     {
 	this.states = states;
+    }
+
+
+    /** Add null actions.
+     */
+    public void addNullAct()
+    {
+	for (int i = 0; i < states.size(); i++)
+	    actions.add(null);
     }
 
     /** Get random policy.
@@ -46,6 +56,32 @@ public class Policy
 	    rv = new Uniform(0,validAct.size());
 	    this.actions.add(validAct.get((int) Math.floor(rv.getInstance())));
 	}
+    }
+
+
+    /** Duplicate.
+     * @return duplicated policy.
+     */
+    public Policy duplicate()
+    {
+	Policy newP = new Policy(states);
+	for (int i = 0; i < actions.size(); i++)
+	    newP.actions.add(actions.get(i));
+
+	return newP;
+    }
+
+    /** Comparable interface.
+     * @param object policy to compare to
+     * @return 0 if same policy and -1 else
+     */
+    public int compareTo(Object object)
+    {
+	for (int i = 0; i < actions.size(); i++)
+	    if (actions.get(i) != ((Policy) object).actions.get(i))
+		return -1;
+	
+	return 0;
     }
 
     /** String representation.

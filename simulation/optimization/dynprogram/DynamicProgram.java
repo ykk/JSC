@@ -50,7 +50,7 @@ public class DynamicProgram
 	}
     }
 
-    /** Add transition prob to all valid states of given action.
+    /** Add transition probility to all valid states of given action.
      * @param action reference to action
      * @param prob transmit probability associated
      */
@@ -58,6 +58,16 @@ public class DynamicProgram
     {
 	for (int i = 0; i < action.validStates.size(); i++)
 	    transitProb[actions.indexOf(action)][states.indexOf(action.validStates.get(i))] = prob;
+    }
+
+    /** Get transition probability for state and action given.
+     * @param state reference to state
+     * @param action reference to action
+     * @return transmit probability associated
+     */
+    public TransitProb getProb(State state, Action action)
+    {
+	return transitProb[actions.indexOf(action)][states.indexOf(state)];
     }
 
     /** Initiate cost array.
@@ -97,6 +107,16 @@ public class DynamicProgram
 	    costs[actions.indexOf(action)][states.indexOf(action.validStates.get(i))] = cost;
     }
 
+    /** Get cost for state and action given.
+     * @param state reference to state
+     * @param action reference to action
+     * @return cost associated
+     */
+    public double getCost(State state, Action action)
+    {
+	return costs[actions.indexOf(action)][states.indexOf(state)];
+    }
+
     /** Add cost.
      * @param state reference to state
      * @param action reference to action
@@ -105,6 +125,21 @@ public class DynamicProgram
     public void addCost(State state, Action action, double cost)
     {
 	costs[actions.indexOf(action)][states.indexOf(states)] = cost;
+    }
+
+    /** Retrieve valid action for state.
+     * @param state state of concern
+     * @return vector of valid actions
+     */ 
+    public Vector getValidAct(State state)
+    {
+	Vector vAct = new Vector();
+
+	for (int i = 0; i < actions.size(); i++)
+	    if (((Action) actions.get(i)).validStates.indexOf(state) != -1)
+		vAct.add(actions.get(i));
+	
+	return vAct;
     }
 
     /** String representation.
