@@ -16,6 +16,15 @@ public class Action
     public Vector validStates = new Vector();
 
     //Methods
+    /** Check if action is valid for state.
+     * @param state state of concern
+     * @return if this action can be done in the state
+     */
+    public boolean valid(State state)
+    {
+	return (validStates.indexOf(state) != -1);
+    }
+
     /** String representation.
      * @return name of state
      */
