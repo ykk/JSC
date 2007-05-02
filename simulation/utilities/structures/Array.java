@@ -43,6 +43,23 @@ public class Array
      * @param array array to print
      * @return string of array
      */
+    public static String print(int[] array)
+    {
+	String outStr = "[";
+	for (int i = 0; i < array.length; i++)
+	{
+		outStr += array[i];
+		if (i != array.length-1)
+		    outStr += "\t";
+	}
+
+	return outStr+"]";
+    }
+
+    /** Print array.
+     * @param array array to print
+     * @return string of array
+     */
     public static String print(double[] array)
     {
 	String outStr = "[";
