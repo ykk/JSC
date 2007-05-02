@@ -97,6 +97,16 @@ public class DynamicProgram
 	    transitProb[actions.indexOf(action)][states.indexOf(action.validStates.get(i))] = prob;
     }
 
+    /** Add transition probility to state-action pair.
+     * @param state reference to state
+     * @param action reference to action
+     * @param prob transmit probability associated
+     */
+    public void addProb(State state, Action action, TransitProb prob)
+    {
+	    transitProb[actions.indexOf(action)][states.indexOf(state)] = prob;
+    }
+
     /** Get transition probability for state and action given.
      * @param state reference to state
      * @param action reference to action
