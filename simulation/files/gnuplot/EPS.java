@@ -1,5 +1,6 @@
 package simulation.files.gnuplot;
 
+import java.io.*;
 import simulation.files.text.*;
 
 /** Class to generate GNUPlot input files for EPS files.
@@ -23,6 +24,25 @@ public class EPS
     public String termString()
     {
 	return "set term "+terminal+((colored)?" color":"");
+    }
+
+    /** Execute conversion to pdf.
+     */
+    public void convert()
+    {
+	String output;
+
+	try
+	{
+	    Process process = Runtime.getRuntime().exec("epstopdf "+graphFilename);
+	    BufferedReader outcome = new 
+		BufferedReader(new InputStreamReader(process.getInputStream()));
+	    while ((output = outcome.readLine()) != null)
+		System.out.println(output);
+	} catch (IOException err)
+	{
+	    System.err.println(this + " generates "+ err);
+	}
     }
 
     /** Main function.

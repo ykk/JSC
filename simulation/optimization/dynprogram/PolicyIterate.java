@@ -19,6 +19,9 @@ public class PolicyIterate
     /** Reference to last found policy.
      */
     public Policy lastResult;
+    /** Cost of last result.
+     */
+    public double lastCost;
 
     //Methods
     /** Find optimal policy, starting from random policy. 
@@ -64,9 +67,11 @@ public class PolicyIterate
 
 	    //Policy improvement
 	    lastResult = currPolicy;
+	    lastCost = values[values.length-1];
 	    currPolicy = polImprove(dp, currPolicy, values);
 	    if (verbose) System.out.println("\tNew "+currPolicy);
 	}
+
 
 	return lastResult;
     }

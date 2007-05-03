@@ -1,6 +1,7 @@
 package simulation.files.gnuplot;
 
 import simulation.files.text.*;
+import java.io.*;
 
 /** Class to generate GNUPlot input files for MetaPost.
  * @author ykk
@@ -51,6 +52,25 @@ public class MetaPost
     public String termHeader()
     {
         return super.termHeader()+"\nset size "+size;
+    }
+
+    /** Execute conversion to pdf.
+     */
+    public void convert()
+    {
+	String output;
+
+	try
+	{
+	    Process process = Runtime.getRuntime().exec("mptopdf "+graphFilename);
+	    BufferedReader outcome = new 
+		BufferedReader(new InputStreamReader(process.getInputStream()));
+	    while ((output = outcome.readLine()) != null)
+		System.out.println(output);
+	} catch (IOException err)
+	{
+	    System.err.println(this + " generates "+ err);
+	}
     }
 
     /** Main function.
