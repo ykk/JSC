@@ -2,6 +2,7 @@ package simulation.optimization.dynprogram;
 
 import java.util.*;
 import simulation.distributions.*;
+import simulation.optimization.*;
 
 /** Class to store policy for dynamic program.
  * @author ykk
@@ -29,6 +30,22 @@ public class Policy
 	this.states = states;
     }
 
+    /** Get probabilities of each action.
+     * @param actionV vector of actions
+     * @return probabilities of each action
+     */
+    public double[] getActProb(Vector actionV)
+    {
+	double[] rprob = new double[actionV.size()];
+	for (int i = 0; i < actionV.size(); i++)
+	    rprob[i] = 0;
+
+	for (int i = 0; i < actions.size(); i++)
+	    if (actions.get(i) != null)
+		rprob[actionV.indexOf(actions.get(i))] += ((Double) prob.get(i)).doubleValue();
+
+	return rprob;
+    }
 
     /** Add null actions.
      */
@@ -36,6 +53,14 @@ public class Policy
     {
 	for (int i = 0; i < states.size(); i++)
 	    actions.add(null);
+    }
+
+    /** Get steady state probabilities.
+     */
+    public void getProb(DynamicProgram dp)
+    {
+	MarkovChain mc = dp.getMarkovChain(this);
+	registerProb(mc.getSteadyState());
     }
 
     /** Register steady state probabilities.

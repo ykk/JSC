@@ -2,7 +2,6 @@ package simulation.optimization.dynprogram;
 
 import Jama.*;
 import simulation.utilities.structures.*;
-import simulation.optimization.*;
 import java.util.*;
 
 /** Class to perform dynamic programming policy iteration.
@@ -74,10 +73,7 @@ public class PolicyIterate
 	    if (verbose) System.out.println("\tNew "+currPolicy);
 	}
 
-	//Get steady state probabilities
-	MarkovChain mc = dp.getMarkovChain(lastResult);
-	lastResult.registerProb(mc.getSteadyState());
-
+	lastResult.getProb(dp);
 	return lastResult;
     }
 
