@@ -88,6 +88,9 @@ public class PolicyIterate
 	Policy newPolicy = new Policy(policy.states);
 	Vector vAct;
 
+	Runtime r = Runtime.getRuntime();
+	r.gc();
+
 	//Iterate through states
 	for (int i = 0; i < policy.states.size(); i++)
 	{
@@ -132,6 +135,9 @@ public class PolicyIterate
      */
     protected double[] valDet(DynamicProgram dp, Policy policy)
     {
+	Runtime r = Runtime.getRuntime();
+	r.gc();
+
 	//Form matrices
 	double[][] c = new double[dp.states.size()][1];
 	double[][] probDistri = new double[dp.states.size()][dp.states.size()];

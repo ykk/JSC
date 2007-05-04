@@ -18,7 +18,7 @@ public class TransitProb
     public Action action;
     /** Array of probabilities.
      */
-    protected double[] prob;
+    public double[] prob;
 
     //Methods
     /** Constructor.
