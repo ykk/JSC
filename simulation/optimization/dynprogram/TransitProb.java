@@ -6,6 +6,10 @@ package simulation.optimization.dynprogram;
 public class TransitProb
 {
     //Members
+    /** Tolerance for check.
+     * Default to 0.
+     */
+    public double tolerance = 0;
     /** Associated state.
      */
     public State state;
@@ -17,6 +21,20 @@ public class TransitProb
     protected double[] prob;
 
     //Methods
+    /** Constructor.
+     * @param prob array of prob
+     * @param tolerance tolerance threshold for check
+     */
+    public TransitProb(double[] prob, double tolerance)
+    {
+	this.tolerance = tolerance;
+	this.prob = new double[prob.length];
+	for (int i = 0; i < prob.length; i++)
+	    this.prob[i] = prob[i];
+
+	check();
+    }
+
     /** Constructor.
      * @param prob array of prob
      */
@@ -37,8 +55,8 @@ public class TransitProb
 	for (int i = 0; i < prob.length; i++)
 	    sum += prob[i];
 
-	if (sum != 1.0)
-	    throw new RuntimeException(this+" sums to "+sum+" instead of 1!");
+	if (Math.abs(1.0 - sum) > tolerance)
+	    throw new RuntimeException(this+" sums to "+sum+" instead of 1!  Exceeded tolerance of "+tolerance+".");
     }
 
     /** String representation.

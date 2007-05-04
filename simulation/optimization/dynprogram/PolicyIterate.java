@@ -31,12 +31,13 @@ public class PolicyIterate
     public Policy optimalPolicy(DynamicProgram dp)
     {
 	Policy newPol = new Policy(dp.states);
-	newPol.getRandom(dp.actions);
+	newPol.getLast(dp.actions);
 
 	return optimalPolicy(dp, newPol);
     }
 
     /** Find optimal policy, starting from given policy. 
+     * Stores results in {@link #lastResult} and {@link @lastCost}.
      * @param dp dynamic program reference
      * @param iniPolicy initial policy
      * @return optimal policy

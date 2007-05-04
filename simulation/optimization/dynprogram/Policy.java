@@ -35,6 +35,50 @@ public class Policy
 	    actions.add(null);
     }
 
+    /** Get policy using last action.
+     * @param actions vector of actions
+     */
+    public void getLast(Vector actions)
+    {
+	this.actions = new Vector();
+	Vector validAct = new Vector();
+	Uniform rv;
+
+	for (int i = 0; i < states.size(); i++)
+	{
+	    validAct.clear();
+	    for (int j = 0; j < actions.size(); j++)
+		if (((Action) actions.get(j)).valid((State) states.get(i)))
+		    validAct.add(actions.get(j));
+
+	    if (validAct.size() == 0)
+		throw new RuntimeException(this+" has state "+states.get(i)+" that has not valid action.");
+	    this.actions.add(validAct.get(validAct.size()-1));
+	}
+    }
+
+    /** Get policy using first action.
+     * @param actions vector of actions
+     */
+    public void getFirst(Vector actions)
+    {
+	this.actions = new Vector();
+	Vector validAct = new Vector();
+	Uniform rv;
+
+	for (int i = 0; i < states.size(); i++)
+	{
+	    validAct.clear();
+	    for (int j = 0; j < actions.size(); j++)
+		if (((Action) actions.get(j)).valid((State) states.get(i)))
+		    validAct.add(actions.get(j));
+
+	    if (validAct.size() == 0)
+		throw new RuntimeException(this+" has state "+states.get(i)+" that has not valid action.");
+	    this.actions.add(validAct.get(0));
+	}
+    }
+
     /** Get random policy.
      * @param actions vector of actions
      */
