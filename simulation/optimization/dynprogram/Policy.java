@@ -16,6 +16,9 @@ public class Policy
     /** Policy in terms of vector of actions.
      */ 
     public Vector actions = new Vector();
+    /** Vectors of state probabilities.
+     */
+    public Vector prob = new Vector();
 
     //Methods
     /** Constructor.
@@ -33,6 +36,27 @@ public class Policy
     {
 	for (int i = 0; i < states.size(); i++)
 	    actions.add(null);
+    }
+
+    /** Register steady state probabilities.
+     * @param prob array of steady state probabilities
+     */
+    public void registerProb(double[] prob)
+    {
+	for (int i = 0; i < prob.length; i++)
+	    this.prob.add(new Double(prob[i]));
+    }
+
+    /** Prune zero probability event from policy, replacing the action with null.
+     */
+    public void prune()
+    {
+	for (int i = 0; i < states.size(); i++)
+	    if (((Double) prob.get(i)).doubleValue() == 0)
+	    {
+		actions.remove(i);
+		actions.add(i,null);
+	    }
     }
 
     /** Get policy using last action.
@@ -135,7 +159,7 @@ public class Policy
     {
 	String result = "Policy:";
 	for (int i = 0; i < states.size(); i++)
-	    result += "\n\t"+states.get(i)+"\t"+actions.get(i);
+	    result += "\n\t"+states.get(i)+"\t"+prob.get(i)+"\t"+actions.get(i);
 
 	return result;
     }
