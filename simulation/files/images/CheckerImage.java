@@ -13,6 +13,13 @@ public class CheckerImage
     extends ImageFile
 {
     //Members
+    /** Styles.
+     * Default is {@link #SHADE_STYLE}.
+     */
+    public int style = SHADE_STYLE;
+    public static final int SHADE_STYLE = 0;
+    public static final int BAR_STYLE = 1;
+    public static final int CIRCLE_STYLE = 2;
     /** Invert shade.
      * The default is the higher value get whiter.
      */
@@ -60,14 +67,53 @@ public class CheckerImage
     {
 	for (int i = 0; i < values.length; i++)
 	    for (int j = 0; j < values[0].length; j++)
-	    {
-		float shade = (float) ((values[i][j]-valueMin)/(valueMax-valueMin));
-		if (getDarker)
-		    shade = 1 - shade;
-		image.setColor(new Color(shade, shade, shade));
-		image.fillRect(i*resolution, j*resolution, resolution, resolution);
-	    }
+		drawBox(i,j);
 
 	write();
+    }
+
+    /** Draw single checker box.
+     * @param x x coordinate
+     * @param y y coordinate
+     */
+    public void drawBox(int x, int y)
+    {
+	//Scaling
+	float shade = (float) ((values[x][y]-valueMin)/(valueMax-valueMin));
+
+	//Color background and set color
+	if (getDarker)
+	    image.setColor(Color.white);
+	else
+	    image.setColor(Color.black);
+	image.fillRect(x*resolution, y*resolution, resolution, resolution);
+	if (getDarker)
+	    image.setColor(Color.black);
+	else
+	    image.setColor(Color.white);
+
+	//Actual drawing
+	switch (style)
+	{
+	case SHADE_STYLE:
+	    if (getDarker)
+		shade = 1 - shade;
+	    image.setColor(new Color(shade, shade, shade));
+	    image.fillRect(x*resolution, y*resolution, resolution, resolution);
+	    break;
+	case BAR_STYLE:
+	    image.fillRect(x*resolution, y*resolution, resolution, 
+			   (int) Math.ceil(shade*((double) resolution)));
+	    break;
+	case CIRCLE_STYLE:
+	    float half = (float) (0.5 * ((float) resolution));
+	    shade = (float) (shade * (float) resolution);
+	    image.fillArc((int) (x*resolution + half - 0.5 * shade), 
+			  (int) (y*resolution + half - 0.5 * shade), 
+			  (int) shade, (int) shade, 0, 360);	    
+	    break;
+	default:
+	    throw new RuntimeException("Unknown checker style "+style);
+	}
     }
 }
