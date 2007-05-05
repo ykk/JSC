@@ -28,6 +28,8 @@ public class Policy
     public Policy(Vector states)
     {
 	this.states = states;
+	for (int i = 0; i < states.size(); i++)
+	    prob.add(new Double(0));
     }
 
     /** Get probabilities of each action.
@@ -68,6 +70,7 @@ public class Policy
      */
     public void registerProb(double[] prob)
     {
+	this.prob.clear();
 	for (int i = 0; i < prob.length; i++)
 	    this.prob.add(new Double(prob[i]));
     }
