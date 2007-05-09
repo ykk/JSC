@@ -22,16 +22,37 @@ public class PolicyIterate
     /** Cost of last result.
      */
     public double lastCost;
+    /** Starting policy.
+     * @Default to last policy
+     */
+    public int startPolicy = START_LASTPOLICY;
+    public static final int START_LASTPOLICY = 0;
+    public static final int START_FIRSTPOLICY = 1;
+    public static final int START_RANDOMPOLICY = 2;
 
     //Methods
-    /** Find optimal policy, starting from random policy. 
+    /** Find optimal policy, starting from some policy
+     * @see #startPolicy
      * @param dp dynamic program reference
      * @return optimal policy
      */
     public Policy optimalPolicy(DynamicProgram dp)
     {
 	Policy newPol = new Policy(dp.states);
-	newPol.getLast(dp.actions);
+	switch (startPolicy)
+	{
+	case START_LASTPOLICY:
+	    newPol.getLast(dp.actions);
+	    break;
+	case START_FIRSTPOLICY:
+	    newPol.getFirst(dp.actions);
+	    break;
+	case START_RANDOMPOLICY:
+	    newPol.getRandom(dp.actions);
+	    break;
+	default:
+	    throw new RuntimeException(this +" initiated with unknown start policy type "+startPolicy);
+	}
 
 	return optimalPolicy(dp, newPol);
     }

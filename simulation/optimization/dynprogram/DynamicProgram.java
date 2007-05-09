@@ -175,6 +175,7 @@ public class DynamicProgram
     }
 
     /** Get transition probability for state and action given.
+     * Return null if not defined.
      * @param state reference to state
      * @param action reference to action
      * @return transmit probability associated
