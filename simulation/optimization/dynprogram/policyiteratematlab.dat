@@ -1,0 +1,45 @@
+%Get size of program
+actionSize = length(Cost(1,:));
+stateSize = length(CurrPolicy);
+
+%Policy Iteration
+LastPolicy = NaN(1,stateSize);
+while (sum(LastPolicy ~= CurrPolicy))
+    if (verbose)
+        disp(CurrPolicy);
+    end
+    LastPolicy = CurrPolicy;
+    
+    %Value Determination
+    policyProb = [];
+    policyCost = [];
+    for i = 1:stateSize
+        policyProb = [policyProb; TransProb(i,(CurrPolicy(i)*stateSize+1):((CurrPolicy(i)+1)*stateSize))];
+        policyCost = [policyCost; -1*Cost(i, CurrPolicy(i)+1)];
+    end
+    policyProb = policyProb - eye(stateSize);
+    policyProb(:, stateSize) = -1*ones(stateSize,1);
+    values = policyProb\policyCost;
+    finalCost = values(stateSize);
+    values(stateSize) = 0;
+    if (verbose)
+        disp(transpose(values));
+    end
+    
+    %Policy Improvement
+    CurrPolicy = [];
+    for i = 1:stateSize
+        minCost = Inf;
+        for j = 1:actionSize
+            if (~isnan(Cost(i,j)))
+                policyProb = TransProb(i, ((j-1)*stateSize+1):(j*stateSize));
+                policyCost = Cost(i, j) + policyProb*values - values(i);
+                if (minCost > policyCost)
+                    minCost = policyCost;
+                    minAct = j-1;
+                end
+            end
+        end
+        CurrPolicy = [CurrPolicy minAct];
+    end
+end

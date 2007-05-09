@@ -23,7 +23,7 @@ public class PolicyIterate
      */
     public double lastCost;
     /** Starting policy.
-     * @Default to last policy
+     * Default to last policy.
      */
     public int startPolicy = START_LASTPOLICY;
     public static final int START_LASTPOLICY = 0;

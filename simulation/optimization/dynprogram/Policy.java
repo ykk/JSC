@@ -5,6 +5,15 @@ import simulation.distributions.*;
 import simulation.optimization.*;
 
 /** Class to store policy for dynamic program.
+ * Reference to
+ * <PRE>@inbook{Hillier:1995lr,
+ * Author = {Frederick S. Hillier and Gerald J. Lieberman},
+ * Chapter = {19},
+ * Edition = {6},
+ * Pages = {833--848},
+ * Publisher = {McGraw-Hill},
+ * Title = {Introduction to Operations Research},
+ * Year = {1995}}</PRE>
  * @author ykk
  */
 public class Policy

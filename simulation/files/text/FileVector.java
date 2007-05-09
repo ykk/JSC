@@ -135,4 +135,13 @@ public class FileVector
             System.err.println(errItem);
         }
     }
+
+    /** Append vector to file.
+     * @param vector vector to append
+     */
+    public void append(Vector vector)
+    {
+	for (int i = 0; i < vector.size(); i++)
+	    content.add(vector.get(i));
+    }
 }

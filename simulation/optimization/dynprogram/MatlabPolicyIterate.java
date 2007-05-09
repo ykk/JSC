@@ -10,13 +10,26 @@ public class MatlabPolicyIterate
     extends PolicyIterate
 {
     //Members
+    /** Indicate if sparse matrices
+     * Default to false.
+     */
+    public boolean isSparse = false;
     /** Reference to dynamic program.
      */
-    DynamicProgram dp;
+    public DynamicProgram dp;
     /** Script filename.
-     * Defaults to policyIterate.m.
+     * Defaults to policyIterate (extension m added).
      */
-    public String scriptFilename = "policyIterate.m";
+    public String scriptFilename = "policyIterate";
+    /** Output filename.
+     * Defaults to scriptOutput (extension mat added).
+     * First line is the optimal policy and the second is the final cost of the policy.
+     */
+    public String scriptOutputFile = "scriptOutput";
+    /** Run command.
+     * Default at matlab -nojvm -nosplash -r {@link #scriptFilename}.
+     */
+    public String command = "matlab -nojvm -nosplash -r ";
 
     //Methods
     /** Output matlab code to find optimal policy, starting from given policy.
@@ -33,7 +46,11 @@ public class MatlabPolicyIterate
      */
     public FileVector getMatlabCode(DynamicProgram dp, Policy iniPolicy)
     {
-	FileVector file = new FileVector(scriptFilename);
+	//Check program
+	dp.checkCost();
+	dp.checkProb();
+
+	FileVector file = new FileVector(scriptFilename+".m");
 	String nullProb = "";
 
 	//Get TransProb
@@ -84,6 +101,23 @@ public class MatlabPolicyIterate
 	    probString += dp.actions.indexOf(iniPolicy.actions.get(i))+" ";
 	file.content.add(probString+ "];");
 
+	//Indicate sparse matrices
+	file.content.add("");
+	if (isSparse)
+	    file.content.add("TransProb = sparse(TransProb);");
+	file.content.add((verbose)?"verbose=1;":"verbose=0;");
+	file.content.add("");
+
+	//Append Code
+	JarFile codeFile = new JarFile("/simulation/optimization/dynprogram/policyiteratematlab.dat");
+	codeFile.read();
+	file.append(codeFile.content);
+
+	//Append data output
+	file.content.add("");
+	file.content.add("save -ASCII '"+scriptOutputFile+".mat' 'CurrPolicy' 'finalCost';");
+	file.content.add("exit;");
+
 	file.write();
 	return file;
     }
@@ -97,7 +131,8 @@ public class MatlabPolicyIterate
     public Policy optimalPolicy(DynamicProgram dp, Policy iniPolicy)
     {
 	this.dp = dp;
-
+	getMatlabCode(dp,iniPolicy);
+	
 	
 	return null;
     }
