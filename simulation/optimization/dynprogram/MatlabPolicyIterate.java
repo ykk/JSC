@@ -2,6 +2,8 @@ package simulation.optimization.dynprogram;
 
 import simulation.utilities.structures.*;
 import simulation.files.text.*;
+import java.util.*;
+import java.io.*;
 
 /** Output and uses Matlab script to do policy iteration.
  * @author ykk
@@ -46,6 +48,8 @@ public class MatlabPolicyIterate
      */
     public FileVector getMatlabCode(DynamicProgram dp, Policy iniPolicy)
     {
+	this.dp = dp;
+
 	//Check program
 	dp.checkCost();
 	dp.checkProb();
@@ -115,11 +119,33 @@ public class MatlabPolicyIterate
 
 	//Append data output
 	file.content.add("");
-	file.content.add("save -ASCII '"+scriptOutputFile+".mat' 'CurrPolicy' 'finalCost';");
+	file.content.add("save -ASCII '"+scriptOutputFile+".mat' 'CurrPolicy' 'finalCost' 'steadyState';");
 	file.content.add("exit;");
 
 	file.write();
 	return file;
+    }
+
+    /** Read script output.
+     * Format is line 1 = optimal policy; line 2 = cost of policy; and line 3 is steady state distribution.
+     */
+    public void readOutput()
+    {
+	FileVector file = new FileVector(scriptOutputFile+".mat");
+	file.read();
+	lastResult = new Policy(dp.states);
+
+	lastResult.actions.clear();
+	StringTokenizer tokens = new StringTokenizer((String) file.content.get(0));
+	while (tokens.hasMoreTokens())
+	    lastResult.actions.add(dp.actions.get((int) Double.parseDouble(tokens.nextToken())));
+	
+	lastCost = Double.parseDouble((String) file.content.get(1));
+
+	lastResult.prob.clear();
+	tokens = new StringTokenizer((String) file.content.get(2));
+	while (tokens.hasMoreTokens())
+	    lastResult.prob.add(new Double(Double.parseDouble(tokens.nextToken())));
     }
 
     /** Find optimal policy, starting from given policy. 
@@ -130,10 +156,22 @@ public class MatlabPolicyIterate
      */
     public Policy optimalPolicy(DynamicProgram dp, Policy iniPolicy)
     {
-	this.dp = dp;
+	String output;
+
 	getMatlabCode(dp,iniPolicy);
-	
-	
-	return null;
+	try
+	{
+	    Process process = Runtime.getRuntime().exec(command+scriptFilename);
+	    BufferedReader outcome = new 
+		BufferedReader(new InputStreamReader(process.getInputStream()));
+	    while ((output = outcome.readLine()) != null)
+		System.out.println(output);
+	} catch (IOException err)
+	{
+	    System.err.println(this + " generates "+ err);
+	}	
+	readOutput();
+
+	return lastResult;
     }
 }

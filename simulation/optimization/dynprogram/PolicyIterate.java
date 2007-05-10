@@ -131,7 +131,7 @@ public class PolicyIterate
 		tmpProb = dp.getProb(tmpState, tmpAct);
 		for (int k = 0; k < values.length-1; k++)
 		{
-		    tmpCost += tmpProb.prob[k]*values[k];
+		    tmpCost += tmpProb.getProb(k)*values[k];
 		    if (k == i) tmpCost -= values[k];
 		}
 
@@ -168,7 +168,7 @@ public class PolicyIterate
 	    tProb = dp.getProb((State) dp.states.get(i), (Action) policy.actions.get(i));
 	    c[i][0] = -1.0 * dp.getCost((State) dp.states.get(i), (Action) policy.actions.get(i));
 	    for (int j = 0; j < dp.states.size(); j++)
-		probDistri[i][j] = tProb.prob[j];
+		probDistri[i][j] = tProb.getProb(j);
  
 	    probDistri[i][i] -= 1.0;
 	    probDistri[i][dp.states.size()-1] = -1.0;

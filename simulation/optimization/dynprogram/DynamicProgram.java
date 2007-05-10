@@ -35,54 +35,12 @@ public class DynamicProgram
 	{
 	    tp = getProb((State) states.get(i),
 			 (Action) policy.actions.get(i));
-	    for (int j = 0; j < tp.prob.length; j++)
-		mc.transitProb[i][j] = tp.prob[j];
+	    for (int j = 0; j < tp.length; j++)
+		mc.transitProb[i][j] = tp.getProb(j);
 	}
 
 	return mc;
     }
-
-    /** Streamline state space by using starting state and actions.
-     * @param startingState starting state
-     *
-    public void streamline(State startingState)
-    {
-	Vector pendingStates = new Vector();
-	Vector newStates = new Vector();
-	State currState;
-
-	//Enumerate possible states
-	pendingStates.add(startingState);
-	while (pendingStates.size() != 0)
-        {
-	    currState = (State) pendingStates.get(0);
-	    Vector nextStates = getNextStates(currState);
-	    newStates.add(currState);
-
-	    for (int i = 0; i < nextStates.size(); i++)
-            {
-		currState = (State) nextStates.get(i);
-		if ((pendingStates.indexOf(currState) == -1) && (newStates.indexOf(currState) == -1))
-		    pendingStates.add(currState);
-	    }
-	}
-	
-	System.out.println("gotten new states");
-	//Streamline valid states in actions.
-	for (int i = 0; i < actions.size(); i++)
-        {
-	    Action act = (Action) actions.get(i);
-	    for (int j = 0; j < act.validStates.size(); j++)
-		if (newStates.indexOf(act.validStates.get(j)) == -1)
-                {
-		    act.validStates.remove(j);
-		    j--;   
-		}
-	}
-	
-	//Final replacement
-	states = newStates;
-    }*/
 
     /** Get possible next states.
      * @param state current state
@@ -100,8 +58,8 @@ public class DynamicProgram
 	    if (action.valid(currState))
 	    {
 		prob = (TransitProb) getProb(currState,action);
-		for (int j = 0; j < prob.prob.length; i++)
-		    if ((prob.prob[j] != 0) && (nextStates.indexOf(states.get(j)) != -1))
+		for (int j = 0; j < prob.length; i++)
+		    if ((prob.getProb(j) != 0) && (nextStates.indexOf(states.get(j)) != -1))
 			nextStates.add(states.get(j));
 	    }
 	}

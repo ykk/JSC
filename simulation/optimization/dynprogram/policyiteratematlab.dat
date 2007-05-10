@@ -43,3 +43,18 @@ while (sum(LastPolicy ~= CurrPolicy))
         CurrPolicy = [CurrPolicy minAct];
     end
 end
+
+%Get steady state
+policyProb = [];
+for i = 1:stateSize
+    policyProb = [policyProb; TransProb(i,(CurrPolicy(i)*stateSize+1):((CurrPolicy(i)+1)*stateSize))];
+end
+policyProb = transpose(policyProb);
+policyProb = policyProb - eye(stateSize);
+policyProb(stateSize, :) = ones(1,stateSize);
+policyCost = [zeros(stateSize-1,1); 1];
+steadyState = transpose(policyProb\policyCost);
+
+disp(CurrPolicy);
+disp(finalCost);
+disp(steadyState);
