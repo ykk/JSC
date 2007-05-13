@@ -4,11 +4,15 @@ stateSize = length(CurrPolicy);
 
 %Policy Iteration
 LastPolicy = NaN(1,stateSize);
-while (sum(LastPolicy ~= CurrPolicy))
+LastCost = 0;
+CurrCost = 0;
+iterate = 1;
+while (iterate)
     if (verbose)
         disp(CurrPolicy);
     end
     LastPolicy = CurrPolicy;
+    LastCost = CurrCost;
     
     %Value Determination
     policyProb = [];
@@ -20,7 +24,7 @@ while (sum(LastPolicy ~= CurrPolicy))
     policyProb = policyProb - eye(stateSize);
     policyProb(:, stateSize) = -1*ones(stateSize,1);
     values = policyProb\policyCost;
-    finalCost = values(stateSize);
+    CurrCost = values(stateSize);
     values(stateSize) = 0;
     if (verbose)
         disp(transpose(values));
@@ -42,6 +46,13 @@ while (sum(LastPolicy ~= CurrPolicy))
         end
         CurrPolicy = [CurrPolicy minAct];
     end
+    
+    %Check iteration
+    if (checkCost)
+        iterate = (LastCost ~= CurrCost);
+    else
+        iterate = sum(LastPolicy ~= CurrPolicy);
+    end
 end
 
 %Get steady state
@@ -56,5 +67,5 @@ policyCost = [zeros(stateSize-1,1); 1];
 steadyState = transpose(policyProb\policyCost);
 
 disp(CurrPolicy);
-disp(finalCost);
+disp(CurrCost);
 disp(steadyState);

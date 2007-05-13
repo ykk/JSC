@@ -58,25 +58,48 @@ public class MatlabPolicyIterate
 	String nullProb = "";
 
 	//Get TransProb
-	for (int i = 0; i < dp.states.size(); i++)
-	    nullProb += "0.0 ";
-	file.content.add("TransProb = [");
-	for (int i = 0; i < dp.states.size(); i++)
+	if (isSparse)
 	{
-	    String probString = "";
-	    for (int j = 0; j < dp.actions.size(); j++)
-	    {
-		TransitProb prob = dp.getProb((State) dp.states.get(i), (Action) dp.actions.get(j));
-		if (prob == null)
-		    probString += nullProb;
-		else
-		    probString += prob.toString().replace('[',' ').replace(']',' ');
-	    }
-	    if ( i != (dp.states.size()-1))
-		probString += ";";
-	    file.content.add(probString);
+	    //Sparse matrix
+	    file.content.add("TransProb = zeros("+dp.states.size()+","+(dp.states.size()*dp.actions.size())+");");
+	    file.content.add("TransProb = sparse(TransProb);");
+	    for (int i = 0; i < dp.states.size(); i++)
+		for (int j = 0; j < dp.actions.size(); j++)
+		{
+		    TransitProb prob = dp.getProb((State) dp.states.get(i), (Action) dp.actions.get(j));
+		    if (prob != null)
+			for (int k = 0; k < dp.states.size(); k++)
+			{
+			    double sProb = prob.getProb(k);
+			    if (sProb != 0)
+				file.content.add("TransProb("+(i+1)+","+(j*dp.states.size()+k+1)+")="+
+						 sProb+";");
+			}
+		}
 	}
-	file.content.add("];");
+	else
+	{
+	    //Proper matrix
+	    for (int i = 0; i < dp.states.size(); i++)
+		nullProb += "0.0 ";
+	    file.content.add("TransProb = [");
+	    for (int i = 0; i < dp.states.size(); i++)
+	    {
+		String probString = "";
+		for (int j = 0; j < dp.actions.size(); j++)
+		{
+		    TransitProb prob = dp.getProb((State) dp.states.get(i), (Action) dp.actions.get(j));
+		    if (prob == null)
+			probString += nullProb;
+		    else
+			probString += prob.toString().replace('[',' ').replace(']',' ');
+		}
+		if ( i != (dp.states.size()-1))
+		    probString += ";";
+		file.content.add(probString);
+	    }
+	    file.content.add("];");
+	}
 
 	//Get Cost
 	nullProb = "NaN ";
@@ -107,8 +130,7 @@ public class MatlabPolicyIterate
 
 	//Indicate sparse matrices
 	file.content.add("");
-	if (isSparse)
-	    file.content.add("TransProb = sparse(TransProb);");
+	file.content.add((checkCost)?"checkCost=1;":"checkCost=0;");
 	file.content.add((verbose)?"verbose=1;":"verbose=0;");
 	file.content.add("");
 
@@ -119,7 +141,7 @@ public class MatlabPolicyIterate
 
 	//Append data output
 	file.content.add("");
-	file.content.add("save -ASCII '"+scriptOutputFile+".mat' 'CurrPolicy' 'finalCost' 'steadyState';");
+	file.content.add("save -ASCII '"+scriptOutputFile+".mat' 'CurrPolicy' 'CurrCost' 'steadyState';");
 	file.content.add("exit;");
 
 	file.write();

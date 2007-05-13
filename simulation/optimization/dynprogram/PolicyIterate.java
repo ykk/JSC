@@ -12,6 +12,10 @@ import java.util.*;
 public class PolicyIterate
 {
     //Members
+    /** Flag to check cost and not policy.
+     * Default setting is false.
+     */
+    public boolean checkCost = false;
     /** Flag for verbosity.
      * Default to true.
      */
@@ -73,13 +77,15 @@ public class PolicyIterate
 	Policy currPolicy = new Policy(dp.states);
 	for (int i = 0; i < iniPolicy.actions.size(); i++)
 	    currPolicy.actions.add(iniPolicy.actions.get(i));
+	double currCost = 0;
 
 	//Policy iteration
+	boolean iterate = true;
 	lastResult = new Policy(dp.states);
 	lastResult.addNullAct();
 	double[] values;
 	if (verbose) System.out.println("Start "+currPolicy);
-	while (currPolicy.compareTo(lastResult) != 0)
+	while (iterate)
 	{
 	    if (verbose) System.out.println("Iterating");
 
@@ -89,9 +95,16 @@ public class PolicyIterate
 
 	    //Policy improvement
 	    lastResult = currPolicy;
-	    lastCost = values[values.length-1];
+	    lastCost = currCost;
+	    currCost = values[values.length-1];
 	    currPolicy = polImprove(dp, currPolicy, values);
 	    if (verbose) System.out.println("\tNew "+currPolicy);
+
+	    //Check termination
+	    if (checkCost)
+		iterate = (lastCost != currCost);
+	    else
+		iterate = (currPolicy.compareTo(lastResult) != 0);
 	}
 
 	lastResult.getProb(dp);
