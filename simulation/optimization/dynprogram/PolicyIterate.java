@@ -104,7 +104,10 @@ public class PolicyIterate
 	    if (checkCost)
 		iterate = (lastCost != currCost);
 	    else
+	    {
 		iterate = (currPolicy.compareTo(lastResult) != 0);
+		lastCost = currCost;
+	    }
 	}
 
 	lastResult.getProb(dp);
