@@ -46,7 +46,7 @@ public class Simulator
      * @param event event definition
      * @see EventTriggered#run(double time, String event, Simulator simulator)
      */
-    public void runEvent(Event event)
+    private void runEvent(Event event)
     {
 	if (debug) System.out.println(event);
 	time = event.time;

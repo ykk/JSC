@@ -12,6 +12,10 @@ import java.util.*;
 public class PolicyIterate
 {
     //Members
+    /** Tolerance for cost difference.
+     * Default to 0.
+     */
+    public double tolerance = 0;
     /** Flag to check cost and not policy.
      * Default setting is false.
      */
@@ -102,7 +106,7 @@ public class PolicyIterate
 
 	    //Check termination
 	    if (checkCost)
-		iterate = (lastCost != currCost);
+		iterate = (Math.abs(lastCost - currCost) > tolerance);
 	    else
 	    {
 		iterate = (currPolicy.compareTo(lastResult) != 0);

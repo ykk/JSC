@@ -2,7 +2,7 @@ package simulation.eventbased;
 
 import simulation.eventbased.*;
 
-/** Abstract class for event triggered object.
+/** Interface for event triggered object.
  * @author ykk
  */
 public interface EventTriggered
