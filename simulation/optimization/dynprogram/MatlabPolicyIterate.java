@@ -61,8 +61,7 @@ public class MatlabPolicyIterate
 	if (isSparse)
 	{
 	    //Sparse matrix
-	    file.content.add("TransProb = zeros("+dp.states.size()+","+(dp.states.size()*dp.actions.size())+");");
-	    file.content.add("TransProb = sparse(TransProb);");
+	    file.content.add("TransProb = sparse("+dp.states.size()+","+(dp.states.size()*dp.actions.size())+");");
 	    for (int i = 0; i < dp.states.size(); i++)
 		for (int j = 0; j < dp.actions.size(); j++)
 		{
