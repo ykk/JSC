@@ -17,7 +17,10 @@ public class RouteTree
     //Members
     /** List of nodes.
      */
-    public Vector nodes = new Vector();    
+    public Vector nodes = new Vector();
+    /** List of cost to node. 
+     */
+    public Vector costToNode = new Vector();
     /** List of route tree nodes.
      */
     private Vector treeNodes = new Vector();
@@ -87,6 +90,7 @@ public class RouteTree
 	    currNode = currNode.parent;
 	}
 
+	route.cost = getRouteCost(node);
 	return route;
     }
 
@@ -171,6 +175,33 @@ public class RouteTree
 	NetworkRouteImage image = new NetworkRouteImage(filename, imageFormat, network, resolution, nodeSize);
 	image.draw(this);
 	image.write();
+    }
+
+    /** Get cost of route.
+     * Returns Double.POSITIVE_INFINITY if cost is not found.
+     * @param node node to get cost for
+     * @return cost of route to node
+     */
+    public double getRouteCost(Node node)
+    {
+	int j = nodes.indexOf(node);
+	if (j < costToNode.size())
+	    return ((Double) costToNode.get(j)).doubleValue();
+	else
+	    return Double.POSITIVE_INFINITY;
+    }
+
+    /** String representation.
+     */
+    public String toString()
+    {
+	String rStr = super.toString();
+	int j;
+
+	for (int i = 0; i < treeNodes.size(); i++)	
+	    rStr +="\n\t"+treeNodes.get(i)+"\t"+getRouteCost(((RouteTreeNode) treeNodes.get(i)).node);
+
+	return rStr;
     }
 
     /** Function to test route tree by drawing it.

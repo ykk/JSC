@@ -108,6 +108,7 @@ public class Dijkstra
 	    }
 	}
 
+	tree.costToNode = costToNode;
 	return tree;
     }
 
@@ -169,7 +170,7 @@ public class Dijkstra
 				       cost1 +" or/and "+cost2 +" which is not allowed.");
 	return cost1+cost2;
     }
-     
+
     /** Function to test Dijsktra by using it on a network and drawing the result.
      * @param args 1st argument is density of network
      */

@@ -28,4 +28,12 @@ public class RouteTreeNode
 	this.parent = parent;
 	this.node = node;
     }
+
+    /** String representation.
+     * @param string represenation.
+     */
+    public String toString()
+    {
+	return parent+"->"+node;
+    }
 }

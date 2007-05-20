@@ -104,6 +104,7 @@ public class FloydWarshall
 	    table = (RouteTable) nextTable.clone();
 	}
 	
+	table.cost = nextCost;
 	return table;
     }
 

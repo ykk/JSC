@@ -14,6 +14,9 @@ public class RouteTable
     /** Table of next hops.
      */
     public Node[][] nextHop;
+    /** Cost between nodes.
+     */
+    public double[][] cost;
     /** Vector of nodes.
      * Cloned from vector given at construction.
      */
@@ -119,6 +122,7 @@ public class RouteTable
 	    source = nextHop(source,destination);
 	}
 
+	route.cost = cost[nodes.indexOf(source)][nodes.indexOf(destination)];
 	if (source == null)
 	    return null;
 	else

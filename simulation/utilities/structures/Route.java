@@ -17,6 +17,9 @@ public class Route
     /** Indicate if route is from source to destination.
      */
     private boolean routeFromSource;
+    /** Cost of route.
+     */
+    public double cost = 0.0;
 
     //Methods
     /** Create new route.
