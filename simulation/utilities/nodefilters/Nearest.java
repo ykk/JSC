@@ -3,6 +3,7 @@ package simulation.utilities.nodefilters;
 import java.util.*;
 import simulation.networks.*;
 import simulation.networks.nodes.*;
+import simulation.utilities.structures.*;
 
 /** Node filter to get nth nodes closest to a given point.
  * @author ykk
@@ -29,21 +30,30 @@ public class Nearest
 	this.point = point;
     }
 
+    /** Filter for nodes.
+     * @param nodes input set of nodes
+     * @return set of filtered nodes
+     */
     public Vector filter(Vector nodes)
     {
-	Vector result = new Vector();
+	SortedVector result = new SortedVector();
+	Vector filtered = new Vector();
 
 	for (int i = 0; i < nodes.size(); i++)
 	    result = addNode((Node) nodes.get(i), result);
+
+	for (int i = 0; i < result.size(); i++)
+	    filtered.add(((NodeDistance) result.get(0)).node);
 	
-	return result;
+	return filtered;
     }
 
     /** Add node to samples.
      * @param node node to add to samples
      * @param resultSet set of resulting nodes
+     * @return set of n nodes
      */
-    public Vector addNode(Node node, Vector resultSet)
+    protected SortedVector addNode(Node node, SortedVector resultSet)
     {
 	resultSet.add(new NodeDistance(node,point.distance(node)));
 	while (resultSet.size() > n)
