@@ -108,6 +108,22 @@ public class DataDistribution
 	}
     }
 
+    /** Return cumulative distribution.
+     * @return cumulative distribution
+     */
+    public DataDistribution cumulative()
+    {
+	DataDistribution cumu = new DataDistribution(binNumber, binMin, binSize);
+	double sum = 0;
+	for (int i = 0 ; i < this.size(); i++)
+	{
+	    sum += this.readBin(i);
+	    cumu.writeBin(i, sum);
+	}
+
+	return cumu;
+    }
+
     /** String representation of distribution.
      * @return probability mass function of distribution
      */
