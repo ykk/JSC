@@ -47,9 +47,6 @@ In networking simulation, a useful characteristic to map is the reception percen
 \caption{Plots of reception probability across distance, with scatter plots of the various node pairs in the RoofNet system.}
 \label{fig:scatter}
 \end{figure*}
-
-We then divide the distance from $0$ to $4$ $km$ into $20$ bins, and consider the distribution of reception percentage within each bin.  The bin size is chosen for most bins to have significant number of samples to give the mean and standard deviation.  The mean and standard deviation of the distribution within each bin is also being presented in Fig.~\ref{fig:scatter}.  We have also collated the different cases in Fig.~\ref{fig:prob}.  
-
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=0.8\linewidth]{Distro}
@@ -57,9 +54,39 @@ We then divide the distance from $0$ to $4$ $km$ into $20$ bins, and consider th
 \label{fig:prob}
 \end{figure*}
 
+\subsection{Reception Probabilities over Distance}
+We then divide the distance from $0$ to $4$ $km$ into $20$ bins, and consider the distribution of reception percentage within each bin.  The bin size is chosen for most bins to have significant number of samples to give the mean and standard deviation.  The mean and standard deviation of the distribution within each bin is also being presented in Fig.~\ref{fig:scatter}.  We have also collated the different cases in Fig.~\ref{fig:prob}.  
+
 As we can observe, the commonly assumed monotonically decreasing reception probabilities does not hold in this case.  The peaks are around $1.5$ and $1.9$ $km$ are surprising and is likely to be environment specific.  Note that this profile is observed over all five cases.  Nevertheless, this is a possible operating environment for Wi-Fi networks, which we have to consider.
 
-We also notice that increasing the size of the packet and/or the rate does indeed lowers the reception percentage.  This result is intuitive and natural, especially since the profile is being maintained across all the cases.  We also note that there is no reception beyond $2.1$ $km$.
+We also notice that increasing the size of the packet and/or the rate does indeed lowers the reception percentage.  This result is intuitive and natural, especially since the profile is being maintained across all the cases.  We also note that there is no reception beyond $2.0$ $km$.
+
+\begin{figure*}
+\centering
+\mbox{\subfigure[$1$ Mbps, Short Packet, PMF]{\includegraphics[width=0.45\linewidth]{BinDistro1}}
+\subfigure[$1$ Mbps, Short Packet, CDF]{\includegraphics[width=0.45\linewidth]{BinDistroCDF1}}}
+\mbox{\subfigure[$1$ Mbps, Long Packet, PMF]{\includegraphics[width=0.45\linewidth]{BinDistro2}}
+\subfigure[$1$ Mbps, Long Packet, CDF]{\includegraphics[width=0.45\linewidth]{BinDistroCDF2}}}
+\mbox{\subfigure[$2$ Mbps, Long Packet, PMF]{\includegraphics[width=0.45\linewidth]{BinDistro3}}
+\subfigure[$2$ Mbps, Long Packet, CDF]{\includegraphics[width=0.45\linewidth]{BinDistroCDF3}}}
+\caption{Probability mass and cumulative distribution of reception probability within a distance bin -- Part I.}
+\label{fig:distribution1}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\mbox{\subfigure[$5.5$ Mbps, Long Packet, PMF]{\includegraphics[width=0.45\linewidth]{BinDistro4}}
+\subfigure[$5.5$ Mbps, Long Packet, CDF]{\includegraphics[width=0.45\linewidth]{BinDistroCDF4}}}
+\mbox{\subfigure[$11$ Mbps, Long Packet, PMF]{\includegraphics[width=0.45\linewidth]{BinDistro5}}
+\subfigure[$11$ Mbps, Long Packet, CDF]{\includegraphics[width=0.45\linewidth]{BinDistroCDF5}}}
+\caption{Probability mass and cumulative distribution of reception probability within a distance bin -- Part II.}
+\label{fig:distribution2}
+\end{figure*}
+
+\subsection{Distribution within a Distance}
+We now investigate the intra-bin distribution of the reception probabilities.  The probability mass functions and cumulative distribution functions for the different modes are plotted in Fig.~\ref{fig:distribution1}~and~\ref{fig:distribution2}.  In the plots, we have highlighted the short distance, middle distance ($\approx 1000$ $m$) and long distance ($\approx 2000$ $m$).
+
+While a clear trend is not available, it is interesting to note that the strong average for short distance is due to a large number of good channels while that for the long distance is being caused by a few strong channels.
 
 \section{\textit{Caveat emptor}}
 \subsection{Data Availability}
