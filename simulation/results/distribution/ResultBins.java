@@ -10,6 +10,12 @@ import java.util.*;
 public class ResultBins
     extends ResultDistribution
 {
+    /** Options for result bins.
+     */
+    public static final int OPT_MEANONLY = 0;
+    public static final int OPT_MEANNVAR = 1;
+    public static final int OPT_FULLLOG = 2;
+
     /** Reference to bin distribution.
      * This is the distribution for which the values will be bin according to.
      */
@@ -25,21 +31,34 @@ public class ResultBins
      */
     public ResultBins(DataDistribution binDistro)
     {
-	this(binDistro, false);
+	this(binDistro, OPT_MEANONLY);
     }
 
     /** Constructor.
      * @param binDistro binnning distribution
-     * @param maintainVar indicate if variance is maintained
+     * @param option indicate options
+     * @see #OPT_MEANONLY
+     * @see #OPT_MEANNVAR
+     * @see #OPT_FULLLOG
      */
-    public ResultBins(DataDistribution binDistro, boolean maintainVar)
+    public ResultBins(DataDistribution binDistro, int option)
     {
 	this.binDistro = binDistro;
 	for (int i = 0; i < binDistro.binNumber; i++)
-	    if (maintainVar)
-		results.add(new ResultVar());
-	    else
+	    switch(option)
+	    {
+	    case OPT_MEANONLY:
 		results.add(new Result());
+		break;
+	    case OPT_MEANNVAR:
+		results.add(new ResultVar());
+		break;
+	    case OPT_FULLLOG:
+		results.add(new ResultFullLog());
+		break;
+	    default:
+		throw new RuntimeException(this+" received unknown option "+option+"!");
+	    }
     }
 
     /** Input values.
