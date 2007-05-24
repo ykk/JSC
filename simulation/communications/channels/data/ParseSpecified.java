@@ -8,7 +8,7 @@ import java.util.*;
  * Channel information assumed to be sparse, since user is inputting.
  * @author ykk
  */
-public class ParseSpecified
+public class SparseSpecified
     extends ChannelMap
 {
     //Members
@@ -16,9 +16,9 @@ public class ParseSpecified
      * Defaulted to true.
      */ 
     public boolean symmetricalChannel = true;
-    /** Vector of {@link NodePairProb}
+    /** Vector of {@link NodePairProb}.
      */
-    public Vector data;
+    public Vector data = new Vector();
 
     //Methods
     /** Constructor

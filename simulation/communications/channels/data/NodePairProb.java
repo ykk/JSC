@@ -10,10 +10,10 @@ public class NodePairProb
     //Members
     /** Source node.
      */
-    Node source;
+    public Node source;
     /** Destination node.
      */
-    Node destination;
+    public Node destination;
     /** Reception probability.
      */ 
     public double prob;
