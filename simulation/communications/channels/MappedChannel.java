@@ -1,20 +1,21 @@
 package simulation.communications.channels;
 
+import simulation.distributions.*;
 import simulation.communications.channels.data.*;
 import simulation.communications.nodes.*;
 import simulation.networks.*;
+import simulation.networks.simulator.*;
 
 /** Unreliable communication channel from a {@link ChannelMap}.
  * @author ykk
  */
 public class MappedChannel
-    extends PathLoss
+    extends CommChannel
 {
     //Members
-    /** Path loss exponent.
-     * Overloaded to private.
+    /** Random number.
      */
-    private double exponent;
+    private Uniform random = new Uniform(0,1);
     /** Channel map.
      */
     public ChannelMap channel;
@@ -25,7 +26,7 @@ public class MappedChannel
      */
     public MappedChannel(double rate, ChannelMap channel)
     {
-	super(rate, -0.134);
+	super(rate);
 	this.channel = channel;
     }
 
@@ -36,8 +37,51 @@ public class MappedChannel
      */
     public MappedChannel(double rate, double headerRate, ChannelMap channel)
     {
-	super(rate, headerRate, 0);
+	super(rate, headerRate);
 	this.channel = channel;
+    }
+
+
+    /** Transmit packet from source to destination.
+     * @param source source node
+     * @param destination destination node
+     * @param packet packet to transmit
+     * @return if packet is successfully transmitted (always true)
+     */
+    public boolean transmit(CommNode source, CommNode destination, Object packet)
+    {
+	if (txSuccess(source,destination))
+	{
+	    destination.receive(source, packet);
+	    return true;
+	}
+	else
+	    return false;
+    }
+
+    /** Transmit packet from source to destination.
+     * @param source source node
+     * @param destination destination node
+     * @param packet packet to transmit
+     * @param simulator reference to simulator
+     * @return if packet is successfully transmitted (always true)
+     */
+    public boolean transmit(MACNode source, MACNode destination, 
+			    Object packet, Simulator simulator)
+    {
+	if (txSuccess(source,destination))
+	    destination.receive(source, packet, simulator);
+	return true;
+    }
+
+    /** Return an instance of whether an transmission is successful.
+     * @param source source node
+     * @param destination destination node
+     * @return if an instance of transmission is successful
+     */
+    private boolean txSuccess(CommNode source, CommNode destination)
+    {
+	return (random.getInstance() < transmitProb(source,destination));
     }
 
    /** Provide probability of success to transmit packet from source to destination.

@@ -108,7 +108,7 @@ public class RoofnetChannel
     public void buildChannel()
     {
 	channels.clear();
-	ChannelMap channelMap =  new ChannelMap(network, getChannel(SHORT_1MBPS));
+	DistanceChannelMap channelMap =  new DistanceChannelMap(network, getChannel(SHORT_1MBPS));
 	MappedChannel dChannel = new MappedChannel((1e6)/8.0, (1e6)/8.0, channelMap);
 	dChannel.buildChannel();
 	channels.add(dChannel);
