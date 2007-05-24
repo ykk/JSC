@@ -7,7 +7,7 @@ import simulation.utilities.references.*;
  * @author ykk
  */
 public class Simulator
-    implements TimeReference
+    extends simulation.networks.simulator.Simulator
 {
     //Members
     /** Current time of simulator.
@@ -25,11 +25,7 @@ public class Simulator
     /** Objects begin activated at each time slot.
      */
     public Vector runList = new Vector();
-    /** Debug flag.
-     * Default is false
-     */
-    public boolean debug = false;
-    
+
     //Methods
     /** Add objects to list to run.
      */

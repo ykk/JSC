@@ -9,7 +9,7 @@ import simulation.utilities.references.*;
  * @author ykk
  */
 public class Simulator
-    implements TimeReference
+    extends simulation.networks.simulator.Simulator
 {
     //Members
     /** Current time of simulator.
@@ -19,10 +19,6 @@ public class Simulator
     /** Event queue.
      */
     public SortedVector queue = new SortedVector();
-    /** Debug flag.
-     * Default is false
-     */
-    public boolean debug = false;
    
     //Methods
     /** Add event to queue.
