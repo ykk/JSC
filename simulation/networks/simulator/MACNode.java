@@ -21,7 +21,7 @@ public abstract class MACNode
 
     //Methods
     /** Constructor.
-     * @param coordinate coordinate of ALOHA node
+     * @param coordinate coordinate of node
      * @param channel network channel in use
      * @param commChannel communication channel
      * @param queue queue of the node

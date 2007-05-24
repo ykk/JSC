@@ -1,6 +1,6 @@
-package simulation.eventbased.mediumaccess;
+package simulation.timebased.mediumaccess;
 
-import simulation.eventbased.*;
+import simulation.timebased.*;
 import simulation.communications.nodes.*;
 import simulation.communications.channels.*;
 import simulation.communications.queues.*;
@@ -14,20 +14,14 @@ import simulation.utilities.packetprocessors.*;
  */
 public abstract class MACNode
     extends simulation.networks.simulator.MACNode
-    implements EventTriggered
+    implements RunObject
 {
-    /** Function to trigger node in idle mode.
-     */
-    public abstract void trigger(Simulator simulator);
-
-    public abstract void run(double time, String event, Simulator simulator);
-
     /** Receive packet from a node.
      * @param source source node of packet
      * @param packet packet delivered
      * @param simulator reference to simulator
      */
-    public abstract void receive(CommNode source, Object packet, simulation.eventbased.Simulator simulator);
+    public abstract void receive(CommNode source, Object packet, simulation.timebased.Simulator simulator);
 
     /** Receive packet from a node.
      * @param source source node of packet
@@ -36,7 +30,7 @@ public abstract class MACNode
      */
     public void receive(CommNode source, Object packet, simulation.networks.simulator.Simulator simulator)
     {
-	receive(source, packet, (simulation.eventbased.Simulator) simulator);
+	receive(source, packet, (simulation.timebased.Simulator) simulator);
     }
 
     /** Constructor.
