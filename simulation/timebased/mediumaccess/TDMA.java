@@ -11,16 +11,19 @@ import simulation.networks.*;
 import simulation.networks.channels.*;
 import simulation.networks.nodes.*;
 
-/** Class to implement p-persistent slotted ALOHA.
+/** Class to implement TDMA that transmit every n slot.
  * @author ykk
  */
-public class ALOHA
+public class TDMA
     extends MACNode
 {
-    //Member
-    /** Probability of transmission, when there is packet.
-     */ 
-    public double p;
+    //Members
+    /** Total number of slots per cycle.
+     */
+    public int n;
+    /** Slot to transmit in a cycle.
+     */
+    public int k;
     /** Currently receiving packet.
      */
     protected Object packet;
@@ -41,15 +44,17 @@ public class ALOHA
      * @param commChannel communication channel
      * @param queue queue of the node
      * @param processor reference to packet processor
-     * @param p probability of transmission
+     * @param n total number of slots in a cycle
+     * @param k slot in cycle to transmit in
      */
-    public ALOHA(Coordinate coordinate, Channel channel, CommChannel commChannel, 
-		 Queue queue, PacketProcessor processor, double p) 
+    public TDMA(Coordinate coordinate, Channel channel, CommChannel commChannel, 
+		 Queue queue, PacketProcessor processor, int n, int k) 
     {
 	super(coordinate, channel, commChannel, queue, processor);
-	this.p = p;
+	this.n = n;
+	this.k = k;
     }
-
+    
     public void run(double time, Simulator simulator)
     {
 	flushReceived(simulator);
@@ -69,7 +74,7 @@ public class ALOHA
      */
     public boolean checkSending(Simulator simulator)
     {
-	return (Math.random() < p);
+	return ((Math.round(simulator.time()/simulator.timeIncrement)%n) == k);
     }
 
     public void receive(CommNode source, Object packet, Simulator simulator)
@@ -98,7 +103,8 @@ public class ALOHA
 
     public Node newNode(Coordinate coordinate)
     {
-	return new ALOHA(coordinate, this.channel, this.commChannel, 
-			 this.queue.newQueue(), this.processor, this.p);
+	return new TDMA(coordinate, this.channel, this.commChannel, 
+			this.queue.newQueue(), this.processor, this.n, 
+			(this.k+1 == n)?0:(this.k+1));
     }
 }
