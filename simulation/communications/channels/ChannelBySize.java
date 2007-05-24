@@ -3,8 +3,7 @@ package simulation.communications.channels;
 import java.util.*;
 import simulation.communications.nodes.*;
 import simulation.communications.packets.*;
-import simulation.eventbased.*;
-import simulation.eventbased.mediumaccess.*;
+import simulation.networks.simulator.*;
 
 /** Class for choosing multiple channels, by size of packet payload.
  * Uses the first channel with matching size range.

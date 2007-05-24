@@ -2,8 +2,7 @@ package simulation.communications.channels;
 
 import simulation.communications.nodes.*;
 import simulation.communications.packets.*;
-import simulation.eventbased.*;
-import simulation.eventbased.mediumaccess.*;
+import simulation.networks.simulator.*;
 
 /** Abstract class for a communication channel.
  * @author ykk

@@ -1,8 +1,7 @@
 package simulation.communications.channels;
 
 import simulation.communications.nodes.*;
-import simulation.eventbased.*;
-import simulation.eventbased.mediumaccess.*;
+import simulation.networks.simulator.*;
 
 /** Reliable communication channel.
  * @author ykk

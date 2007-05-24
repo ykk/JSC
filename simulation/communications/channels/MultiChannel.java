@@ -3,8 +3,7 @@ package simulation.communications.channels;
 import java.util.*;
 import simulation.communications.nodes.*;
 import simulation.communications.packets.*;
-import simulation.eventbased.*;
-import simulation.eventbased.mediumaccess.*;
+import simulation.networks.simulator.*;
 
 /** Abstract class for multiple channels, where channel is chosen based on properties of packets.
  * @author ykk

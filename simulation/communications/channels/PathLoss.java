@@ -2,8 +2,7 @@ package simulation.communications.channels;
 
 import simulation.distributions.*;
 import simulation.communications.nodes.*;
-import simulation.eventbased.*;
-import simulation.eventbased.mediumaccess.*;
+import simulation.networks.simulator.*;
 
 /** Unreliable communication channel modeling path loss.
  * @see simulation.utilities.linkcosts.Reliability
