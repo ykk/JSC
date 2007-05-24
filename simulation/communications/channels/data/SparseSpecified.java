@@ -23,7 +23,7 @@ public class SparseSpecified
     //Methods
     /** Constructor
      */
-    public ParseSpecified()
+    public SparseSpecified()
     {
 	super(null);
     }
