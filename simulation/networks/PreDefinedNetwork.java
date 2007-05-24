@@ -14,7 +14,7 @@ public class PreDefinedNetwork
     extends Network
 {
     //Members
-    /** Network size, assuming square network.
+    /** Network size.
      */
     public double networkSize;
     /** Density of nodes.

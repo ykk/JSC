@@ -105,6 +105,6 @@ public class TDMA
     {
 	return new TDMA(coordinate, this.channel, this.commChannel, 
 			this.queue.newQueue(), this.processor, this.n, 
-			(this.k+1 == n)?0:(this.k+1));
+			((this.k+1) % n));
     }
 }
