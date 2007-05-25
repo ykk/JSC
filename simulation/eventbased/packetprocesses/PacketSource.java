@@ -10,6 +10,7 @@ import simulation.utilities.structures.*;
  * @author ykk
  */
 public class PacketSource
+    extends simulation.networks.simulator.PacketSource
     implements EventTriggered
 {
     //Members
@@ -19,22 +20,6 @@ public class PacketSource
     /** Interarrival distribution.
      */
     public Distribution interarrival;
-    /** Maximum number of packets.
-     * Defaulted to 0, i.e., infinite.
-     */
-    public int packetNumber = 0;
-    /** Current number of packets generated.
-     */
-    private int generatedNo = 0;
-    /** Packet factory.
-     */
-    PacketFactory packetFactory;
-    /** Source node.
-     */
-    public MACNode source;
-    /** Debug flag.
-     */
-    public boolean debug = false;
 
     //Methods
     /** Constructor.
@@ -97,27 +82,5 @@ public class PacketSource
 				this.events[0])); //Waiting Ended scheduled
     }
     
-    /** Create new packet.
-     * Provisioned for {@link TimedPacket}.
-     * @param simulator reference to simulator
-     * @see #packetNumber
-     */
-    public void newPacket(Simulator simulator)
-    {
-	if ((packetNumber == 0) || (generatedNo < packetNumber))
-	{
-	    Packet pack;
-	    if (packetFactory instanceof TimedPacket)
-	    {
-		pack = ((TimedPacket) packetFactory).duplicate(simulator.time());
-		((TimedPacket) pack).seqNumber = generatedNo + 1;
-	    }
-	    else
-		pack = packetFactory.duplicate();
-	    if (debug) System.out.println(this + " generated "+pack+" for "+source);
-	    source.queue.receive(pack);
-	    source.trigger(simulator);
-	    generatedNo++;
-	}
-    }
+
 }
