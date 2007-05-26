@@ -54,6 +54,21 @@ public class FIFO
 	    return false;
     }
 
+    /** Add packet.
+     * @param packet packet to add.
+     */
+    public boolean add(Object packet)
+    {
+	super.add(packet);
+	boolean result = (size() > queueSize);
+
+	if (queueSize != 0)
+	    while (size() > queueSize)
+		this.remove(size()-1);
+	
+	return result;
+    }
+
     public Object get()
     {
 	if (this.size() == 0)
