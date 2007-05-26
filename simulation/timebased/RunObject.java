@@ -8,6 +8,12 @@ public interface RunObject
     /** Function to run object.
      * @param time current time
      * @param simulator reference to simulator
+     * @return if any event run
      */
-    public void run(double time, Simulator simulator);
+    public boolean run(double time, Simulator simulator);
+
+    /** Indicate if object needs more run.
+     * @return if more runs is needed
+     */
+    public boolean needMoreRun();
 }

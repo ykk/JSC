@@ -45,13 +45,28 @@ public class PacketSource
 	this.packetNumber = packetNumber;
     }
 
-    public void run(double time, Simulator simulator) 
+    public boolean run(double time, Simulator simulator) 
     {
 	if ((packetNumber == 0) || (generatedNo < packetNumber))
 	{
 	    int thisNo = (int) Math.round(pktNumber.getInstance());
 	    for (int i = 0; i < thisNo; i++)
 		newPacket(simulator);
+	    return true;
 	}
+	else
+	    return false;
+    }
+
+    /** Indicate if object needs more run.
+     * If infinitely generating, then always return false.
+     * @return if more runs is needed
+     */
+    public boolean needMoreRun()
+    {
+	if ((packetNumber == 0) || (generatedNo >= packetNumber))
+	    return false;
+	else
+	    return true;
     }
 }

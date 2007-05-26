@@ -25,6 +25,12 @@ public class Simulator
     /** Objects begin activated at each time slot.
      */
     public Vector runList = new Vector();
+    /** Last run has events.
+     */
+    public boolean lastRunHasEvent = true;
+    /** Indicates if any object needs more run.
+     */
+    public boolean needMoreRun = true;
 
     //Methods
     /** Add objects to list to run.
@@ -39,11 +45,24 @@ public class Simulator
      */
     public boolean runNextSlot()
     {
+	RunObject runObj;
+	boolean objRun;
+	lastRunHasEvent = false;
+	needMoreRun = false;
+
+	if (debug) System.out.println("Time="+time);
 	if (maxTime == 0 || time < maxTime)
 	{
 	    for (int i = 0; i < runList.size(); i++)
-		((RunObject) runList.get(i)).run(time, this);
-	    
+	    {
+		runObj = (RunObject) runList.get(i);
+		objRun = runObj.run(time, this);
+		lastRunHasEvent = lastRunHasEvent || objRun;
+		needMoreRun = needMoreRun || runObj.needMoreRun();
+		if (debug) System.out.println("\t"+runList.get(i)+"\t"+
+					      objRun+"/"+runObj.needMoreRun());
+	    }
+
 	    time += timeIncrement;
 	    return true;
 	}

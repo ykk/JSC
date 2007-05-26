@@ -50,17 +50,25 @@ public class ALOHA
 	this.p = p;
     }
 
-    public void run(double time, Simulator simulator)
+    public boolean run(double time, Simulator simulator)
     {
 	flushReceived(simulator);
 	
 	if (processor.hasPkt(queue))
+	{
 	    if (checkSending(simulator))
+	    {
+		Packet sendPack = (Packet) processor.get(queue);
 		for (int i = 0; i < transmitPartners.size(); i++)
 		    commChannel.transmit(this, 
-					 (ALOHA) transmitPartners.get(i), 
-					 (Packet) processor.get(queue),
+					 (TDMA) transmitPartners.get(i), 
+					 sendPack,
 					 simulator);
+	    }
+	    return true;
+	}
+	else
+	    return false;
     }
 
     /** Check if sending.

@@ -63,7 +63,11 @@ public class SWFIFO
 	    (this.indexOf(packet) >= lastGetIndex))
 	{
 	    lastGetIndex--;
-	    if (lastGetIndex < 0) lastGetIndex +=windowSize;
+	    if (lastGetIndex < 0) 
+		if (windowSize != 0)
+		    lastGetIndex +=windowSize;
+		else
+		    lastGetIndex +=this.size();
 	}
 
 	return super.remove(packet);

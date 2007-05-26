@@ -45,4 +45,9 @@ public abstract class MACNode
     {
 	super(coordinate, channel, commChannel, queue, processor);
     }
+
+    public boolean needMoreRun()
+    {
+	return !queue.isEmpty();
+    }
 }
