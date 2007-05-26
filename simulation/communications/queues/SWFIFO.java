@@ -51,7 +51,8 @@ public class SWFIFO
 	    return null;
 
 	lastGetIndex++;
-	lastGetIndex %= windowSize;
+	if (windowSize != 0)
+	    lastGetIndex %= windowSize;
 	lastGetIndex %= this.size();
 	return this.get(lastGetIndex);
     }
@@ -62,14 +63,23 @@ public class SWFIFO
 	    (this.indexOf(packet) >= lastGetIndex))
 	{
 	    lastGetIndex--;
-	    if (lastGetIndex > 0) lastGetIndex = 0;
+	    if (lastGetIndex < 0) lastGetIndex +=windowSize;
 	}
 
-	return remove(packet);
+	return super.remove(packet);
     }
 
     public Queue newQueue()
     {
 	return new SWFIFO(this.queueSize, this.windowSize);
+    }
+
+    /** Testing queue.
+     * With queue size of 9 and window size of 2. 
+     */
+    public static void main(String[] args)
+    {
+	SWFIFO q = new SWFIFO(9,2);
+	test(q);
     }
 }
