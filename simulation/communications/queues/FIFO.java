@@ -1,6 +1,5 @@
 package simulation.communications.queues;
 
-import java.util.*;
 import simulation.communications.queues.*;
 
 /** Class defining First-In First-Out (FIFO) link layer queue.
