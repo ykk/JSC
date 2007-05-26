@@ -10,9 +10,6 @@ public class FIFO
     extends Queue
 {
     //Members
-    /** Vector to contain packets in order received.
-     */
-    public Vector queue = new Vector();
     /** Maximum queue capacity.
      * Defaulted to 0 (implies infinity).
      */
@@ -40,15 +37,7 @@ public class FIFO
      */
     public boolean inQueue(Object packet)
     {
-	return (queue.indexOf(packet) != -1);
-    }
-
-    /** Remove packet from queue.
-     * @para packet reference
-     */
-    public void remove(Object packet)
-    {
-	queue.remove(queue.indexOf(packet));
+	return (this.indexOf(packet) != -1);
     }
 
     /** Receive packet into queue.  Drops packet if queue is full.
@@ -57,26 +46,21 @@ public class FIFO
      */
     public boolean receive(Object packet)
     {
-	if ((queueSize == 0) || (queue.size() < queueSize))
+	if ((queueSize == 0) || (size() < queueSize))
 	{
-	    queue.add(packet);
+	    this.add(packet);
 	    return true;
 	}
 	else
 	    return false;
     }
 
-    public int size()
-    {
-	return queue.size();
-    }
-
     public Object get()
     {
-	if (queue.size() == 0)
+	if (this.size() == 0)
 	    return null;
 	else
-	    return queue.remove(0);
+	    return this.remove(0);
     }
 
     public Queue newQueue()

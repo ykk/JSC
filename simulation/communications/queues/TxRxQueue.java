@@ -1,6 +1,7 @@
 package simulation.communications.queues;
 
 /** Class encapsulating two queues.
+ * Default queue in {@link Queue} is not used.
  * @author ykk
  */
 public class TxRxQueue
@@ -53,9 +54,9 @@ public class TxRxQueue
     /** Remove packet from transmit queue.
      * @para packet reference
      */
-    public void remove(Object packet)
+    public boolean remove(Object packet)
     {
-	transmit.remove(packet);
+	return transmit.remove(packet);
     }
 
     /** Duplicate queue.

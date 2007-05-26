@@ -1,9 +1,12 @@
 package simulation.communications.queues;
 
+import java.util.*;
+
 /** Abstract class defining link layer queue.
  * @author ykk
  */
 public abstract class Queue
+    extends Vector
 {
     /** Receive packet into queue.
      * @param packet packet to be received by queue
@@ -32,15 +35,8 @@ public abstract class Queue
     /** Check if queue is in queue.
      * @param packet packet reference
      */
-    public abstract boolean inQueue(Object packet);
-
-    /** Remove packet from queue.
-     * @param packet packet reference
-     */
-    public abstract void remove(Object packet);
-
-    /** Return size of queue.
-     * @return queue size
-     */
-    public abstract int size();
+    public boolean inQueue(Object packet)
+    {
+	return (indexOf(packet) != -1);
+    }
 }
