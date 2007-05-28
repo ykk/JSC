@@ -2,7 +2,7 @@ package simulation.results.processors;
 
 import simulation.communications.packets.*;
 
-/** Class for result processing of RoutedPacket.
+/** Class for result processing of RoutedPacket via logging.
  * @see RoutedPacket
  * @author ykk
  */

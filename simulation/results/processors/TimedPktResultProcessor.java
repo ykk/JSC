@@ -3,7 +3,7 @@ package simulation.results.processors;
 import java.util.*;
 import simulation.communications.packets.*;
 
-/** Class for result processing of TimedPacket.
+/** Class for result processing of TimedPacket via logging.
  * @see TimedPacket
  * @author ykk
  */
