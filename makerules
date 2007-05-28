@@ -1,7 +1,8 @@
-#SOURCE:=$(wildcard *.java)
 DATASOURCE=$(filter %.dat,$(shell find .))
 SOURCE:=$(filter %.java,$(shell find .))
+DOCSOURCE:=$(filter %.html,$(shell find .))
 SOURCEBACKUP:=$(SOURCE:.java=.java~)
+DOCSOURCEBACKUP:=$(DOCSOURCE:.html=.html~)
 FILES:=$(SOURCE:.java=.class)
 MAKE:=javac -classpath ../..:$$CLASSPATH
 DOCDIR:=doc
@@ -20,12 +21,11 @@ tar: $(SOURCE) $(DATASOURCE)
 	tar czvf $(NAME).tgz $(SOURCE) $(DATASOURCE)
 
 clean:
-	rm -Rf $(DOCDIR); rm $(FILES) $(SOURCEBACKUP)
+	rm -Rf $(DOCDIR); rm $(FILES) $(SOURCEBACKUP) $(DOCSOURCEBACKUP)
 
 # Specific files
-$(DOCDIR)/index.html: $(SOURCE)
-	if [ ! -d $(DOCDIR) ]; then mkdir $(DOCDIR); fi; javadoc -d $(DOCDIR) $(SOURCE)
-
+$(DOCDIR)/index.html: $(SOURCE) $(DOCSOURCE)
+	if [ ! -d $(DOCDIR) ]; then mkdir $(DOCDIR); fi; javadoc -d $(DOCDIR) $(SOURCE) > /dev/null 2> docerr; grep -v "Multiple sources of package comments found for package" docerr; rm docerr
 
 # General rules
 %.class: %.java

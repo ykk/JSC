@@ -42,7 +42,7 @@ public class ResultCommChannel
     }
 
     /** Transmit packet from source to destination.
-     * Calls {@link #process(CommNode source, CommNode destination, Object packet, Simulator simulator)},
+     * Calls {@link ChannelResultProcessor#process(CommNode source, CommNode destination, Object packet, Simulator simulator)},
      * with simulator as null.
      * @param source source node
      * @param destination destination node
@@ -58,7 +58,7 @@ public class ResultCommChannel
     }
 
     /** Transmit packet from source to destination.
-     * Calls {@link #process(CommNode source, CommNode destination, Object packet, Simulator simulator)}.
+     * Calls {@link ChannelResultProcessor#process(CommNode source, CommNode destination, Object packet, Simulator simulator)}.
      * @param source source node
      * @param destination destination node
      * @param packet packet to transmit

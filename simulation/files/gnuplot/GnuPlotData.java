@@ -18,11 +18,6 @@ public class GnuPlotData
     /** Title of data set.
      */
     public String name = null;
-    /** Plot style.
-     * Defaults to linespoint.
-     * @see #STYLE_LINEPOINTS
-     */
-    public String plotStyle = STYLE_LINESPOINT;
     /** Various plot styles
      */
     public static final String STYLE_PM3D = "pm3d";
@@ -39,6 +34,11 @@ public class GnuPlotData
     public static final String STYLE_POINTS = "points";
     public static final String STYLE_LINES = "lines";
     public static final String STYLE_LINESPOINT = "linespoint";
+    /** Plot style.
+     * Defaults to linespoint.
+     * @see #STYLE_LINESPOINT
+     */
+    public String plotStyle = STYLE_LINESPOINT;
     /** Point size.
      * -1 for default.
      */

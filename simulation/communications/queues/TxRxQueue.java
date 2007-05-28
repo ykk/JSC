@@ -18,7 +18,7 @@ public class TxRxQueue
     //Methods
     /** Constructor.
      * @param transmit transmit queue.
-     * @param recieve receive queue.
+     * @param receive receive queue.
      */
     public TxRxQueue(Queue transmit, Queue receive)
     {
@@ -52,7 +52,7 @@ public class TxRxQueue
     }
 
     /** Remove packet from transmit queue.
-     * @para packet reference
+     * @param packet reference to packet
      */
     public boolean remove(Object packet)
     {

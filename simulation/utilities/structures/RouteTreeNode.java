@@ -30,7 +30,7 @@ public class RouteTreeNode
     }
 
     /** String representation.
-     * @param string represenation.
+     * @return string represenation.
      */
     public String toString()
     {

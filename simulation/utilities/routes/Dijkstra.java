@@ -40,13 +40,13 @@ public class Dijkstra
 
     /** Return route between 2 nodes.
      * @param network reference to network
-     * @param linkcost link cost definition
+     * @param linkCost link cost definition
      * @param source reference to source
      * @param destination to destination
      * @return shortest path route between root and child
      */
     public static Route shortestpath(Network network, LinkCost linkCost, 
-			      Node source, Node destination)
+				     Node source, Node destination)
     {
 	Dijkstra spst = new Dijkstra(linkCost, true);
 	RouteTree tree = spst.spst(network, source);

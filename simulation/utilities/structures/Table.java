@@ -97,7 +97,7 @@ public class Table
     }
 
     /** Remove column from table.
-     * @param index index of column to remove
+     * @param col index of column to remove
      */
     public void removeCol(int col)
     {

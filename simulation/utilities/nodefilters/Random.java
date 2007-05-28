@@ -24,7 +24,7 @@ public class Random
     }
 
     /** Constructor.
-     * @param number number of nodes to return
+     * @param nodeNumber number of nodes to return
      */
     public Random(int nodeNumber)
     {

@@ -79,7 +79,7 @@ public class CSMA
     }
 
     /** Start transmission.
-     * @param packet packet to transmit
+     * @param simulator reference to simulator
      */
     public void startTransmission(Simulator simulator)
     {

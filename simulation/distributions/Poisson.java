@@ -66,7 +66,6 @@ public class Poisson
     /** Get instance of Poisson random variable.
      * Uses the property that its interarrival is exponential of reciprocal mean.
      * @return instance of Poisson random variable
-     * @see #getSmallInstance()
      */
     public double getInstance()
     {

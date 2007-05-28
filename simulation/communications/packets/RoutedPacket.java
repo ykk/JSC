@@ -54,7 +54,6 @@ public class RoutedPacket
     }
 
     /** Duplicate routed packet without start time.
-     * @param startTime start time of duplicated packet
      */
     public RoutedPacket duplicate()
     {

@@ -170,7 +170,7 @@ public class MatlabPolicyIterate
     }
 
     /** Find optimal policy, starting from given policy. 
-     * Stores results in {@link #lastResult} and {@link @lastCost}.
+     * Stores results in {@link #lastResult} and {@link #lastCost}.
      * @param dp dynamic program reference
      * @param iniPolicy initial policy
      * @return optimal policy

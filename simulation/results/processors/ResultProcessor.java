@@ -1,5 +1,6 @@
 package simulation.results.processors;
 
+import simulation.results.*;
 import java.util.*;
 
 /** Basic class for result processing.

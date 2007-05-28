@@ -43,7 +43,7 @@ public class DynamicProgram
     }
 
     /** Get possible next states.
-     * @param state current state
+     * @param currState current state
      * @return vector of next states
      */
     public Vector getNextStates(State currState)

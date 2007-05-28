@@ -1,6 +1,7 @@
 package simulation.optimization;
 
 import java.util.*;
+import simulation.optimization.dynprogram.*;
 import Jama.*;
 import simulation.utilities.structures.*;
 
