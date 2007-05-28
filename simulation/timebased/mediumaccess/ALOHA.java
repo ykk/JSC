@@ -61,7 +61,7 @@ public class ALOHA
 		Packet sendPack = (Packet) processor.get(queue);
 		for (int i = 0; i < transmitPartners.size(); i++)
 		    commChannel.transmit(this, 
-					 (TDMA) transmitPartners.get(i), 
+					 (ALOHA) transmitPartners.get(i), 
 					 sendPack,
 					 simulator);
 	    }
