@@ -7,7 +7,7 @@ import simulation.communications.packets.*;
  * @see TimedPacket
  * @author ykk
  */
-public class TimedPktResultProcessor
+public class TimedPktResultLogger
     extends ResultProcessor
 {
     //Members
