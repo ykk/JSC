@@ -33,6 +33,9 @@ public class ALOHA
     /** Last receive time.
      */
     protected double lastReceiveTime;
+    /** Transmitting in last slot.
+     */
+    protected boolean lastTransmitted = false;
 
     //Methods
     /** Constructor.
@@ -58,6 +61,7 @@ public class ALOHA
 	{
 	    if (checkSending(simulator))
 	    {
+		lastTransmitted = true;
 		Packet sendPack = (Packet) processor.get(queue);
 		for (int i = 0; i < transmitPartners.size(); i++)
 		    commChannel.transmit(this, 
@@ -96,9 +100,10 @@ public class ALOHA
     {
 	if (lastReceiveTime != time.time())
 	{
-	    if (onGoing == 1)
+	    if (onGoing == 1 && !lastTransmitted)
 		processor.receive(currSource, this, packet, queue);
 	    onGoing = 0;
+	    lastTransmitted = false;
 	}
 
 	lastReceiveTime = time.time();
