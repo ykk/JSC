@@ -36,6 +36,9 @@ public class TDMA
     /** Last receive time.
      */
     protected double lastReceiveTime;
+    /** Indicate it transmitting in the last slot.
+     */
+    protected boolean lastTransmitted = false;
 
     //Methods
     /** Constructor.
@@ -64,6 +67,7 @@ public class TDMA
 	    if (checkSending(simulator))
 	    {
 		Packet sendPack = (Packet) processor.get(queue);
+		lastTransmitted = true;
 		for (int i = 0; i < transmitPartners.size(); i++)
 		    commChannel.transmit(this, 
 					 (TDMA) transmitPartners.get(i), 
@@ -101,9 +105,10 @@ public class TDMA
     {
 	if (lastReceiveTime != time.time())
 	{
-	    if (onGoing == 1)
+	    if (onGoing == 1 && !lastTransmitted)
 		processor.receive(currSource, this, packet, queue);
 	    onGoing = 0;
+	    lastTransmitted = false;
 	}
 
 	lastReceiveTime = time.time();
