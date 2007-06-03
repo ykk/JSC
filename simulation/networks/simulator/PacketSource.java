@@ -13,9 +13,16 @@ public abstract class PacketSource
      * Defaulted to 0, i.e., infinite.
      */
     public int packetNumber = 0;
+    /** Count generated packets, else count admitted number of packets.
+     * Default to true.
+     */
+    public boolean countGenerated = true;
     /** Current number of packets generated.
      */
     protected int generatedNo = 0;
+    /** Number of packets admitted.
+     */
+    protected int admittedNo = 0;
     /** Packet factory.
      */
     protected PacketFactory packetFactory;
@@ -34,7 +41,9 @@ public abstract class PacketSource
      */
     public void newPacket(Simulator simulator)
     {
-	if ((packetNumber == 0) || (generatedNo < packetNumber))
+	if ((packetNumber == 0) || 
+	    ((generatedNo < packetNumber) && (countGenerated)) ||
+	    ((admittedNo < packetNumber) && (!countGenerated)))
 	{
 	    Packet pack;
 	    if (packetFactory instanceof TimedPacket)
@@ -45,7 +54,8 @@ public abstract class PacketSource
 	    else
 		pack = packetFactory.duplicate();
 	    if (debug) System.out.println(this + " generated "+pack+" for "+source);
-	    source.queue.receive(pack);
+	    if (source.queue.receive(pack))
+		admittedNo++;
 	    generatedNo++;
 
 	    if (source instanceof simulation.eventbased.mediumaccess.MACNode)

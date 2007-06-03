@@ -45,6 +45,14 @@ public class SWFIFO
 	super();
     }
 
+    /** Return index of last get
+     * @return last get index
+     */
+    public int lastGetIndex()
+    {
+	return lastGetIndex;
+    }
+
     public Object get()
     {
 	if (this.size() == 0)

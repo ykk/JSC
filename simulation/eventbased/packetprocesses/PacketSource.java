@@ -61,7 +61,9 @@ public class PacketSource
 	{
 	case 0: //Waiting Ended
 	    newPacket(simulator);
-	    if ((packetNumber == 0) || (generatedNo < packetNumber))
+	    if ((packetNumber == 0) || 
+		((generatedNo < packetNumber) && (countGenerated)) ||
+		((admittedNo < packetNumber) && (!countGenerated)))
 		simulator.add(new Event(simulator.time()+interarrival.getInstance(),
 					this,
 					this.events[0])); //Waiting Ended scheduled

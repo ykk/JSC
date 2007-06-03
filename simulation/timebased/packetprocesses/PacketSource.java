@@ -47,7 +47,9 @@ public class PacketSource
 
     public boolean run(double time, Simulator simulator) 
     {
-	if ((packetNumber == 0) || (generatedNo < packetNumber))
+	if ((packetNumber == 0) || 
+	    ((generatedNo < packetNumber) && (countGenerated)) ||
+	    ((admittedNo < packetNumber) && (!countGenerated)))
 	{
 	    int thisNo = (int) Math.round(pktNumber.getInstance());
 	    for (int i = 0; i < thisNo; i++)

@@ -103,7 +103,11 @@ public abstract class GnuPlot
      * @see GnuPlotData
      */
     public Vector data = new Vector();
-
+    /** Vector of labels and individual items.
+     * @see GnuPlotLabel
+     */
+    public Vector labels = new Vector();
+    
     //Methods
     /** Output terminal string.
      * @return set term string
@@ -184,6 +188,22 @@ public abstract class GnuPlot
 	return plotStr;
     }
 
+    /** Return label string.
+     */
+    public String labelString()
+    {
+	String labelString = "";
+
+	for (int i = 0; i < labels.size(); i++)
+	{
+	    labelString += "set "+labels.get(i);
+	    if (i != (labels.size()-1))
+		labelString+="\n";
+	}
+
+	return labelString;
+    }
+
     /** Return key/legend configuration.
      * @return legend configuring strings
      */
@@ -253,6 +273,7 @@ public abstract class GnuPlot
 	file.content.add(termString());
 	file.content.add(termHeader());
 	file.content.add(axesString());
+	file.content.add(labelString());
 	file.content.add(keyString());
 	file.content.add(plotString());
 
