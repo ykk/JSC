@@ -3,6 +3,7 @@ package simulation.db.commands;
 import simulation.db.*;
 
 /** Interface for all SQL commands.
+ * Command to be executed via {@link SQLExecute}
  * @author ykk
  */
 public interface SQLCommand
@@ -11,7 +12,7 @@ public interface SQLCommand
     /** Return SQL query string.
      * @return query string
      */
-    public String queryString();
+    public String sqlQuery();
 
     /** Run query.
      * @param db reference to database

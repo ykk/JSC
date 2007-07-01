@@ -5,7 +5,7 @@ import simulation.db.*;
 /** Insert command.
  * @author ykk
  */
-public class SQLInsert
+public class Insert
     implements SQLCommand
 {
     //Members
@@ -17,7 +17,7 @@ public class SQLInsert
     public DBRow values;
 
     //Methods
-    public String queryString()
+    public String sqlQuery()
     {
 	return "INSERT INTO "+tableName+
 	    " VALUES ("+values.toString()+");";
