@@ -10,6 +10,9 @@ import java.sql.*;
 public class SQLExecute
 {
     //Members
+    /** Result for update commands, i.e., number of rows updated.
+     */
+    public int result;
     /** Reference to result set.
      */
     public ResultSet rs = null;
@@ -27,7 +30,19 @@ public class SQLExecute
 	try
 	{
 	    stmt = db.connection.createStatement();
-	    rs = stmt.executeQuery(command.sqlQuery());
+	    switch (command.queryType())
+	    {
+	    case SQLCommand.queryCmd:
+		rs = stmt.executeQuery(command.sqlQuery());
+		break;
+	    case SQLCommand.updateCmd:
+		result = stmt.executeUpdate(command.sqlQuery());
+		rs = null;
+		break;
+	    default:
+		throw new RuntimeException(this+" receives unknown query type "+
+					   command.queryType());
+	    }
 	} catch (SQLException sqlEx)
 	{
 	    throw new RuntimeException(this+" encounters SQL exception "+sqlEx);
@@ -63,5 +78,19 @@ public class SQLExecute
 	    
 	    stmt = null;
 	}
+    }
+
+    /** Run trial show tables in mysql.
+     * @param args 1st argument is server name
+     *             2nd argument is database name
+     *             3rd argument is user name
+     *             4th argument is password
+     * @param cmd reference to command
+     */
+    public static void trial(String[] args, SQLCommand cmd)
+    {
+	Database db = new simulation.db.mysql.Database(args[1], args[2], args[3], args[0]);
+	cmd.run(db);
+	db.close();
     }
 }

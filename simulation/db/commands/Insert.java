@@ -20,11 +20,19 @@ public class Insert
     public String sqlQuery()
     {
 	return "INSERT INTO "+tableName+
-	    " VALUES ("+values.toString()+");";
+	    " VALUES ("+values.rowString()+");";
+    }
+
+    public int queryType()
+    {
+	return updateCmd;
     }
 
     public boolean run(Database db)
     {
+	System.out.println(sqlQuery());
+	SQLExecute execute = new SQLExecute(db, this);
+
 	return true;
     }
 }

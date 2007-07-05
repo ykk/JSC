@@ -18,7 +18,7 @@ public abstract class Database
     /** Name of server.
      * Default to localhost.
      */
-    protected String serverName = "locahost";
+    protected String serverName = "localhost";
     /** Username.
      */
     protected String username;
@@ -114,12 +114,11 @@ public abstract class Database
     }
 
     /** Test function.
+     * Open connection to database and close it.
      * @param db database reference
      */
     public static void test(Database db)
     {
-	
-
 	try
 	{
 	    db.connection.close();
@@ -130,4 +129,6 @@ public abstract class Database
 				       "\nVendorError: " + ex.getErrorCode());
         }
     }
+
+
 }

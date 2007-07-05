@@ -6,21 +6,37 @@ import java.util.*;
  * Takes ordered set of database types.
  * @author ykk
  */
-public class DBRow
+public abstract class DBRow
     extends Vector
 {
-    /** Return comma separated list of values.
+    //Members
+    /** Row definition.
+     */
+    public DBRowDef rowDef;
+
+    //Methods
+    /** Return comma separated list of string.
+     * For use with {@link simulation.db.commands.Insert}.
      * @return string representation
      */
-    public String toString()
+    public String rowString()
     {
-	String finalStr="";
-	for (int i = 0; i < this.size(); i++)
+	String result = "";
+	Object obj;
+
+	for (int i = 0; i < size(); i++)
 	{
-	    finalStr += this.get(i);
-	    if (i != (size()-1)) finalStr += ",";
+	    result += objString(i);
+	    if (i != (size()-1)) result += ",";
 	}
 
-	return finalStr;
+	return result;
     }
+
+    /** String convertor for types.
+     * To handle null.
+     * @param dataIndex index of object to convert into string
+     * @return string representation of object for database
+     */
+    public abstract String objString(int dataIndex);
 }
