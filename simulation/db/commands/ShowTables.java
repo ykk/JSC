@@ -28,6 +28,7 @@ public class ShowTables
 
     public boolean run(Database db)
     {
+	if (debug) System.out.println(sqlQuery());
 	SQLExecute execute = new SQLExecute(db, this);
 
 	try

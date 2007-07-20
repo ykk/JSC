@@ -16,6 +16,9 @@ public class SQLExecute
     /** Reference to result set.
      */
     public ResultSet rs = null;
+    /** Reference to result set processor.
+     */
+    public SQLResultSetProcessor rsProc = null;
     /** Reference to SQL statement.
      */
     protected Statement stmt = null;
@@ -34,10 +37,12 @@ public class SQLExecute
 	    {
 	    case SQLCommand.queryCmd:
 		rs = stmt.executeQuery(command.sqlQuery());
+		rsProc = new SQLResultSetProcessor(rs);
 		break;
 	    case SQLCommand.updateCmd:
 		result = stmt.executeUpdate(command.sqlQuery());
 		rs = null;
+		rsProc = null;
 		break;
 	    default:
 		throw new RuntimeException(this+" receives unknown query type "+

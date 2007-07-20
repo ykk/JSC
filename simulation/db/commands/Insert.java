@@ -30,7 +30,7 @@ public class Insert
 
     public boolean run(Database db)
     {
-	System.out.println(sqlQuery());
+	if (debug) System.out.println(sqlQuery());
 	SQLExecute execute = new SQLExecute(db, this);
 
 	return true;
