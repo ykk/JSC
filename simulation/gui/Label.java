@@ -18,7 +18,7 @@ public class Label
     /** Constructor
      * @param label label text
      */
-    public LabelledPanel(String label)
+    public Label(String label)
     {
 	this.add(this.label);
 	this.label.setText(label);

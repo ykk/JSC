@@ -98,6 +98,14 @@ public abstract class GnuPlot
      * Defaulted to Double.MAX_VALUE, giving autoscale.
      */
     public double xmax = Double.MAX_VALUE;
+    /** Indicate if coordinate is polar.
+     * Defaulted to false.
+     */
+    public boolean isPolar = false;
+    /** Indicate if angle is degree.
+     * Defaulted to false.
+     */
+    public boolean angleIsDegree = false;
 
     /** Vector of data.
      * @see GnuPlotData
@@ -148,6 +156,11 @@ public abstract class GnuPlot
 	    axes+= "\nset contour";
 	if (xViewRotate != -1 && yViewRotate != -1)
 	    axes+= "\nset view "+xViewRotate+","+yViewRotate;
+
+	if (isPolar)
+	    axes+= "\nset polar";
+	if (angleIsDegree)
+	    axes+= "\nset angles degrees";
 
 	return axes;
     }
