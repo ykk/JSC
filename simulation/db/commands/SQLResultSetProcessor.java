@@ -39,7 +39,7 @@ public class SQLResultSetProcessor
 
 
     /** Get row definition.
-     * @return row definition
+     * @see #rowDef
      */
     protected void getRowDef()
     {
