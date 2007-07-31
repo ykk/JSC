@@ -76,6 +76,7 @@ public class Window
 	Window win = new Window("Sample Window");
 	win.panel.setLayout(new BoxLayout(win.panel, BoxLayout.PAGE_AXIS));
 	win.panel.add(new TextField("Sample Text Field",10,20));
+	win.panel.add(new TextArea("Sample Text Area",5,20,200));
 	Vector a = new Vector();
 	a.add("Sample 1");
 	a.add("Sample 2");

@@ -6,7 +6,7 @@ import java.util.*;
  * Takes ordered set of database types.
  * @author ykk
  */
-public abstract class DBRow
+public class DBRow
     extends Vector
 {
     //Members
@@ -38,5 +38,8 @@ public abstract class DBRow
      * @param dataIndex index of object to convert into string
      * @return string representation of object for database
      */
-    public abstract String objString(int dataIndex);
+    public String objString(int dataIndex)
+    {
+	return get(dataIndex).toString();
+    }
 }

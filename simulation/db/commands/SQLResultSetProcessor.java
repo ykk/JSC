@@ -15,6 +15,9 @@ public class SQLResultSetProcessor
     /** Reference to metadata.
      */
     protected ResultSetMetaData metadata;
+    /** Reference to row definition.
+     */
+    public DBRowDef rowDef = null;
 
     //Methods
     /** Constructor.
@@ -30,6 +33,29 @@ public class SQLResultSetProcessor
 	{
 	    throw new RuntimeException(this+" encounters SQL exception "+sqlEx);
 	}
+
+	getRowDef();
+    }
+
+
+    /** Get row definition.
+     * @return row definition
+     */
+    protected void getRowDef()
+    {
+	rowDef = new DBRowDef();
+	
+	int col = colCount();
+	for (int i = 0; i < col; i++)
+	{
+	    try
+	    {
+		rowDef.add(metadata.getColumnType(i+1));
+	    } catch (SQLException sqlEx)
+	    {
+		throw new RuntimeException(this+" encounters SQL exception "+sqlEx);
+	    }
+	}
     }
 
     /** Return number of columns.
@@ -44,7 +70,6 @@ public class SQLResultSetProcessor
 	{
 	    throw new RuntimeException(this+" encounters SQL exception "+sqlEx);
 	}
-	
     }
     
     /** Return number of rows.
@@ -58,7 +83,10 @@ public class SQLResultSetProcessor
 	    currRow = rs.getRow();
 	    rs.last();
 	    lastRow = rs.getRow();
-	    rs.absolute(currRow);
+	    if (currRow == 0)
+		rs.first();
+	    else
+		rs.absolute(currRow);
 	} catch (SQLException sqlEx)
 	{
 	    throw new RuntimeException(this+" encounters SQL exception "+sqlEx);

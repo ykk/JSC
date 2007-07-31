@@ -51,13 +51,20 @@ public class Select
 	SQLExecute execute = new SQLExecute(db, this);
 	int colCount = execute.rsProc.colCount();
 	int rowCount = execute.rsProc.rowCount();
+	result = new DBRow[rowCount];
 
 	try
 	{
 	    execute.rs.first();
 	    while (true)
 	    {
-		
+		for (int i = 0; i < rowCount; i++) 
+		{
+		    result[i] = new DBRow();
+		    result[i].rowDef = execute.rsProc.rowDef;
+		    for (int j = 0; j < colCount ; j++)
+			result[i].add(execute.rs.getObject(j+1));
+		}
 
 		if (execute.rs.isLast())
 		{
