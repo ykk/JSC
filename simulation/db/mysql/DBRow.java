@@ -15,6 +15,9 @@ public class DBRow
 	if (this.get(dataIndex) == null)
 	    return "NULL";
 
+	if (rowDef == null)
+	    return "'"+super.objString(dataIndex)+"'";
+
 	switch (rowDef.get(dataIndex))
 	{
 	default:

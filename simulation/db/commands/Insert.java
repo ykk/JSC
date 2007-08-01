@@ -9,6 +9,10 @@ public class Insert
     implements SQLCommand
 {
     //Members
+    /** Debug flag.
+     * Default to false.
+     */
+    public boolean debug = false;
     /** Name of table.
      */
     public String tableName;

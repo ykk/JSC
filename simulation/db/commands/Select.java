@@ -10,6 +10,10 @@ public class Select
     implements SQLCommand
 {
     //Members
+    /** Debug flag.
+     * Default to false.
+     */
+    public boolean debug = false;
     /** Name of table.
      * Default to null, i.e., no table referenced.
      */

@@ -9,16 +9,12 @@ import simulation.db.*;
 public interface SQLCommand
 {
     //Members
-    /** Debug flag.
-     * Default to false.
-     */
-    public boolean debug = false;
     /** Types of query -- Query with results.
      */
-    public static int queryCmd = 0;
+    public static final int queryCmd = 0;
     /** Types of query -- Query to manipulate data.
      */
-    public static int updateCmd = 1;
+    public static final int updateCmd = 1;
 
     //Methods
     /** Return SQL query string.

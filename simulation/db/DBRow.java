@@ -1,6 +1,7 @@
 package simulation.db;
 
 import java.util.*;
+import java.sql.*;
 
 /** Class for row in database.
  * Takes ordered set of database types.
@@ -22,7 +23,6 @@ public class DBRow
     public String rowString()
     {
 	String result = "";
-	Object obj;
 
 	for (int i = 0; i < size(); i++)
 	{

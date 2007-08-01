@@ -11,6 +11,10 @@ public class ShowTables
     implements SQLCommand
 {
     //Members
+    /** Debug flag.
+     * Default to false.
+     */
+    public boolean debug = false;
     /** Vector to hold table names.
      */
     public Vector tables = new Vector();
