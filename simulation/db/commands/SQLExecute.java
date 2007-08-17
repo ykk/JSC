@@ -32,7 +32,9 @@ public class SQLExecute
     {
 	try
 	{
-	    stmt = db.connection.createStatement();
+	    stmt = db.connection.
+		createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
 	    switch (command.queryType())
 	    {
 	    case SQLCommand.queryCmd:
