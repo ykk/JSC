@@ -29,6 +29,10 @@ public class Select
      * Default to null, i.e., no ordering.
      */
     public String order = null;
+    /** Grouping.
+     * Default to null, i..e, no grouping.
+     */
+    public String group = null;
     /** Result in array of {@link DBRow}.
      */
     public DBRow[] result;
@@ -40,6 +44,7 @@ public class Select
 	if (tableName != null) output +=  " FROM "+tableName;
 	if (condition != null) output +=  " WHERE "+condition;
 	if (order != null) output +=  " ORDER BY "+order;
+	if (group != null) output +=  " GROUP BY "+group;
 
 	return output;
     }
