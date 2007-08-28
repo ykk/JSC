@@ -124,6 +124,45 @@ public class DataDistribution
 	return cumu;
     }
 
+    /** Return normalized distribution.
+     * @param norm value of sum in normalized distribution
+     * @return normalized distribution
+     */ 
+    public DataDistribution normalize(double norm)
+    {
+	DataDistribution normalized = new DataDistribution(binNumber, binMin, binSize);
+	double sum = sum();
+	for (int i = 0; i < this.size(); i++)
+	    normalized.writeBin(i, (this.readBin(i)*norm)/sum);
+
+	return normalized;
+    }
+
+    /** Trim data distribution, i.e., remove any zero bins from start and end.
+     * @return trimmed distribution
+     */
+    public DataDistribution trim()
+    {
+	int startBin = 0;
+	while (readBin(startBin) == 0)
+	{
+	    startBin++;
+	    if (startBin == this.size())
+		return new DataDistribution(0.0,0.0,0);
+	}
+
+	int endBin = this.size()-1;
+	while (readBin(endBin) == 0)
+	    endBin--;
+
+	DataDistribution trimmed = new DataDistribution(endBin-startBin+1, 
+							binMin+startBin*binSize, binSize);
+	for (int i = startBin; i <= endBin; i++)
+	    trimmed.writeBin(i-startBin, this.readBin(i));
+
+	return trimmed;
+    }
+
     /** String representation of distribution.
      * @return probability mass function of distribution
      */

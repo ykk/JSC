@@ -10,6 +10,9 @@ public class ImageFrame
     extends JLabel
 {
     //Members
+    /** Reference to viewing image.
+     */
+    protected Image vimage = null;
     /** Reference to image.
      * Default is null, i.e., no image.
      */
@@ -21,8 +24,8 @@ public class ImageFrame
      */
     public ImageFrame(String imageName)
     {
-	image = Toolkit.getDefaultToolkit().getImage(imageName);
-	super.setIcon(new ImageIcon(image));
+	vimage = image = Toolkit.getDefaultToolkit().getImage(imageName);
+	super.setIcon(new ImageIcon(vimage));
     }
 
     /** Scale image.
@@ -31,8 +34,8 @@ public class ImageFrame
      */
     public void scaleImage(int width, int height)
     {
-	image = image.getScaledInstance(width, height, Image.SCALE_DEFAULT);
-	super.setIcon(new ImageIcon(image));
+	vimage = image.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+	super.setIcon(new ImageIcon(vimage));
     }
 
     /** Sample application to load image scaled to 200 by 200.
