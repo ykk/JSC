@@ -74,6 +74,14 @@ public abstract class GnuPlot
      */
     public String title = "Please add some title";
 
+    /** Show 2nd y-axis.
+     * Default to false.
+     */
+    public boolean showY2 = false;
+    /** Show 2nd x-axis.
+     * Default to false.
+     */
+    public boolean showX2 = false;
     /** Minimum of z axis.
      * Defaulted to Double.MIN_VALUE, giving autoscale.
      */
@@ -140,6 +148,10 @@ public abstract class GnuPlot
 	String axes = "set xlabel \'"+xlabel+"\'\n"+
 	    "set ylabel \'"+ylabel+"\'";
 	if (zlabel != null) axes += "\nset zlabel \'"+zlabel+"\'";
+
+	if (showX2) axes += "\nshow x2range";
+	if (showY2) axes += "\nshow y2range";
+
 	if ((zmin != Double.MIN_VALUE) || (zmax != Double.MAX_VALUE))
 	    axes += "\nset zrange ["+((zmin != Double.MIN_VALUE)?zmin:"")+
 		":"+((zmax != Double.MAX_VALUE)?zmax:"")+"]";
