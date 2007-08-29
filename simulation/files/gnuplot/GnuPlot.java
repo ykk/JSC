@@ -58,6 +58,12 @@ public abstract class GnuPlot
     /** Label for y-axis.
      */
     public String ylabel;
+    /** Label for x2-axis.
+     */
+    public String x2label;
+    /** Label for y2-axis.
+     */
+    public String y2label;
     /** Label for z-axis.
      */
     public String zlabel;
@@ -164,6 +170,8 @@ public abstract class GnuPlot
     {
 	String axes = "set xlabel \'"+xlabel+"\'\n"+
 	    "set ylabel \'"+ylabel+"\'";
+	if (x2label != null) axes += "\nset zlabel \'"+x2label+"\'";
+	if (y2label != null) axes += "\nset zlabel \'"+y2label+"\'";
 	if (zlabel != null) axes += "\nset zlabel \'"+zlabel+"\'";
 
 	if (showX2) axes += "\nset xtics nomirror \nset x2tics";
