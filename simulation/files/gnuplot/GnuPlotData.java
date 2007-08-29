@@ -55,6 +55,14 @@ public class GnuPlotData
      * -1 for default.
      */
     public int lineType = -1;
+    /** x-axis to plot using.
+     * Defaulted to 1 and can be set to 2.
+     */
+    public int xaxis = 1;
+    /** y-axis to plot using.
+     * Defaulted to 1 and can be set to 2.
+     */
+    public int yaxis = 1;
 
     //Methods
     /** Constructor.
@@ -93,6 +101,7 @@ public class GnuPlotData
 	if (lineWidth != -1) pString += " lw "+lineWidth;
 	if (pointType != -1) pString += " pt "+pointType;
 	if (pointSize != -1) pString += " ps "+pointSize;
+	if (xaxis != 1 && yaxis != 1) pString += " axes x"+xaxis+"y"+yaxis;
 	if (name != null) pString +=" title \'"+name+"\'";
 	return pString;
     }
