@@ -93,6 +93,6 @@ public class GnuPlotDataYError
 	else
 	    pString +=" title \'"+errName+"\'";
 	    
-	return pString+", "+super.toString();
+	return super.toString()+", "+pString;
     }
 }
