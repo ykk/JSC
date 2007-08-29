@@ -106,6 +106,23 @@ public abstract class GnuPlot
      * Defaulted to Double.MAX_VALUE, giving autoscale.
      */
     public double xmax = Double.MAX_VALUE;
+    /** Minimum of y2 axis.
+     * Defaulted to Double.MIN_VALUE, giving autoscale.
+     */
+    public double y2min = Double.MIN_VALUE;
+    /** Maximum of y2 axis.
+     * Defaulted to Double.MAX_VALUE, giving autoscale.
+     */
+    public double y2max = Double.MAX_VALUE;
+    /** Minimum of x2 axis.
+     * Defaulted to Double.MIN_VALUE, giving autoscale.
+     */
+    public double x2min = Double.MIN_VALUE;
+    /** Maximum of x2 axis.
+     * Defaulted to Double.MAX_VALUE, giving autoscale.
+     */
+    public double x2max = Double.MAX_VALUE;
+
     /** Indicate if coordinate is polar.
      * Defaulted to false.
      */
@@ -149,8 +166,8 @@ public abstract class GnuPlot
 	    "set ylabel \'"+ylabel+"\'";
 	if (zlabel != null) axes += "\nset zlabel \'"+zlabel+"\'";
 
-	if (showX2) axes += "\nshow x2range";
-	if (showY2) axes += "\nshow y2range";
+	if (showX2) axes += "\nset xtics nomirror \nset x2tics";
+	if (showY2) axes += "\nset ytics nomirror \nset y2tics";
 
 	if ((zmin != Double.MIN_VALUE) || (zmax != Double.MAX_VALUE))
 	    axes += "\nset zrange ["+((zmin != Double.MIN_VALUE)?zmin:"")+
@@ -161,6 +178,12 @@ public abstract class GnuPlot
 	if ((xmin != Double.MIN_VALUE) || (xmax != Double.MAX_VALUE))
 	    axes += "\nset xrange ["+((xmin != Double.MIN_VALUE)?xmin:"")+
 		":"+((xmax != Double.MAX_VALUE)?xmax:"")+"]";
+	if ((y2min != Double.MIN_VALUE) || (y2max != Double.MAX_VALUE))
+	    axes += "\nset yrange ["+((y2min != Double.MIN_VALUE)?y2min:"")+
+		":"+((y2max != Double.MAX_VALUE)?y2max:"")+"]";
+	if ((x2min != Double.MIN_VALUE) || (x2max != Double.MAX_VALUE))
+	    axes += "\nset xrange ["+((x2min != Double.MIN_VALUE)?x2min:"")+
+		":"+((x2max != Double.MAX_VALUE)?x2max:"")+"]";
 	if (xIsLog) axes+= "\nset logscale x";
 	if (yIsLog) axes+= "\nset logscale y";
 
