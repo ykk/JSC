@@ -170,8 +170,8 @@ public abstract class GnuPlot
     {
 	String axes = "set xlabel \'"+xlabel+"\'\n"+
 	    "set ylabel \'"+ylabel+"\'";
-	if (x2label != null) axes += "\nset zlabel \'"+x2label+"\'";
-	if (y2label != null) axes += "\nset zlabel \'"+y2label+"\'";
+	if (x2label != null) axes += "\nset x2label \'"+x2label+"\'";
+	if (y2label != null) axes += "\nset y2label \'"+y2label+"\'";
 	if (zlabel != null) axes += "\nset zlabel \'"+zlabel+"\'";
 
 	if (showX2) axes += "\nset xtics nomirror \nset x2tics";
