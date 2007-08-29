@@ -81,6 +81,7 @@ public class GnuPlotDataYError
 	if (errLineWidth != -1) pString += " lw "+lineWidth;
 	if (errPointType != -1) pString += " pt "+pointType;
 	if (errPointSize != -1) pString += " ps "+pointSize;    
+	if (xaxis != 1 || yaxis != 1) pString += " axes x"+xaxis+"y"+yaxis;
 	if (errName == null)
 	{
 	    if (name != null) 
