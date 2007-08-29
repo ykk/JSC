@@ -101,7 +101,7 @@ public class GnuPlotData
 	if (lineWidth != -1) pString += " lw "+lineWidth;
 	if (pointType != -1) pString += " pt "+pointType;
 	if (pointSize != -1) pString += " ps "+pointSize;
-	if (xaxis != 1 && yaxis != 1) pString += " axes x"+xaxis+"y"+yaxis;
+	if (xaxis != 1 || yaxis != 1) pString += " axes x"+xaxis+"y"+yaxis;
 	if (name != null) pString +=" title \'"+name+"\'";
 	return pString;
     }
