@@ -179,10 +179,10 @@ public abstract class GnuPlot
 	    axes += "\nset xrange ["+((xmin != Double.MIN_VALUE)?xmin:"")+
 		":"+((xmax != Double.MAX_VALUE)?xmax:"")+"]";
 	if ((y2min != Double.MIN_VALUE) || (y2max != Double.MAX_VALUE))
-	    axes += "\nset yrange ["+((y2min != Double.MIN_VALUE)?y2min:"")+
+	    axes += "\nset y2range ["+((y2min != Double.MIN_VALUE)?y2min:"")+
 		":"+((y2max != Double.MAX_VALUE)?y2max:"")+"]";
 	if ((x2min != Double.MIN_VALUE) || (x2max != Double.MAX_VALUE))
-	    axes += "\nset xrange ["+((x2min != Double.MIN_VALUE)?x2min:"")+
+	    axes += "\nset x2range ["+((x2min != Double.MIN_VALUE)?x2min:"")+
 		":"+((x2max != Double.MAX_VALUE)?x2max:"")+"]";
 	if (xIsLog) axes+= "\nset logscale x";
 	if (yIsLog) axes+= "\nset logscale y";
