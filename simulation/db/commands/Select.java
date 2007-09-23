@@ -7,6 +7,7 @@ import java.sql.*;
  * @author ykk
  */
 public class Select
+    extends DBTable
     implements SQLCommand
 {
     //Members
@@ -17,7 +18,7 @@ public class Select
     /** Name of table.
      * Default to null, i.e., no table referenced.
      */
-    public String tableName = null;
+    public DBTable tableName = null;
     /** Select expression.
      */
     public String expr;
@@ -83,5 +84,10 @@ public class Select
 	}
 
 	return true;
+    }
+
+    public String tableString()
+    {
+	return sqlQuery();
     }
 }
