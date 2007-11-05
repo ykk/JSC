@@ -72,17 +72,4 @@ public class FileVector
 	for (int i = 0; i < vector.size(); i++)
 	    content.add(vector.get(i));
     }
-
-    /** Parse string into vector.
-     * @param string string to be parsed
-     * @param separator separator to use
-     */
-    public void parseString(String string, String separator)
-    {
-	StringTokenizer tokens = new StringTokenizer(string,separator);
-
-	while (tokens.hasMoreTokens())
-	    content.add(tokens.nextToken());
-    }
-
 }
