@@ -30,59 +30,20 @@ public class FileVector
     public void write()
     {
         String outString;
-        FileOutputStream outfile;
-        PrintWriter fileOutput;
-
-        //Open File
-        try
-	{
-	    outfile = new FileOutputStream(filename);
-	} catch(FileNotFoundException errItem)
-        {
-            System.err.println(errItem.getMessage());
-            return;
-        }
-        fileOutput = new PrintWriter(outfile);
+	BareFile fileOutput = new BareFile(filename, BareFile.FILE_WRITE);
 
         //Print File
         for (int i=0; i < content.size(); i++)
 	    fileOutput.println(content.get(i));
-	fileOutput.flush();
-
-        //Close File
-        try
-        {
-            outfile.close();
-        } catch (IOException errItem)
-        {
-            System.err.println(errItem);
-        }
+	fileOutput.close();
     }
 
     /** Check if file exist.
      */
     public boolean exist()
     {
-        FileInputStream infile;
-
-        try
-	{
-	    infile = new FileInputStream(filename);
-        } catch (FileNotFoundException errItem)
-        {
-            return false;
-        }
-
-	//Close File
-        try
-        {
-            infile.close();
-        } catch (IOException errItem)
-        {
-            System.err.println(errItem);
-        }
-
-	return true;
+        BareFile testFile = new BareFile(filename, BareFile.FILE_READ);
+	return testFile.exist();
     }
 
     /** Read file into vector.
@@ -90,50 +51,17 @@ public class FileVector
     public void read()
     {
 	String inString;
-        FileInputStream infile;
-        BufferedReader fileInput;
-	
-        //Open File
-        try
-	{
-	    infile = new FileInputStream(filename);
-        } catch (FileNotFoundException errItem)
-        {
-            System.err.println(errItem);
-            return;
-        }
-        fileInput = new BufferedReader(new InputStreamReader(infile));
+	BareFile fileInput = new BareFile(filename, BareFile.FILE_READ);
 	
         //Read File
         content.clear();
-        try
-        {
-            inString = fileInput.readLine();
-        } catch (IOException errItem)
-        {
-            System.err.println(errItem);
-            return;
-        }
+	inString = fileInput.readLine();
         while (inString != null)
         {
             content.add(inString);
-            try
-            {
-                inString = fileInput.readLine();
-            } catch (IOException errItem)
-            {
-                System.err.println(errItem);
-            }
+	    inString = fileInput.readLine();
         }
-	
-	//Close File
-        try
-        {
-            infile.close();
-        } catch (IOException errItem)
-        {
-            System.err.println(errItem);
-        }
+	fileInput.close();
     }
 
     /** Append vector to file.
