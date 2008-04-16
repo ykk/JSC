@@ -2,6 +2,7 @@ package simulation.socialnet;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 import java.util.regex.*;
 
 /** Class representing a webpage.
@@ -69,28 +70,70 @@ public class WebPage
 	content = sb.toString();
     }
 
+    /** Replace regular expression.
+     * @param regex regular expression
+     * @param replaceStr string to replace with
+     */
+    public void replace(String regex, String replaceStr)
+    {
+	Pattern pattern = Pattern.compile(regex);
+	content = pattern.matcher(content).replaceAll(replaceStr);
+    }
+    
+    /** Remove regular expression.
+     * @param regex regular expression
+     */
+    public void remove(String regex)
+    {
+	replace(regex, "");
+    }
+
+    /** Find matches of regular expression.
+     * @param regex regular expression
+     * @return vector of strings of matches
+     */
+    public Vector matches(String regex)
+    {
+	Vector match = new Vector();
+	Pattern pattern = Pattern.compile(regex);
+	Matcher matched = pattern.matcher(content);
+
+	while (matched.find())
+	    match.add(matched.group());
+	return match;
+    }
+
+    /** Grab matches of regular expression.
+     * @param regex regular expression
+     * @param divider expression to divide matches
+     */
+    public void grab(String regex, String divider)
+    {
+	Vector matches = matches(regex);
+	content = new String();
+	for (int i = 0 ; i < matches.size(); i++)
+	    content += (String) matches.get(i) + divider;
+    }
+
     /** Parse white spaces.
      */
     public void parseSpace()
     {
-	Pattern removeSpace = Pattern.compile("\\s");
-	content = removeSpace.matcher(content).replaceAll(" ");
+	replace("\\s"," ");
     }
 
     /** Parse away HTML tags.
      */
     public void parseHTML()
     {
-	Pattern removeHTML = Pattern.compile("\\<.*?>");
-	content = removeHTML.matcher(content).replaceAll("");
+	remove("\\<.*?>");
     }
 
     /** Parse non-alphanumeric.
      */
     public void parseNonAlphaNumeric()
     {
-	Pattern getAlphaNumeric = Pattern.compile("[^0-9a-zA-Z ]");
-	content = getAlphaNumeric.matcher(content).replaceAll("");
+	remove("[^0-9a-zA-Z ]");
     }
 
     /** Print webpage content.
@@ -101,6 +144,8 @@ public class WebPage
     {
 	WebPage page = new WebPage(args[0]);
 	page.get();
+	page.parseSpace();
+	page.parseHTML();
 	System.out.println(page.content);
     }
 }
