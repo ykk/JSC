@@ -2,7 +2,7 @@ package simulation.socialnet;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
+import java.util.regex.*;
 
 /** Class representing a webpage.
  * @author ykk
@@ -11,9 +11,9 @@ import java.util.*;
 public class WebPage
 {
     //Members
-    /** Vector holding webpage.
+    /** String buffer holding webpage.
      */
-    public Vector content = null;
+    public String content = null;
     /** String holding URL.
      */
     public URL url = null;
@@ -52,11 +52,8 @@ public class WebPage
      */
     public void get()
     {
-	if (content == null)
-	    content = new Vector();
-	else
-	    content.clear();
-	
+	StringBuffer sb = new StringBuffer();	
+
 	try
 	{
 	    String str;
@@ -64,11 +61,36 @@ public class WebPage
 	    DataInputStream dstream = 
 		new DataInputStream(new BufferedInputStream(stream));
 	    while ((str = dstream.readLine()) != null)
-		content.add(str);
+		sb.append(str+"\n");
 	} catch (IOException err)
 	{
 	    System.err.println(err);
 	}
+	content = sb.toString();
+    }
+
+    /** Parse white spaces.
+     */
+    public void parseSpace()
+    {
+	Pattern removeSpace = Pattern.compile("\\s");
+	content = removeSpace.matcher(content).replaceAll(" ");
+    }
+
+    /** Parse away HTML tags.
+     */
+    public void parseHTML()
+    {
+	Pattern removeHTML = Pattern.compile("\\<.*?>");
+	content = removeHTML.matcher(content).replaceAll("");
+    }
+
+    /** Parse non-alphanumeric.
+     */
+    public void parseNonAlphaNumeric()
+    {
+	Pattern getAlphaNumeric = Pattern.compile("[^0-9a-zA-Z ]");
+	content = getAlphaNumeric.matcher(content).replaceAll("");
     }
 
     /** Print webpage content.
@@ -79,9 +101,6 @@ public class WebPage
     {
 	WebPage page = new WebPage(args[0]);
 	page.get();
-
-	for (int i = 0; i < page.content.size(); i++)
-	    System.out.println(page.content.get(i));
-	
+	System.out.println(page.content);
     }
 }
