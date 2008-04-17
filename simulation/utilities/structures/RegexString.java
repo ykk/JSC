@@ -1,4 +1,4 @@
-package simulation.socialnet;
+package simulation.utilities.structures;
 
 import java.util.*;
 import java.util.regex.*;
@@ -47,6 +47,17 @@ public class RegexString
 	replace(regex, "");
     }
 
+
+    /** Find if there is match(es) for regular expression.
+     * @param regex regular expression
+     * @return if match(es) exist
+     */
+    public boolean hasMatch(String regex)
+    {
+	Pattern pattern = Pattern.compile(regex);
+	return pattern.matcher(content).find();
+    }
+
     /** Find matches of regular expression.
      * @param regex regular expression
      * @return vector of strings of matches
@@ -80,6 +91,14 @@ public class RegexString
     {
 	replace("\\s"," ");
     }
+
+    /** Parse multiple white spaces.
+     */
+    public void parseMultiSpace()
+    {
+	replace("[ ]+"," ");
+    }
+
 
     /** Parse non-alphanumeric.
      */

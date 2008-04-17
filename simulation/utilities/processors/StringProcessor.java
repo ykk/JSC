@@ -3,7 +3,6 @@ package simulation.utilities.processors;
 import java.util.*;
 
 /** Processor for string.
- * @see Table
  * @author ykk
  */
 public class StringProcessor

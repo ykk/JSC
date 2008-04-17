@@ -1,4 +1,4 @@
-package simulation.socialnet;
+package simulation.utilities.structures;
 
 import java.util.*;
 import java.util.regex.*;
@@ -25,7 +25,7 @@ public class HTMLString
 	super(content);
     }
 
-    /** Parse nonbreaking spaces.
+    /** Parse nonbreaking spaces into normal space.
      */
     public void parseNBSpace()
     {

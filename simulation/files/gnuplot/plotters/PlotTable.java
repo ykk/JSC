@@ -34,6 +34,25 @@ public class PlotTable
 	this.table = table;
     }
 
+    /** Plot table in file.
+     * @param args 1st argument is filename of table; 
+                   2nd argument is label for x-axis; 
+		   3rd argument is label for y-axis;
+		   Other arguments are columns to remove
+     */
+    public static void main(String[] args)
+    {
+	FileTable file = new FileTable(args[0],"\t ");
+	file.read();
+	PlotTable plot = new PlotTable(file.content);
+	plot.plot.xlabel = args[1];
+	plot.plot.ylabel = args[2];
+	if (args.length > 3)
+	    for (int i = 3; i < args.length; i++)
+		plot.table.removeCol(Integer.parseInt(args[i]));
+	plot.plot();
+    }
+
     /** Plot table, with all columns.
      * Uses column 1 as x-axis.
      */
