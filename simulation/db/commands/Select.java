@@ -25,7 +25,7 @@ public class Select
     /** Where condition.
      * Default to null, i.e., no condition.
      */
-    public String condition = null;
+    public Condition condition = null;
     /** Ordering.
      * Default to null, i.e., no ordering.
      */
@@ -39,10 +39,32 @@ public class Select
     public DBRow[] result;
 
     //Methods
+    /** Constructor.
+     * @param expr select expression
+     * @param table database table
+     * @param condition condition to apply
+     */
+    public Select(String expr, DBTable table, Condition condition)
+    {
+	this.expr = expr;
+	tableName = table;
+	this.condition = condition;
+    }
+
+    /** Constructor.
+     * @param expr select expression
+     * @param table database table
+     */
+    public Select(String expr, DBTable table)
+    {
+	this.expr = expr;
+	tableName = table;
+    }
+
     public String sqlQuery()
     {
 	String output = "SELECT "+expr;
-	if (tableName != null) output +=  " FROM "+tableName;
+	if (tableName != null) output +=  " FROM "+tableName.tableString();
 	if (condition != null) output +=  " WHERE "+condition;
 	if (order != null) output +=  " ORDER BY "+order;
 	if (group != null) output +=  " GROUP BY "+group;
@@ -61,10 +83,18 @@ public class Select
 	SQLExecute execute = new SQLExecute(db, this);
 	int colCount = execute.rsProc.colCount();
 	int rowCount = execute.rsProc.rowCount();
-	result = new DBRow[rowCount];
 
-	if (debug) System.out.println(rowCount);
+	if (debug) System.out.println("Run error: "+execute.err+
+				      "\tResult="+rowCount+" x "+colCount);
+	if (rowCount != 0)
+	    result = new DBRow[rowCount];
+	else
+	{
+	    result = null;
+	    return (execute.err == null);
+	}
 
+	//Get result
 	try
 	{
 	    execute.rs.first();
@@ -73,21 +103,25 @@ public class Select
 		result[i] = new DBRow();
 		result[i].rowDef = execute.rsProc.rowDef;
 		for (int j = 0; j < colCount ; j++)
+		{
 		    result[i].add(execute.rs.getObject(j+1));
-		
+		}
+
 		if (debug) System.out.println(i+"\t"+result[i]);
 		execute.rs.next();
 	    }
 	} catch (SQLException sqlEx)
 	{
-	    throw new RuntimeException(this+" encounters SQL exception "+sqlEx);
+	    throw new RuntimeException(this+" encounters SQL exception "
+				       +sqlEx);
 	}
 
-	return true;
+	execute.close();
+	return (execute.err == null);
     }
 
     public String tableString()
     {
-	return sqlQuery();
+	return "("+sqlQuery()+")";
     }
 }

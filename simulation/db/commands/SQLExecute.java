@@ -22,6 +22,10 @@ public class SQLExecute
     /** Reference to SQL statement.
      */
     protected Statement stmt = null;
+    /** Error returned.
+     * Null is no error.
+     */
+    public SQLException err = null;
 
     //Methods
     /** Run query.
@@ -47,12 +51,13 @@ public class SQLExecute
 		rsProc = null;
 		break;
 	    default:
-		throw new RuntimeException(this+" receives unknown query type "+
+		throw new RuntimeException(this+
+					   " receives unknown query type "+
 					   command.queryType());
 	    }
 	} catch (SQLException sqlEx)
 	{
-	    throw new RuntimeException(this+" encounters SQL exception "+sqlEx);
+	    err = sqlEx;
 	}
     }
 
@@ -67,7 +72,8 @@ public class SQLExecute
 		rs.close();
 	    } catch (SQLException sqlEx)
 	    {
-		throw new RuntimeException(this+" encounters SQL exception "+sqlEx);
+		throw new RuntimeException(this+" encounters SQL exception "
+					   +sqlEx);
 	    }
 
 	    rs = null;
@@ -80,7 +86,8 @@ public class SQLExecute
 		stmt.close();
 	    } catch (SQLException sqlEx)
 	    {
-		throw new RuntimeException(this+" encounters SQL exception "+sqlEx);
+		throw new RuntimeException(this+" encounters SQL exception "
+					   +sqlEx);
 	    }
 	    
 	    stmt = null;
@@ -96,7 +103,8 @@ public class SQLExecute
      */
     public static void trial(String[] args, SQLCommand cmd)
     {
-	Database db = new simulation.db.mysql.Database(args[1], args[2], args[3], args[0]);
+	Database db = new simulation.db.mysql.Database(args[1], args[2], 
+						       args[3], args[0]);
 	cmd.run(db);
 	db.close();
     }
