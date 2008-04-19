@@ -73,6 +73,7 @@ public class Insert
 	SQLExecute execute = new SQLExecute(db, this);
 	if (debug) System.out.println("Run error: "+execute.err);
 
+	execute.close();
 	return (execute.err == null);
     }
 }
