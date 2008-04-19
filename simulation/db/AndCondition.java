@@ -9,10 +9,13 @@ public class AndCondition
     extends Condition
 {
     //Members
-    private String condition;
+    /** Condition string, which is formed after calling toString.
+     * @seee #toString()
+     */
+    public String condition;
     /** Joining string.
      */
-    private String joinStr = " AND ";
+    protected String joinStr = " AND ";
     /** Vector of conditions.
      */
     public Vector conditions = new Vector();

@@ -11,7 +11,7 @@ public class OrCondition
     //Members
     /** Joining string.
      */
-    private String joinStr = " OR ";
+    protected String joinStr = " OR ";
 
     //Methods
     /** Constructor.
@@ -29,5 +29,15 @@ public class OrCondition
     public OrCondition(Vector conds)
     {
 	super(conds);
-    }  
+    }
+    
+    public String toString()
+    {
+	condition = "(";
+	for (int i = 0; i < conditions.size(); i++)
+	    condition += conditions.get(i) + 
+		((i == (conditions.size()-1))?"":joinStr);
+	condition += ")";
+	return condition;
+    }
 }
