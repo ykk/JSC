@@ -9,8 +9,7 @@ public class AndCondition
     extends Condition
 {
     //Members
-    /** Condition string, which is formed after calling toString.
-     * @seee #toString()
+    /** Condition string, which is formed after calling {@link #toString()}.
      */
     public String condition;
     /** Joining string.
