@@ -5,7 +5,7 @@ import simulation.networks.channels.*;
 import simulation.networks.nodes.*;
 import java.util.*;
 
-/** Basic class for a node.
+/** Basic class for a network node.
  * @author ykk
  */
 public class Node

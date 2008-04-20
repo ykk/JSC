@@ -40,7 +40,8 @@ public class Network
      * @param nodeFactory factory to generate nodes
      * @param pointProcess process to generate coordinates of nodes
      */
-    public Network(NetworkArea netArea, NodeFactory nodeFactory, PointProcess pointProcess)
+    public Network(NetworkArea netArea, NodeFactory nodeFactory, 
+		   PointProcess pointProcess)
     {
 	this.netArea = netArea;
 	this.nodeFactory = nodeFactory;
@@ -73,9 +74,11 @@ public class Network
      * @param nodeSize size of node in number of pixels
      * @see ImageFile#imageFormat
      */
-    public void draw(String filename, int imageFormat, int resolution, int nodeSize)
+    public void draw(String filename, int imageFormat, int resolution, 
+		     int nodeSize)
     {
-	NetworkImage image = new NetworkImage(filename, imageFormat, this, resolution, nodeSize);
+	NetworkImage image = new NetworkImage(filename, imageFormat, 
+					      this, resolution, nodeSize);
 	image.draw();
 	image.write();
     }
@@ -83,9 +86,10 @@ public class Network
     /** Prune networks with communication channel.
      * This removes links that has probability of reception below specified.
      * Only for network of {@link CommNode}.
-     * Caution: this assumes that nodes can interfer if and not if they can communicate,
-     * since the network channel defines the interference range,
-     * while the communication channel defines the communication reach.
+     * Caution: this assumes that nodes can interfer if and not if 
+     * they can communicate, since the network channel defines the 
+     * interference range, while the communication channel defines 
+     * the communication reach.
      * @param commChannel communication channel used
      * @param minProb minimum reception probability
      */
@@ -98,14 +102,17 @@ public class Network
 
 	    for (int j = 0; j < currNode.transmitPartners.size(); j++)
 		if (commChannel.transmitProb(currNode,
-					     (CommNode) currNode.transmitPartners.get(j)) < minProb)
+					     (CommNode) currNode.
+					     transmitPartners.get(j)) 
+		    < minProb)
 		{
 		    currNode.transmitPartners.remove(j);
 		    j--;
 		}
 
 	    for (int j = 0; j < currNode.receivePartners.size(); j++)
-		if (commChannel.transmitProb((CommNode) currNode.transmitPartners.get(j),
+		if (commChannel.transmitProb((CommNode) currNode.
+					     transmitPartners.get(j),
 					     currNode) < minProb)
 		{
 		    currNode.receivePartners.remove(j);
@@ -120,8 +127,10 @@ public class Network
     public static void main(String[] args)
     {
 	Network testNet = new Network(new CircleNetArea(10), 
-				      new Node(new Coordinate(0,0), new ZeroOne(1)), 
-				      new Poisson(Double.parseDouble(args[0])));
+				      new Node(new Coordinate(0,0), 
+					       new ZeroOne(1)), 
+				      new Poisson(Double.
+						  parseDouble(args[0])));
 	testNet.draw("testNetworkImage.jpg", ImageFile.JPEG_TYPE, 100, 20);
     }
 }
