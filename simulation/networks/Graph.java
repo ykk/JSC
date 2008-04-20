@@ -2,6 +2,8 @@ package simulation.networks;
 
 import simulation.utilities.structures.*;
 import simulation.networks.nodes.*;
+import simulation.files.graphviz.images.*;
+import simulation.files.graphviz.GraphViz;
 import java.util.*;
 
 /** Basic class for graph.
@@ -92,5 +94,19 @@ public class Graph
 	    return null;
 	else
 	    return (GraphNode) nodes.get(i);
+    }
+
+    /** Draw graph using Graphviz.
+     * @param filename filename of output
+     * @param format format of output (see {@link GraphViz#format})
+     * @param command format of output (see {@link GraphViz#command})
+     */
+    public void drawGraph(String filename, String format, String command)
+    {
+	GraphImage image = new GraphImage();
+	image.command = command;
+	image.format = format;
+	image.createGraph(this);
+	image.execPlot();
     }
 }

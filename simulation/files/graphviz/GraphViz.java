@@ -16,7 +16,7 @@ public abstract class GraphViz
      * and writes drawings. By default, the output format dot is the 
      * input file with layout coordinates appended.
      */
-    public static final String CMD_DOT ="dot ";
+    public static final String CMD_DOT ="dot";
     /** Option to invoke neato.
      * neato draws undirected graphs using ``spring'' models (see Kamada 
      * and Kawai, Information Processing Letters 31:1, April 1989). Input 
@@ -24,7 +24,7 @@ public abstract class GraphViz
      * default, the output of neato is the input graph with layout coordinates
      * appended.
      */
-    public static final String CMD_NEATO ="neato ";
+    public static final String CMD_NEATO ="neato";
     /** Option to invoke twopi.
      * twopi draws graphs using a radial layout (see G. Wills, Symposium on 
      * Graph Drawing GD'97, September, 1997). Basically, one node is chosen 
@@ -35,7 +35,7 @@ public abstract class GraphViz
      * from a node on the first circle are placed on the second circle; 
      * and so forth.
      */
-    public static final String CMD_TWOPI ="twopi ";
+    public static final String CMD_TWOPI ="twopi";
     /** Option to invoke circo.
      * circo draws graphs using a circular layout (see Six and Tollis, 
      * GD '99 and ALENEX '99, and Kaufmann and Wiese, GD '02.) The tool 
@@ -49,13 +49,13 @@ public abstract class GraphViz
      * them. By default, this is the first non-trivial component found in the 
      * search from the root component.
      */
-    public static final String CMD_CIRCO ="circo ";
+    public static final String CMD_CIRCO ="circo";
     /** Option to invooke fdp.
      * fdp draws undirected graphs using a ``spring'' model. It relies on a 
      * force-directed approach in the spirit of Fruchterman and Reingold 
      * (cf. Software-Practice & Experience 21(11), 1991, pp. 1129-1164).
      */
-    public static final String CMD_FDP ="fdp ";
+    public static final String CMD_FDP ="fdp";
     /** Graphviz program to invoke.
      * Default is {@link #CMD_DOT}
      */
@@ -64,9 +64,9 @@ public abstract class GraphViz
      * Default is {@link #FMT_PS}
      */
     public String format = FMT_PS;
-    public static final String FMT_PS ="PS";
-    public static final String FMT_PNG ="PNG";
-    public static final String FMT_GIF ="GIF";
+    public static final String FMT_PS ="ps";
+    public static final String FMT_PNG ="png";
+    public static final String FMT_GIF ="gif";
     /** Filename for GnuPlot input file.
      */
     public String filename = "graphvizfile";
@@ -85,13 +85,15 @@ public abstract class GraphViz
     public void execPlot()
     {
 	String output;
+	FileVector file = getFile();
+	file.write();
 
 	try
 	{
 	    Process process = Runtime.
 		getRuntime().exec(command+" -T"+format+
-				  " "+filename+".dot"+
-				  " > "+graphFilename+format);
+				  " -o "+graphFilename+"."+format+
+				  " "+filename+".dot");
 	    BufferedReader outcome = new 
 		BufferedReader(new InputStreamReader(process.
 						     getInputStream()));

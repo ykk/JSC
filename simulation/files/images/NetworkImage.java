@@ -26,11 +26,13 @@ public class NetworkImage
      * @param filename name of image file
      * @param imageFormat format of image file
      * @param network network to draw
-     * @param resolution resolution of image, i.e., one unit in network to how many pixels
+     * @param resolution resolution of image, i.e., one unit in 
+     *                   network to how many pixels
      * @param nodeSize size of node in image (in terms of pixels)
      * @see ImageFile#imageFormat
      */
-    public NetworkImage(String filename, int imageFormat, Network network, int resolution, int nodeSize)   
+    public NetworkImage(String filename, int imageFormat, Network network, 
+			int resolution, int nodeSize)   
     {
 	super(filename, imageFormat, network.netArea, resolution, nodeSize);
 	this.network = network;
@@ -47,7 +49,8 @@ public class NetworkImage
     }
 
     /** Draw arcs from nodes to nodes it is able to communicate with.
-     * Will only {@link #drawTransmitArcs(Vector nodes)} if channel is symmetrical.
+     * Will only {@link #drawTransmitArcs(Vector nodes)} if channel is 
+     * symmetrical.
      * @param nodes vector of nodes
      * @see Node
      * @see #drawTransmitArcs(Vector nodes)
@@ -76,10 +79,14 @@ public class NetworkImage
 	    for (int j = 0; j < tmpNode.receivePartners.size(); j++)
 	    {
 		tmpRxPartner = (Node) tmpNode.receivePartners.get(j);
-		image.drawLine((int) (tmpNode.x()*resolution+origin.x+(((double) nodeSize)/2)),
-			       (int) (tmpNode.y()*resolution+origin.y+(((double) nodeSize)/2)+1),
-			       (int) (tmpRxPartner.x()*resolution+origin.x+(((double) nodeSize)/2)),
-			       (int) (tmpRxPartner.y()*resolution+origin.y+(((double) nodeSize)/2)+1));
+		image.drawLine((int) (tmpNode.x()*resolution+origin.x
+				      +(((double) nodeSize)/2)),
+			       (int) (tmpNode.y()*resolution+origin.y
+				      +(((double) nodeSize)/2)+1),
+			       (int) (tmpRxPartner.x()*resolution+origin.x
+				      +(((double) nodeSize)/2)),
+			       (int) (tmpRxPartner.y()*resolution+origin.y
+				      +(((double) nodeSize)/2)+1));
 	    }
 	}
     }
@@ -110,9 +117,13 @@ public class NetworkImage
      */
     public void drawArc(Node fromNode, Node toNode)
     {
-	image.drawLine((int) (fromNode.x()*resolution+origin.x+(((double) nodeSize)/2)),
-		       (int) (fromNode.y()*resolution+origin.y+(((double) nodeSize)/2)),
-		       (int) (toNode.x()*resolution+origin.x+(((double) nodeSize)/2)),
-		       (int) (toNode.y()*resolution+origin.y+(((double) nodeSize)/2)));
+	image.drawLine((int) (fromNode.x()*resolution+origin.x
+			      +(((double) nodeSize)/2)),
+		       (int) (fromNode.y()*resolution+origin.y
+			      +(((double) nodeSize)/2)),
+		       (int) (toNode.x()*resolution+origin.x
+			      +(((double) nodeSize)/2)),
+		       (int) (toNode.y()*resolution+origin.y
+			      +(((double) nodeSize)/2)));
     }
 }
