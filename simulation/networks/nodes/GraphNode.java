@@ -16,7 +16,11 @@ public class GraphNode
     /** Vector of neighbors
      */
     public Vector neighbors = new UniqueVector();
-    
+    /** Indicate if self neighboring allowed.
+     * True by default.
+     */
+    public boolean selfNeighbor = true;
+
     //Methods
     /** Constructor.
      * @param descriptor description of node
@@ -44,6 +48,8 @@ public class GraphNode
      */
     public void addNeighbor(Comparable node)
     {
+	if (!selfNeighbor && (node.compareTo(this) == 0))
+	    return;
 	addNeighbor(node,true);
     }
     

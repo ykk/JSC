@@ -69,7 +69,6 @@ public class Graph
 	return getNodeIndex(new GraphNode(descriptor));
     }
 
-
     /** Get node.
      * @param object node to compare with
      * @return node if found, else null
@@ -103,10 +102,26 @@ public class Graph
      */
     public void drawGraph(String filename, String format, String command)
     {
+	drawGraph(filename, format, command, false, false);
+    }
+
+    /** Draw graph using Graphviz.
+     * @param filename filename of output
+     * @param format format of output (see {@link GraphViz#format})
+     * @param command format of output (see {@link GraphViz#command})
+     * @param removeSelfLoop indicate if to remove self loop
+     * @param removeDup indicate if to remove duplicates of edge
+     */
+    public void drawGraph(String filename, String format, String command,
+			  boolean removeSelfLoop, boolean removeDup)
+    {
 	GraphImage image = new GraphImage();
+	image.graphFilename = filename;
 	image.command = command;
 	image.format = format;
 	image.createGraph(this);
+	if (removeSelfLoop) image.removeSelfLoop();
+	if (removeDup) image.removeDuplicate();
 	image.execPlot();
     }
 }

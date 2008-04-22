@@ -50,4 +50,41 @@ public class Graph
 	file.content.add("}");
 	return file;
     }
+
+    /** Remove self-loop.
+     */
+    public void removeSelfLoop()
+    {
+	for (int i = 0; i < edges.size(); i++)
+	{
+	    GraphEdge edge = (GraphEdge) edges.get(i);
+	    if (edge.head.compareTo(edge.tail) == 0)
+	    {
+		edges.remove(i);
+		i--;
+	    }
+	}
+    }
+
+    /** Remove duplicate edges.
+     * Remove A->B if B->A is present, since graph is undirected.
+     */
+    public void removeDuplicate()
+    {
+	for (int i = 0; i < edges.size(); i++)
+	{
+	    GraphEdge curr = (GraphEdge) edges.get(i);
+	    for (int j = i+1; j < edges.size(); j++)
+	    {
+		GraphEdge compa = (GraphEdge) edges.get(j);
+		if ((curr.compareTo(compa) == 0) ||
+		    (curr.compareTo(new 
+				    GraphEdge(compa.tail, compa.head)) == 0))
+		{
+		    edges.remove(j);
+		    j--;
+		}
+	    }
+	}
+    }
 }

@@ -8,6 +8,7 @@ import simulation.files.text.*;
  * @author ykk
  */
 public class GraphEdge
+    implements Comparable
 {
     //Members
     /** Head end of edge.
@@ -42,5 +43,25 @@ public class GraphEdge
     public String directedString()
     {
 	return "\""+head+"\"->\""+tail+"\"";
+    }
+
+    public String toString()
+    {
+	return head+"-"+tail;
+    }
+    
+    /** Comparable interface.
+     * Compare strings for head and tail if GraphEdge,
+     * else return -1.
+     * @return 0 if GraphEdge and same, else -1
+     */
+    public int compareTo(Object object)
+    {
+	if ((object instanceof GraphEdge) &&
+	    head.compareTo(((GraphEdge) object).head) == 0 &&
+	    tail.compareTo(((GraphEdge) object).tail) == 0)
+	    return 0;
+	else
+	    return -1;
     }
 }

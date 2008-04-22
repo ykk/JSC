@@ -10,6 +10,9 @@ import java.util.*;
 public class ResultBins
     extends ResultDistribution
 {
+    /** Debug option.
+     */
+    public boolean debug = false;
     /** Options for result bins.
      */
     public static final int OPT_MEANONLY = 0;
@@ -27,6 +30,7 @@ public class ResultBins
     //Methods
     /** Constructor.
      * Create {@link Result} for each bin by default.
+     * Default setting is mean only.
      * @param binDistro binnning distribution
      */
     public ResultBins(DataDistribution binDistro)
@@ -67,6 +71,8 @@ public class ResultBins
      */
     public void input(double binValue, double value)
     {
+	if (debug) System.out.println("Adding "+value+
+				      " to bin with value "+binValue);
 	int binIndex = binDistro.binIndex(binValue);
 	((Result) results.get(binIndex)).input(value);
     }
