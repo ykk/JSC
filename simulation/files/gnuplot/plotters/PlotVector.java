@@ -34,7 +34,7 @@ public class PlotVector
 	Vector tmp = new Vector();
 
 	for (int i = 0; i < table.size(); i++)
-	    tmp.add(new Integer(i+1));
+	    tmp.add(new Integer(i));
 
 	table.addCol(0,tmp);
     }

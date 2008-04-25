@@ -1,4 +1,4 @@
-package simulation.utilities.structures;
+package simulation.utilities.processors;
 
 import java.util.*;
 
@@ -20,5 +20,19 @@ public class VectorOp
 		return i;
 
 	return -1;
+    }
+
+    /** Return string vector of objects.
+     * @param objects vector of objects
+     * @return vector of objects' string representation
+     */
+    public static Vector vecString(Vector objects)
+    {
+	Vector tmpVec = new Vector();
+
+	for (int i = 0; i < objects.size(); i++)
+	    tmpVec.add(objects.get(i).toString());
+
+	return tmpVec;
     }
 }

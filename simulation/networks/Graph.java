@@ -47,7 +47,7 @@ public class Graph
      */
     public int getNodeIndex(GraphNode object)
     {
-	int i = ((UniqueVector) nodes).index(object);
+	int i = ((SortedVector) nodes).index(object);
 	if (i != 0)
 	{
 	    Comparable inSet = (Comparable) nodes.get(i-1);
@@ -95,6 +95,18 @@ public class Graph
 	    return (GraphNode) nodes.get(i);
     }
 
+    /** Add missing edges in graph, i.e., ensure bidirectionality.
+     */
+    public void addBiEdges()
+    {
+	for (int i = 0; i < nodes.size(); i++)
+	{
+	    GraphNode node = (GraphNode) nodes.get(i);
+	    for (int j = 0; j < node.neighbors.size(); j++)
+		((GraphNode) node.neighbors.get(j)).addNeighbor(node);
+	}
+    }
+
     /** Draw graph using Graphviz.
      * @param filename filename of output
      * @param format format of output (see {@link GraphViz#format})
@@ -115,6 +127,21 @@ public class Graph
     public void drawGraph(String filename, String format, String command,
 			  boolean removeSelfLoop, boolean removeDup)
     {
+	getGraph(filename, format, command,
+		 removeSelfLoop, removeDup).execPlot();
+    }
+
+    /** Draw graph using Graphviz.
+     * @param filename filename of output
+     * @param format format of output (see {@link GraphViz#format})
+     * @param command format of output (see {@link GraphViz#command})
+     * @param removeSelfLoop indicate if to remove self loop
+     * @param removeDup indicate if to remove duplicates of edge
+     * @return image to be drawn
+     */
+    public GraphImage getGraph(String filename, String format, String command,
+			  boolean removeSelfLoop, boolean removeDup)
+    {
 	GraphImage image = new GraphImage();
 	image.graphFilename = filename;
 	image.command = command;
@@ -122,6 +149,6 @@ public class Graph
 	image.createGraph(this);
 	if (removeSelfLoop) image.removeSelfLoop();
 	if (removeDup) image.removeDuplicate();
-	image.execPlot();
+	return image;
     }
 }

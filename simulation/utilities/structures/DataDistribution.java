@@ -3,6 +3,9 @@ package simulation.utilities.structures;
 import java.util.*;
 
 /** Class to hold data distributions.
+ * To plot, use {@link simulation.files.gnuplot.plotters.PlotVector}
+ * after converting to string using 
+ * {@link simulation.utilities.processors.VectorOp#vecString(Vector objects)}
  * @author ykk
  */
 public class DataDistribution
@@ -18,7 +21,6 @@ public class DataDistribution
     /** Size of bins.
      */
     public double binSize;
-
 
     //Members
     /** Constructor.

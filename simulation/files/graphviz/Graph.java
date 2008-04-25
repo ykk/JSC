@@ -17,14 +17,25 @@ public class Graph
     /** Edges of graph.
      */
     public Vector edges = new Vector();
+    /** Default node configuration.
+     */
+    public GraphNode defaultNode = new GraphNode("node");
 
     //Methods
     /** Add node.
      * @param node node to add
      */
-    public void addNode(String node)
+    public void addNode(GraphNode node)
     {
 	nodes.add(node);
+    }
+
+    /** Add node.
+     * @param node node to add
+     */
+    public void addNode(String node)
+    {
+	nodes.add(new GraphNode(node));
     }
 
     /** Add edge.
@@ -43,11 +54,14 @@ public class Graph
     {
 	FileVector file = new FileVector(filename+".dot");
 	file.content.add("graph {");
+	file.content.add(defaultNode.quotelessString());
+
 	for (int i = 0; i < nodes.size(); i++)
-	    file.content.add("\""+nodes.get(i)+"\"");
+	    file.content.add(nodes.get(i));
 	for (int i = 0; i < edges.size(); i++)
 	    file.content.add(((GraphEdge) edges.get(i)).undirectedString());
 	file.content.add("}");
+
 	return file;
     }
 
@@ -86,5 +100,53 @@ public class Graph
 		}
 	    }
 	}
+    }
+
+    /** Color nodes in a cluster/graph.
+     * @param graph graph to color
+     * @param color color to use
+     */
+    public void colorNodes(simulation.networks.Graph graph, String color)
+    {
+	for (int i = 0; i < nodes.size(); i++)
+	{
+	    GraphNode node = (GraphNode) nodes.get(i);
+	    if (graph.getNodeIndex(node.descriptor) != -1)
+	    {
+		node.color = color;
+		node.fillColor = color;
+	    }
+	}
+    }
+
+    /** Color edges in a cluster/graph.
+     * @param graph graph to color
+     * @param color color to use
+     */
+    public void colorEdges(simulation.networks.Graph graph, String color)
+    {
+	for (int i = 0; i < edges.size(); i++)
+	{
+	    GraphEdge edge = (GraphEdge) edges.get(i);
+	    if (graph.getNodeIndex(edge.head) != -1 &&
+		graph.getNodeIndex(edge.tail) != -1)
+	    {
+		edge.color = color;
+		edge.fillColor = color;
+	    }
+	}
+    }
+
+    /** Get node with certain descriptor.
+     * @param desc descriptor
+     * @return node with descriptor or null if not found
+     */
+    public GraphNode getNode(String desc)
+    {
+	for (int i = 0; i < nodes.size(); i++)
+	    if (((GraphNode) nodes.get(i)).descriptor.compareTo(desc) == 0)
+		return (GraphNode) nodes.get(i);
+	
+	return null;
     }
 }

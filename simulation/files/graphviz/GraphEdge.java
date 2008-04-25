@@ -1,9 +1,5 @@
 package simulation.files.graphviz;
 
-import java.io.*;
-import java.util.*;
-import simulation.files.text.*;
-
 /** Class for representing edges in Graphviz graphs.
  * @author ykk
  */
@@ -17,6 +13,12 @@ public class GraphEdge
     /** Tail end of edge.
      */
     public String tail;
+    /** Filled color
+     */
+    public String fillColor = null;
+    /** Color of node.
+     */
+    public String color = null;
 
     //Methods
     /** Constructor.
@@ -34,7 +36,7 @@ public class GraphEdge
      */
     public String undirectedString()
     {
-	return "\""+head+"\"--\""+tail+"\"";
+	return "\""+head+"\"--\""+tail+"\" "+optionString();
     }
 
     /** Return string for directed edge.
@@ -42,12 +44,12 @@ public class GraphEdge
      */
     public String directedString()
     {
-	return "\""+head+"\"->\""+tail+"\"";
+	return "\""+head+"\"->\""+tail+"\" "+optionString();
     }
 
     public String toString()
     {
-	return head+"-"+tail;
+	return head+"-"+tail+" "+optionString();
     }
     
     /** Comparable interface.
@@ -63,5 +65,23 @@ public class GraphEdge
 	    return 0;
 	else
 	    return -1;
+    }
+
+    /** Return option string.
+     * @return string encoding options
+     */
+    public String optionString()
+    {
+	String tmp = new String();
+	if (fillColor != null) tmp += "fillcolor=" + fillColor;
+	if (color != null)
+	{
+	    if (tmp.length() != 0) tmp += ",";
+	    tmp += "color=" + color;
+	}
+	if (tmp.length() == 0)
+	    return "";
+	else
+	    return "["+tmp+"]";
     }
 }
