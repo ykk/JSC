@@ -2,6 +2,7 @@ package simulation.socialnet;
 
 import simulation.networks.*;
 import simulation.networks.nodes.*;
+import simulation.results.*;
 import simulation.results.distribution.*;
 import simulation.utilities.structures.*;
 
@@ -64,5 +65,19 @@ public class GraphProperty
 		node = (GraphNode) graph.nodes.get(i);
 	
 	return node;
+    }
+
+    /** Return clustering coefficient, 
+     * giving maximum, minimum and mean.
+     * @return clustering coefficient
+     */
+    public Result clusterCoeff()
+    {
+	Result result = new Result();
+
+	for (int i = 0; i < graph.nodes.size(); i++)
+	    result.input((new NodeProperty((GraphNode) graph
+					   .nodes.get(i))).clusterCoeff());	    
+	return result;
     }
 }
