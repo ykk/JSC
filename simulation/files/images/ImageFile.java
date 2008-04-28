@@ -69,7 +69,10 @@ public class ImageFile
     {
 	ImageFile image = new ImageFile("testImage", JPEG_TYPE, 100, 100);
 	image.image.setColor(Color.red);
-	image.image.fillArc(Integer.parseInt(args[0]),Integer.parseInt(args[1]),Integer.parseInt(args[2]),Integer.parseInt(args[2]),0,360);
+	image.image.fillArc(Integer.parseInt(args[0]),
+			    Integer.parseInt(args[1]),
+			    Integer.parseInt(args[2]),
+			    Integer.parseInt(args[2]),0,360);
 	image.write();
     }
 
@@ -109,7 +112,8 @@ public class ImageFile
     {
 	this.imageFormat = imageFormat;
 	file = new File(filename);
-	bufferedImage = new BufferedImage(xSize, ySize, BufferedImage.TYPE_3BYTE_BGR);
+	bufferedImage = new BufferedImage(xSize, ySize, 
+					  BufferedImage.TYPE_3BYTE_BGR);
 	image = bufferedImage.createGraphics();
     }
 

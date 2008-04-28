@@ -2,10 +2,9 @@ package simulation.files.graphviz.images;
 
 import simulation.networks.*;
 import simulation.networks.nodes.*;
-import simulation.files.graphviz.*;
 
 /** Class to create images of {@link simulation.networks.Graph} 
- * using {@link GraphViz}.
+ * using {@link simulation.files.graphviz.GraphViz}.
  * @author ykk
  */
 public class GraphImage

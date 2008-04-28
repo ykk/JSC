@@ -47,6 +47,7 @@ public class Network
 	this.nodeFactory = nodeFactory;
 	
 	generateNodes(pointProcess);
+	getNeighbors();
     }
 
     /** Function to generate nodes.
@@ -60,7 +61,12 @@ public class Network
 	Vector positions = pointProcess.getCoordinates(netArea);
 	for (int i = 0; i < positions.size(); i++)
 	    nodes.add(nodeFactory.newNode((Coordinate) positions.get(i)));
+    }
 
+    /** Function to generate neighbors of nodes.
+     */
+    public void getNeighbors()
+    {
 	//Get neighbors
 	Node tmpNode;
 	for (int j = 0; j < nodes.size(); j++)
