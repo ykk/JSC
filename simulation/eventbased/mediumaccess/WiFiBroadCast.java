@@ -13,39 +13,39 @@ import simulation.utilities.structures.*;
 import simulation.utilities.packetprocessors.*;
 import simulation.distributions.*;
 
-/** Class for 802.11b, i.e., WiFi (Wireless Fidelity).
+/** Class for IEEE 802.11/WiFi (Wireless Fidelity).
+ * Implements broadcast.
  * @author ykk
  */
-public class WiFi
+public class WiFiBroadcast
     extends CSMA
 {
     //Members
-    /** Propagation delay.
-     * Defaulted to 1 microsceond, as in standard specification.
+    /** Reference to specification.
      */
-    public double propagation;
-    /** Minimum contention window, default = 7.
-     */
-    public int minCW = 7;
-    /** Maximum contention window, deafult = 255.
-     */
-    public int maxCW = 255;
+    public WiFiSpec spec;
     /** Contention window counter.
      */
     protected int cw;
 
     //Methods
     /** Constructor.
+     * Propagation delay set at 1 us. 
      * @param coordinate coordinate of ALOHA node
      * @param channel network channel in use
      * @param commChannel communication channel
      * @param queue queue of the node
      * @param processor reference to packet processor
-     * @param waitTime distribution of waiting time
+     * @param spec parameter specification for wifi
      */
-    public WiFi(Coordinate coordinate, Channel channel, CommChannel commChannel, 
-		Queue queue, PacketProcessor processor, Distribution waitTime)
+    public WiFiBroadcast(Coordinate coordinate, Channel channel, 
+			 CommChannel commChannel, Queue queue, PacketProcessor processor, 
+			 WiFiSpec spec)
     {
-	super(coordinate, channel, commChannel, queue, processor, waitTime, 1e-6);
+	super(coordinate, channel, commChannel, queue, processor, null, 1e-6);
+	this.spec = spec;
+	cw = spec.minCW;
     }
+
+    
 }

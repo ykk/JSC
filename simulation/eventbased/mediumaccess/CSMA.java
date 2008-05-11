@@ -28,11 +28,14 @@ public class CSMA
      *          2 "Wait Ended"
      *          3 "Packet Reaches Destinations"
      */
-    public static final String[] events = {"Receive Ended", "Transmission Ended", 
-					   "Wait Ended", "Packet Reached"};
+    public static final String[] events = {"Receive Ended", 
+					   "Transmission Ended", 
+					   "Wait Ended", 
+					   "Packet Reached"};
     /** Propagation delay.
+     * Defaults to 1 us.
      */
-    public double propagation = 0;
+    public double propagation = 1e-6;
     /** Currently transmitting packet;
      */
     protected Packet txPacket;
@@ -71,8 +74,10 @@ public class CSMA
      * @param waitTime distribution of waiting time
      * @param propagation propagation time for packet
      */
-    public CSMA(Coordinate coordinate, Channel channel, CommChannel commChannel, 
-		Queue queue, PacketProcessor processor, Distribution waitTime, double propagation)
+    public CSMA(Coordinate coordinate, Channel channel, 
+		CommChannel commChannel, Queue queue, 
+		PacketProcessor processor, Distribution waitTime, 
+		double propagation)
     {
 	super(coordinate, channel, commChannel, queue, processor, waitTime);
 	this.propagation = propagation;
@@ -94,7 +99,7 @@ public class CSMA
 	simulator.add(new Event(simulator.time()+
 				commChannel.transmitDuration(packet),
 				this,
-				this.events[1])); //Transmission Ended scheduled
+				this.events[1]));//Transmission Ended scheduled
 	txPacket = packet;
 	simulator.add(new Event(simulator.time()+propagation,
 				this,
@@ -104,7 +109,8 @@ public class CSMA
     public Node newNode(Coordinate coordinate)
     {
 	return new CSMA(coordinate, this.channel, this.commChannel, 
-			this.queue.newQueue(), this.processor, this.waitTime, propagation);
+			this.queue.newQueue(), this.processor, 
+			this.waitTime, propagation);
     }
 
     /** Trial run of MAC simulation.
@@ -115,8 +121,10 @@ public class CSMA
 	MACTrial trial = new MACTrial(new Simulator());
 	if (args.length >= 1)
 	    trial.pointprocess = new Grid(Double.parseDouble(args[0]));
-	trial.generateNetwork(new CSMA(new Coordinate(0,0), trial.networkChannel, trial.commChannel,
-				       trial.queue, trial.processor, trial.waitTime,1e-6));
+	trial.generateNetwork(new CSMA(new Coordinate(0,0), trial.networkChannel, 
+				       trial.commChannel,
+				       trial.queue, trial.processor, 
+				       trial.waitTime,1e-6));
 	//Trigger by scheduling end of wait.
 	for (int i = 0; i < trial.network.nodes.size(); i++)
 	    trial.simulator.add(new Event(trial.waitTime.getInstance(),
