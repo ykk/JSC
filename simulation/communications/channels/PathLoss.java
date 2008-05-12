@@ -31,7 +31,8 @@ public class PathLoss
 	if (exponent < 0)
 	    this.exponent = exponent;
 	else
-	    throw new RuntimeException(this+" given exponent "+exponent+" which is not allowed.");
+	    throw new RuntimeException(this+" given exponent "+exponent+
+				       " which is not allowed.");
     }
 
     /** Constructor to generate communication channel.
@@ -45,7 +46,8 @@ public class PathLoss
 	if (exponent < 0)
 	    this.exponent = exponent;
 	else
-	    throw new RuntimeException(this+" given exponent "+exponent+" which is not allowed.");
+	    throw new RuntimeException(this+" given exponent "+exponent+
+				       " which is not allowed.");
     }
 
     /** Transmit packet from source to destination.
@@ -54,7 +56,8 @@ public class PathLoss
      * @param packet packet to transmit
      * @return if packet is successfully transmitted (always true)
      */
-    public boolean transmit(CommNode source, CommNode destination, Object packet)
+    public boolean transmit(CommNode source, CommNode destination, 
+			    Object packet)
     {
 	if (txSuccess(source,destination))
 	{
@@ -90,8 +93,8 @@ public class PathLoss
 	return (random.getInstance() < transmitProb(source,destination));
     }
 
-
-    /** Provide probability of success to transmit packet from source to destination.
+    /** Provide probability of success to transmit packet from source 
+     * to destination.
      * @param source source node
      * @param destination destination node
      * @return probability of success

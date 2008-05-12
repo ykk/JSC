@@ -140,8 +140,8 @@ public class WiFiBroadcast
 	//Trigger by scheduling end of .
 	for (int i = 0; i < trial.network.nodes.size(); i++)
 	    trial.simulator.add(new Event(trial.waitTime.getInstance(),
-					  ((CSMA) trial.network.nodes.get(i)),
-					  ((CSMA) trial.network.nodes.get(i)).
+					  ((WiFiBroadcast) trial.network.nodes.get(i)),
+					  ((WiFiBroadcast) trial.network.nodes.get(i)).
 					  events[2]));
 	trial.run();
     }
