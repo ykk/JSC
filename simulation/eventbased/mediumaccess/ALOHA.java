@@ -48,7 +48,9 @@ public class ALOHA
      *          1 "Transmission Ended", 
      *          2 "Wait Ended"
      */
-    public static final String[] events = {"Receive Ended", "Transmission Ended", "Wait Ended"};
+    public static final String[] events = {"Receive Ended", 
+					   "Transmission Ended", 
+					   "Wait Ended"};
     /** Number of ongoing receptions.
      */
     protected int onGoing = 0;
@@ -83,25 +85,13 @@ public class ALOHA
 	{
 	case 0: //Receive Ended
 	    onGoing--;
-	    if (!isTransmitting & (onGoing == 0))
-	    {
-		state = stateWaiting;
-		simulator.add(new Event(simulator.time()+waitTime.getInstance(),
-					this,
-					this.events[2])); //Wait Ended Scheduled
-	    }
+	    scheduleWait(simulator);
 	    if ((onGoing == 0) && (state != stateCollided))
 		processor.receive(currSource,this,packet,queue);
 	    break;
 	case 1: //Transmission Ended
 	    isTransmitting = false;
-	    if (onGoing == 0)
-	    {
-		state = stateWaiting;
-		simulator.add(new Event(simulator.time()+waitTime.getInstance(),
-					this,
-					this.events[2])); //Wait Ended Scheduled
-	    }
+	    scheduleWait(simulator);
 	    break;
 	case 2: //Wait Ended
 	    if (processor.hasPkt(queue))
@@ -111,6 +101,20 @@ public class ALOHA
 	    break;
 	default:
 	    throw new RuntimeException(this+" encounters unknown event "+event);
+	}
+    }
+
+    /** Schedule wait time.
+     * @param simulator reference to simulator
+     */
+    public void scheduleWait(Simulator simulator) 
+    {
+	if (!isTransmitting & (onGoing == 0))
+	{
+	    state = stateWaiting;
+	    simulator.add(new Event(simulator.time()+waitTime.getInstance(),
+				    this,
+				    this.events[2])); //Wait Ended Scheduled
 	}
     }
 
@@ -137,6 +141,11 @@ public class ALOHA
 				 packet,simulator);
     }
 
+    /** Receive packets.
+     * @param source reference to source node
+     * @param packet reference to packet
+     * @param simulator reference to simulator
+     */
     public void receive(CommNode source, Object packet, Simulator simulator)
     {
 	if ((state == stateTransmitting) || 
@@ -176,8 +185,9 @@ public class ALOHA
      * @param processor reference to packet processor
      * @param waitTime distribution of waiting time
      */
-    public ALOHA(Coordinate coordinate, Channel channel, CommChannel commChannel, 
-		 Queue queue, PacketProcessor processor, Distribution waitTime)
+    public ALOHA(Coordinate coordinate, Channel channel, 
+		 CommChannel commChannel, Queue queue, 
+		 PacketProcessor processor, Distribution waitTime)
     {
 	super(coordinate, channel, commChannel, queue, processor);
 	this.waitTime = waitTime;
@@ -191,13 +201,16 @@ public class ALOHA
 	MACTrial trial = new MACTrial(new Simulator());
 	if (args.length >= 1)
 	    trial.pointprocess = new Grid(Double.parseDouble(args[0]));
-	trial.generateNetwork(new ALOHA(new Coordinate(0,0), trial.networkChannel, trial.commChannel,
-					trial.queue, trial.processor, trial.waitTime));
+	trial.generateNetwork(new ALOHA(new Coordinate(0,0), 
+					trial.networkChannel, trial.commChannel,
+					trial.queue, trial.processor,
+					trial.waitTime));
 	//Trigger by scheduling end of wait.
 	for (int i = 0; i < trial.network.nodes.size(); i++)
 	    trial.simulator.add(new Event(trial.waitTime.getInstance(),
 					  ((ALOHA) trial.network.nodes.get(i)),
-					  ((ALOHA) trial.network.nodes.get(i)).events[2]));
+					  ((ALOHA) trial.network.nodes.get(i)).
+					  events[2]));
 	trial.run();
     }
 }

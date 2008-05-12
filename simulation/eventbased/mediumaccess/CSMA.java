@@ -33,7 +33,7 @@ public class CSMA
 					   "Wait Ended", 
 					   "Packet Reached"};
     /** Propagation delay.
-     * Defaults to 1 us.
+     * Defaults to 1 us, equivalent to propagation of around 300 m.
      */
     public double propagation = 1e-6;
     /** Currently transmitting packet;
@@ -42,7 +42,7 @@ public class CSMA
 
     //Methods
     /** Event triggered interface.
-     * Added 
+     * Added propagation delay, else CSMA is perfect.
      * @param time current time
      * @param event event string definition
      * @param simulator reference to simulator
@@ -88,7 +88,7 @@ public class CSMA
      */
     public void startTransmission(Simulator simulator)
     {
-	//Check own state
+	//Check own state (i.e., number of receiving packets)
 	if (onGoing != 0)
 	    return;
 
@@ -121,7 +121,8 @@ public class CSMA
 	MACTrial trial = new MACTrial(new Simulator());
 	if (args.length >= 1)
 	    trial.pointprocess = new Grid(Double.parseDouble(args[0]));
-	trial.generateNetwork(new CSMA(new Coordinate(0,0), trial.networkChannel, 
+	trial.generateNetwork(new CSMA(new Coordinate(0,0), 
+				       trial.networkChannel, 
 				       trial.commChannel,
 				       trial.queue, trial.processor, 
 				       trial.waitTime,1e-6));
@@ -129,7 +130,8 @@ public class CSMA
 	for (int i = 0; i < trial.network.nodes.size(); i++)
 	    trial.simulator.add(new Event(trial.waitTime.getInstance(),
 					  ((CSMA) trial.network.nodes.get(i)),
-					  ((CSMA) trial.network.nodes.get(i)).events[2]));
+					  ((CSMA) trial.network.nodes.get(i)).
+					  events[2]));
 	trial.run();
     }
 }
