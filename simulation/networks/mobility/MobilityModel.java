@@ -6,6 +6,7 @@ import simulation.networks.nodes.*;
 
 /** Abstract class for mobility model.
  * At the edge, the node is looped around, i.e., reflect over the edge.
+ * Does not handle {@link CircleNetArea}
  * @author ykk
  */
 public abstract class MobilityModel

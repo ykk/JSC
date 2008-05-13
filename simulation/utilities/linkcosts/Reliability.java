@@ -7,6 +7,7 @@ import simulation.networks.nodes.*;
  * Cost is given be $e^{\alpha d}$, $\alpha$ is the exponent (<0) and d is the distance. 
  * Returns 0.0 if source cannot communicate with destination.
  * @see simulation.communications.channels.PathLoss
+ * @see ExpectedTx
  * @author ykk
  */
 public class Reliability

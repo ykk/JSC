@@ -75,7 +75,8 @@ public class PacketSource
     
     /** Trigger start of packet generation.
      * @param simulator reference to simulator
-     * @param delayFromNow time to start generation in terms of delay from current simulator time
+     * @param delayFromNow time to start generation in terms of 
+     *                     delay from current simulator time
      */
     public void trigger(Simulator simulator, double delayFromNow)
     {
