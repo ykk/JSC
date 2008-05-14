@@ -72,10 +72,11 @@ public class NetworkFlow
     }
 
     /** Get route for flow.
+     * @see #route
      */
     public Route getRoute()
     {
 	route = Dijkstra.shortestpath(network, linkCost, source, sink);
 	return route;
-    }   
+    }
 }

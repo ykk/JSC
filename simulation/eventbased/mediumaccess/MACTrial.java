@@ -84,12 +84,14 @@ public class MACTrial
      */
     public void run()
     {
-	while ((processor.delay.sampleSize < sampleNeeded) && (simulator.queue.size() != 0))
+	while ((processor.delay.sampleSize < sampleNeeded) &&
+	       (simulator.queue.size() != 0))
 	    simulator.runNextEvent();
 
 	System.out.println("Sample Size ="+processor.delay.sampleSize);
 	System.out.println("Simulator Time ="+simulator.time());
-	System.out.println("Throughput ="+(processor.delay.sampleSize/simulator.time()));
+	System.out.println("Throughput ="+
+			   (processor.delay.sampleSize/simulator.time()));
     }
 
     /** Generate network for simulation.
@@ -105,7 +107,8 @@ public class MACTrial
     public static void main(String[] args)
     {
 	MACTrial trial = new MACTrial(null);
-	trial.generateNetwork(new Node(new Coordinate(0,0), trial.networkChannel));
+	trial.generateNetwork(new Node(new Coordinate(0,0),
+				       trial.networkChannel));
 	trial.network.draw("MACTrialNetwork.jpg", ImageFile.JPEG_TYPE, 150, 5);
     }
 }

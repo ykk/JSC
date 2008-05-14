@@ -7,6 +7,7 @@ import simulation.eventbased.mediumaccess.*;
 import simulation.utilities.structures.*;
 
 /** Class to manage network flow in event driven simulation.
+ * @see PacketSource
  * @author ykk
  */
 public class NetworkFlow
