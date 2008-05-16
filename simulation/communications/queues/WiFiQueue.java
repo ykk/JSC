@@ -6,7 +6,10 @@ import java.util.*;
 /** Queue wrapper to insert WiFi Frame.
  * @author ykk
  */
-public class WiFiFramer
+public class WiFiQueue
+    extends Queue
 {
+    /** Reference to packet queue.
+     */
     
 }
