@@ -40,6 +40,22 @@ public class Route
 	return routeFromSource;
     }
 
+    /** Check if route is valid.
+     * @return route validity
+     */
+    public boolean valid()
+    {
+	for (int i = 0; i < size(); i++)
+	{
+	    Link link = (Link) get(i);
+	    if (link.source.transmitPartners.indexOf(link.destination) == -1)
+		return false;
+	}
+
+	return true;
+    }
+
+
     /** Add link.
      * @param link link to add to vector
      */

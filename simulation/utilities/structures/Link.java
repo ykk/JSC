@@ -26,6 +26,13 @@ public class Link
 	this.destination = destination;
     }
 
+    /** Return distance of link.
+     */
+    public double distance()
+    {
+	return source.distance(destination);
+    }
+
     /** Return string representation.
      * @return string representation
      */

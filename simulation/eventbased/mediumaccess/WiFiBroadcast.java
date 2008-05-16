@@ -137,7 +137,7 @@ public class WiFiBroadcast
 						trial.commChannel,
 						trial.queue, trial.processor, 
 						new WiFiSpec(WiFiSpec.IEEE802_11b)));
-	//Trigger by scheduling end of .
+	//Trigger by scheduling end of wait.
 	for (int i = 0; i < trial.network.nodes.size(); i++)
 	    trial.simulator.add(new Event(trial.waitTime.getInstance(),
 					  ((WiFiBroadcast) trial.network.nodes.get(i)),
