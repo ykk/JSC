@@ -1,7 +1,6 @@
 package simulation.communications.queues;
 
 import simulation.communications.packets.*;
-
 import java.util.*;
 
 /** Abstract class defining link layer queue.

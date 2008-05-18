@@ -1,6 +1,7 @@
 package simulation.communications.packets;
 
-/** Abstract class for a frame.
+/** Abstract class for a frame.  Recommended for use in 
+ * {@link simulation.utilities.packetprocessors.PacketProcessor}.
  * @author ykk
  */
 public abstract class Frame
@@ -27,7 +28,8 @@ public abstract class Frame
 	this.packet = packet;
     }
 
-    /** Return length of packet's payload in bytes, include component packet total length.
+    /** Return length of packet's payload in bytes, 
+     * include component packet total length.
      * @return length of payload
      */
     public int payLoad()

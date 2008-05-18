@@ -48,12 +48,14 @@ public abstract class PacketSource
 	    Packet pack;
 	    if (packetFactory instanceof TimedPacket)
 	    {
-		pack = ((TimedPacket) packetFactory).duplicate(simulator.time());
+		pack = ((TimedPacket) packetFactory).
+		    duplicate(simulator.time());
 		((TimedPacket) pack).seqNumber = generatedNo + 1;
 	    }
 	    else
 		pack = packetFactory.duplicate();
-	    if (debug) System.out.println(this + " generated "+pack+" for "+source);
+	    if (debug) System.out.println(this + " generated "
+					  +pack+" for "+source);
 	    if (source.queue.receive(pack))
 		admittedNo++;
 	    generatedNo++;

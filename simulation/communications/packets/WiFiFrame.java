@@ -12,7 +12,7 @@ public class WiFiFrame
      */
     public int headerLength = 24;
     /** Packet length.
-     * Default is 34 bytes, for MAC header and trailer.
+     * Default is 34 bytes (for MAC header and trailer) plus packet length.
      */
     public int length;
     /** Type of packet.
@@ -30,7 +30,7 @@ public class WiFiFrame
     public WiFiFrame(Packet packet)
     {
 	super(packet);
-	length = 34;
+	length = 34+packet.length;
     }
 
     /** Duplicate frame with new instance of packet too.
