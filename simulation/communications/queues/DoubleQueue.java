@@ -32,8 +32,8 @@ public class DoubleQueue
      */
     public boolean receive(Object packet)
     {
-	throw new RuntimeException(this+" has two queues that are managed"+
-				   " on their own!");
+	throw new RuntimeException("DoubleQueue has two queues that are"+
+				   " managed on their own!");
     }
 
     /** Dummy function since both queues are managed on their own.
@@ -41,8 +41,8 @@ public class DoubleQueue
      */
     public Object get()
     {
-	throw new RuntimeException(this+" has two queues that are managed"+
-				   " on their own!");
+	throw new RuntimeException("DoubleQueue has two queues that are"+
+				   " managed on their own!");
     }
 
     /** Check if packet is in either queue.
@@ -67,8 +67,8 @@ public class DoubleQueue
      */
     public boolean remove(Object packet)
     {
-	throw new RuntimeException(this+" has two queues that are managed"+
-				   " on their own!");
+	throw new RuntimeException("DoubleQueue has two queues that are"+
+				   " managed on their own!");
     }
 
     /** Duplicate queue.

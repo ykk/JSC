@@ -14,15 +14,18 @@ public abstract class PacketProcessor
      * @param packet packet received
      * @param queue queue of the node
      */
-    public abstract void receive(CommNode source, CommNode currNode, Object packet, 
+    public abstract void receive(CommNode source, CommNode currNode, 
+				 Object packet, 
 				 simulation.communications.queues.Queue queue);
 
     /** Function to get next packet to send
+     * @param queue queue of node to get packet from
      * @return packet to send and null if no packet available
      */
     public abstract Object get(simulation.communications.queues.Queue queue);
 
     /** Function to check if there is packet to send.
+     * @param queue queue of node to get packet from
      * @return packet to send or not
      */
     public abstract boolean hasPkt(simulation.communications.queues.Queue queue);

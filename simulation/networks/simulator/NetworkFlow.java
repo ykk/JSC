@@ -33,6 +33,13 @@ public class NetworkFlow
 
     //Methods
     /** Constructor.
+     * Dummy constructor for inheritance.
+     */
+    public NetworkFlow()
+    {
+    }
+
+    /** Constructor.
      * @param source source node
      * @param sink sink node
      * @param network reference to network
