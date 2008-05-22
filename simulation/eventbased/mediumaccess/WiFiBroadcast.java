@@ -82,12 +82,14 @@ public class WiFiBroadcast
 		return;
 	    else
 	    {
-		cwCount--;
 		if (cwCount != 0)
+		{
+		    cwCount--;
 		    simulator.
 			add(new Event(simulator.time()+spec.slotTime,
 				      this,
 				      this.events[4])); //Waited Slot Scheduled
+		}
 		else
 		     simulator.
 			 add(new Event(simulator.time(),
@@ -136,12 +138,15 @@ public class WiFiBroadcast
 						trial.networkChannel, 
 						trial.commChannel,
 						trial.queue, trial.processor, 
-						new WiFiSpec(WiFiSpec.IEEE802_11b)));
+						new WiFiSpec(WiFiSpec.
+							     IEEE802_11b)));
 	//Trigger by scheduling end of wait.
 	for (int i = 0; i < trial.network.nodes.size(); i++)
 	    trial.simulator.add(new Event(trial.waitTime.getInstance(),
-					  ((WiFiBroadcast) trial.network.nodes.get(i)),
-					  ((WiFiBroadcast) trial.network.nodes.get(i)).
+					  ((WiFiBroadcast) trial.network.
+					   nodes.get(i)),
+					  ((WiFiBroadcast) trial.network.
+					   nodes.get(i)).
 					  events[2]));
 	trial.run();
     }
