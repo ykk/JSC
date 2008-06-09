@@ -75,34 +75,20 @@ public class GraphProperty
     public Vector maxDegreeNode(int num)
     {
 	if (graph.nodes.size() == 0) return null;
-	Vector nodes = new Vector();
+	SortedVector nodes = new SortedVector();
 
 	for (int i = 0; i < graph.nodes.size(); i++)
 	{
 	    GraphNode node = (GraphNode) graph.nodes.get(i);
-	    if (nodes.size() < num)
-		nodes.add(node);
-	    else
-	    {
-		GraphNode smallest = (GraphNode) nodes.get(0);
-		for (int j = 1; j < nodes.size(); j++)
-		    if (((GraphNode) nodes.get(j)).neighbors.size() <
-			smallest.neighbors.size())
-			smallest = (GraphNode) nodes.get(j);
-		
-		if (node.neighbors.size() > smallest.neighbors.size())
-		{
-		    nodes.remove(smallest);
-		    nodes.add(node);
-		}
-	    }
-	}
+	    nodes.add(new DegreeNode(node, node.neighbors.size()));
 
+	    if (nodes.size() > num)
+		nodes.remove(nodes.remove(nodes.size()-1));
+	}
+	
 	return nodes;
     }
     
-
-
     /** Return clustering coefficient, 
      * giving maximum, minimum and mean.
      * @return clustering coefficient
