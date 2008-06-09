@@ -44,6 +44,7 @@ public class DegreeNode
      */
     public String toString()
     {
-	return node.toString()+"-"+degree;
+	return node.toString()+"-"+degree+" ("+
+	    (new NodeProperty(node)).clusterCoeff()+")";
     }
 }
