@@ -5,6 +5,7 @@ import simulation.networks.nodes.*;
 import simulation.results.*;
 import simulation.results.distribution.*;
 import simulation.utilities.structures.*;
+import java.util.*;
 
 /** Class to process graph.
  * @author ykk
@@ -66,6 +67,41 @@ public class GraphProperty
 	
 	return node;
     }
+
+    /** Get nodes with maximum degree.
+     * @param num number of nodes to return
+     * @return nodes with maxmimum degree
+     */
+    public Vector maxDegreeNode(int num)
+    {
+	if (graph.nodes.size() == 0) return null;
+	Vector nodes = new Vector();
+
+	for (int i = 0; i < graph.nodes.size(); i++)
+	{
+	    GraphNode node = (GraphNode) graph.nodes.get(i);
+	    if (nodes.size() < num)
+		nodes.add(node);
+	    else
+	    {
+		GraphNode smallest = (GraphNode) nodes.get(0);
+		for (int j = 1; j < nodes.size(); j++)
+		    if (((GraphNode) nodes.get(j)).neighbors.size() <
+			smallest.neighbors.size())
+			smallest = (GraphNode) nodes.get(j);
+		
+		if (node.neighbors.size() > smallest.neighbors.size())
+		{
+		    nodes.remove(smallest);
+		    nodes.add(node);
+		}
+	    }
+	}
+
+	return nodes;
+    }
+    
+
 
     /** Return clustering coefficient, 
      * giving maximum, minimum and mean.
