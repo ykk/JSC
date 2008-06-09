@@ -80,7 +80,7 @@ public class GraphProperty
 	for (int i = 0; i < graph.nodes.size(); i++)
 	{
 	    GraphNode node = (GraphNode) graph.nodes.get(i);
-	    nodes.add(new DegreeNode(node, node.neighbors.size()));
+	    nodes.add(new DegreeNode(node));
 
 	    if (nodes.size() > num)
 		nodes.remove(nodes.remove(0));

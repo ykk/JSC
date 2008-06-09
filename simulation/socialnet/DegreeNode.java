@@ -20,6 +20,16 @@ public class DegreeNode
     /** Constructor.
      * @param node graph node to reference
      */
+    public DegreeNode(GraphNode node)
+    {
+	this.node = node;
+	this.degree = node.neighbors.size();
+    }
+
+    /** Constructor.
+     * @param node graph node to reference
+     * @param degree degree of node
+     */
     public DegreeNode(GraphNode node, int degree)
     {
 	this.node = node;
