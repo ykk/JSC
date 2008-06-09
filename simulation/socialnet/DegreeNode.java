@@ -38,4 +38,12 @@ public class DegreeNode
 	else
 	    return -1;
     }
+
+    /** String representation.
+     * @return string with degree and name
+     */
+    public String toString()
+    {
+	return super.toString()+"-"+degree;
+    }
 }
