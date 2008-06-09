@@ -83,7 +83,7 @@ public class GraphProperty
 	    nodes.add(new DegreeNode(node, node.neighbors.size()));
 
 	    if (nodes.size() > num)
-		nodes.remove(nodes.remove(nodes.size()-1));
+		nodes.remove(nodes.remove(0));
 	}
 	
 	return nodes;

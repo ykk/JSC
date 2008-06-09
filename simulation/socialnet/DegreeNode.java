@@ -44,6 +44,6 @@ public class DegreeNode
      */
     public String toString()
     {
-	return super.toString()+"-"+degree;
+	return node.toString()+"-"+degree;
     }
 }
