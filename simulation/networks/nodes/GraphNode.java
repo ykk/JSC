@@ -15,7 +15,7 @@ public class GraphNode
     public String descriptor;
     /** Vector of neighbors
      */
-    public Vector neighbors = new UniqueVector();
+    public Vector neighbors = new SortedUniqueVector();
     /** Indicate if self neighboring allowed.
      * True by default.
      */
@@ -38,7 +38,7 @@ public class GraphNode
     public void addNeighbor(Object node, boolean unique)
     {
 	if (unique)
-	    ((UniqueVector) neighbors).add((Comparable) node);
+	    ((SortedUniqueVector) neighbors).add((Comparable) node);
 	else
 	    neighbors.add(node);
     }

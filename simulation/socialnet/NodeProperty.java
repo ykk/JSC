@@ -35,7 +35,7 @@ public class NodeProperty
 	    GraphNode neigh = (GraphNode) node.neighbors.get(i);
 	    for (int j = i+1; j < node.neighbors.size(); j++)
 	    {
-		if (((UniqueVector) neigh.neighbors).
+		if (((SortedUniqueVector) neigh.neighbors).
 		    index((GraphNode) node.neighbors.get(j)) != -1)
 		    count++;
 		tcount++;

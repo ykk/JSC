@@ -16,7 +16,7 @@ public class Graph
     /** Vector to hold nodes.
      * Defaulted to empty vector.
      */
-    public Vector nodes = new UniqueVector();
+    public Vector nodes = new SortedUniqueVector();
 
     //Methods
     /** Add node.
@@ -27,7 +27,7 @@ public class Graph
     public void addNode(Object node, boolean unique)
     {
 	if (unique)
-	    ((UniqueVector) nodes).add((Comparable) node);
+	    ((SortedUniqueVector) nodes).add((Comparable) node);
 	else
 	    nodes.add(node);
     }

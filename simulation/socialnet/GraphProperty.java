@@ -72,7 +72,7 @@ public class GraphProperty
      * @param num number of nodes to return
      * @return nodes with maxmimum degree
      */
-    public Vector maxDegreeNode(int num)
+    public SortedVector maxDegreeNode(int num)
     {
 	if (graph.nodes.size() == 0) return null;
 	SortedVector nodes = new SortedVector();
@@ -90,16 +90,52 @@ public class GraphProperty
     }
     
     /** Return clustering coefficient, 
-     * giving maximum, minimum and mean.
+     * giving maximum, minimum, mean and the entire distribution.
      * @return clustering coefficient
      */
-    public Result clusterCoeff()
+    public ResultFullLog clusterCoeff()
     {
-	Result result = new Result();
+	ResultFullLog result = new ResultFullLog();
 
 	for (int i = 0; i < graph.nodes.size(); i++)
 	    result.input((new NodeProperty((GraphNode) graph
-					   .nodes.get(i))).clusterCoeff());	    
+					   .nodes.get(i))).clusterCoeff());
+
 	return result;
+    }
+
+    /** Filter vector of {@link GraphEdge} for 
+     * those that causes triadic closure.
+     * @param edges vectors of edges to be addded
+     * @return edges that causes triadic closure
+     */
+    public Vector triadicEdges(Vector edges)
+    {
+	Vector triEdges = new Vector();
+
+	for (int i = 0; i < edges.size(); i++)
+	{
+	    GraphEdge edge = (GraphEdge) edges.get(i);
+	    if (triadicEdge(edge))
+		triEdges.add(edge);
+	}
+
+	return triEdges;
+    }
+
+    /** Indicate if edge 
+     * @param edge edge to consider
+     * @return return if edge causes triadic closure
+     */
+    public boolean triadicEdge(GraphEdge edge)
+    {
+	for (int i = 0; i < edge.head.neighbors.size(); i++)
+	    for (int j = 0; j < edge.tail.neighbors.size(); j++)
+		if (((GraphNode) edge.head.
+		     neighbors.get(i)).compareTo(edge.tail.
+						 neighbors.get(j)) == 0)
+		    return true;
+
+	return false;
     }
 }
