@@ -1,8 +1,0 @@
-#!/bin/sh
-make clean
-make
-make doc
-make jar
-rm -Rf /var/www/Projects/JSC/doc
-cp -r doc /var/www/Projects/JSC/.
-cp jsc.jar /var/www/Projects/JSC/.
